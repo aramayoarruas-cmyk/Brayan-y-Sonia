@@ -12,7 +12,7 @@ Diseño de un Sistema de Información de Marketing (SIM) para JORDÁNMUSIK, marc
 
 ## Ver la web
 
-- **En línea (GitHub Pages):** https://aramayoarruas-cmyk.github.io/brayan-y-sonia/ — se publica desde la rama `gh-pages`, que se mantiene igual que `main`.
+- **En línea (GitHub Pages):** https://aramayoarruas-cmyk.github.io/Brayan-y-Sonia/ — se publica desde la rama `gh-pages`, que se mantiene igual que `main`.
 - **Sin conexión a GitHub:** descargar `index.html` y abrirlo con doble clic en el navegador (los gráficos necesitan internet).
 
 En la presentación, el botón **▶ Presentar** activa la pantalla completa y permite pasar de apartado con las flechas del teclado.
