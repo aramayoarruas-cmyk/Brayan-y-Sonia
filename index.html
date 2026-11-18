@@ -1,0 +1,1023 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JORDÁNMUSIK SIM</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: web-presentación por "paradas" (secciones) con menú fijo; el hero es un ecualizador hecho con las ventas reales. */
+:root{
+  --paper:#F2F3F7; --card:#FFFFFF; --ink:#11141E; --muted:#5A6073; --line:#D8DBE5;
+  --cobalt:#2B44E8; --cobalt-soft:#E3E7FF; --coral:#E8542F; --coral-soft:#FDE6DF;
+  --stage:#0C0F1D; --stage-2:#161A2E; --stage-fg:#ECEEF8; --stage-muted:#9198B4;
+  --real:#2B44E8; --calc:#0B8576; --hip:#A66A00; --prev:#7443D1; --pend:#6B7084;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0A0C14; --card:#121522; --ink:#E7E9F2; --muted:#979DB2; --line:#242939;
+    --cobalt:#8395FF; --cobalt-soft:#1B2147; --coral:#FF8466; --coral-soft:#3A1F19;
+    --real:#8395FF; --calc:#3CC4B0; --hip:#E5AE47; --prev:#AE8CF6; --pend:#8C91A6;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0A0C14; --card:#121522; --ink:#E7E9F2; --muted:#979DB2; --line:#242939;
+  --cobalt:#8395FF; --cobalt-soft:#1B2147; --coral:#FF8466; --coral-soft:#3A1F19;
+  --real:#8395FF; --calc:#3CC4B0; --hip:#E5AE47; --prev:#AE8CF6; --pend:#8C91A6;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--stage)}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+a{color:var(--cobalt)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--stage);color:var(--stage-fg);border-bottom:1px solid #ffffff14}
+.nav .wrap{display:flex;align-items:center;gap:16px;height:56px}
+.brand{font-family:var(--display);font-weight:800;letter-spacing:.02em;font-size:17px;white-space:nowrap;text-decoration:none;color:var(--stage-fg)}
+.brand span{color:#FF8466}
+.links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.links::-webkit-scrollbar{display:none}
+.links a{color:var(--stage-muted);text-decoration:none;font-size:13.5px;padding:7px 11px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}
+.links a b{font-family:var(--mono);font-weight:500;margin-right:5px;color:#FF8466}
+.links a:hover{color:var(--stage-fg);background:#ffffff10}
+.links a.on{color:var(--stage-fg);background:#ffffff1c}
+.navbtns{display:flex;gap:6px}
+.pill-btn{border:1px solid #ffffff2a;background:transparent;color:var(--stage-fg);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;white-space:nowrap}
+.pill-btn:hover{background:#ffffff14}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:#FF8466;width:0}
+
+/* ---------- HERO ---------- */
+.hero{background:var(--stage);color:var(--stage-fg);padding-block:64px 40px;overflow:hidden;position:relative}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stage-muted)}
+.hero h1{font-size:clamp(46px,9vw,124px);font-weight:800;letter-spacing:-.02em;margin-top:14px}
+.hero h1 em{font-style:normal;color:#FF8466}
+.hero .sub{font-family:var(--display);font-size:clamp(20px,2.6vw,30px);font-weight:400;color:var(--stage-fg);margin-top:8px;max-width:30ch}
+.hero .lede{color:var(--stage-muted);max-width:60ch;margin-top:18px}
+.eq{margin-top:44px;display:grid;grid-template-columns:repeat(36,1fr);gap:4px;align-items:end;height:200px;position:relative}
+.eq .bar{position:relative;border-radius:4px 4px 1px 1px;background:linear-gradient(to top,#3348F0,#8C9BFF);transform-origin:bottom;animation:rise 1s cubic-bezier(.2,.8,.2,1) both;cursor:default}
+.eq .bar.max{background:linear-gradient(to top,#E8542F,#FFB199)}
+.eq .bar:hover{filter:brightness(1.25)}
+.eq .bar .tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;color:#11141E;font-family:var(--mono);font-size:11.5px;padding:4px 7px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:3}
+.eq .bar:hover .tip,.eq .bar:focus .tip{opacity:1}
+@keyframes rise{from{transform:scaleY(.04)}to{transform:scaleY(1)}}
+.eq-axis{display:grid;grid-template-columns:repeat(3,1fr);margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--stage-muted)}
+.eq-axis span{border-top:1px solid #ffffff2a;padding-top:6px}
+.eq-cap{font-size:13px;color:var(--stage-muted);margin-top:10px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#ffffff18;border-radius:var(--r);overflow:hidden;margin-top:36px}
+.kpi{background:var(--stage-2);padding:20px 22px}
+.kpi .v{font-family:var(--display);font-size:clamp(26px,3.4vw,40px);font-weight:600}
+.kpi .l{font-size:13.5px;color:var(--stage-muted);margin-top:2px}
+@media (max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.eq{height:140px;gap:2px}}
+
+/* ---------- TAGS ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:28px;font-size:13px;color:var(--stage-muted)}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;line-height:1.4;vertical-align:middle}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.tag.real{color:var(--real)} .tag.calc{color:var(--calc)} .tag.hip{color:var(--hip)} .tag.prev{color:var(--prev)} .tag.pend{color:var(--pend);border-style:dashed}
+.hero .tag.real{color:#8C9BFF} .hero .tag.calc{color:#3CC4B0} .hero .tag.hip{color:#E5AE47} .hero .tag.prev{color:#AE8CF6} .hero .tag.pend{color:#9198B4}
+
+/* ---------- SECTIONS ---------- */
+section.sec{padding-block:88px 24px;scroll-margin-top:56px}
+.stop{scroll-margin-top:72px}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:4px 22px;align-items:end;margin-bottom:36px}
+.sec-num{font-family:var(--display);font-weight:800;font-size:clamp(64px,9vw,120px);line-height:.8;color:var(--cobalt);grid-row:span 2}
+.sec-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sec-head h2{font-size:clamp(30px,4.4vw,52px);font-weight:800;letter-spacing:-.01em}
+.lead{font-size:18px;color:var(--muted);max-width:68ch}
+.sub-head{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:baseline;margin:64px 0 18px;padding-top:28px;border-top:1px solid var(--line)}
+.sub-head .letter{font-family:var(--mono);font-size:13px;color:var(--coral);font-weight:500}
+.sub-head h3{font-size:clamp(22px,2.8vw,32px);font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;min-width:0}
+.card h4{font-size:19px;font-weight:600;margin-bottom:8px}
+.card p+p{margin-top:10px}
+.muted{color:var(--muted)}
+.small{font-size:13.5px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.fact{padding:12px 14px;border-radius:10px;background:var(--paper)}
+.fact .k{font-size:12px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.fact .v{font-weight:600;margin-top:2px}
+
+/* ---------- SIM DIAGRAM ---------- */
+.sim{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:stretch}
+@media (max-width:860px){.sim{grid-template-columns:1fr}}
+.sim-map{position:relative;background:var(--stage);border-radius:var(--r);padding:24px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:12px;color:var(--stage-fg)}
+.sim-core{grid-column:1/-1;order:2;text-align:center;padding:18px;border-radius:12px;border:1px dashed #ffffff40;font-family:var(--display);font-size:18px}
+.sim-core small{display:block;font-family:var(--mono);font-size:11px;color:var(--stage-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.sim-node{background:var(--stage-2);border:1px solid #ffffff1a;border-radius:12px;padding:14px;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s;color:var(--stage-fg)}
+.sim-node:hover{transform:translateY(-2px);border-color:#ffffff50}
+.sim-node.on{border-color:#FF8466;box-shadow:0 0 0 1px #FF8466 inset}
+.sim-node .n{font-family:var(--mono);font-size:11px;color:#FF8466}
+.sim-node .t{font-family:var(--display);font-weight:600;font-size:16.5px;margin-top:2px}
+.sim-node .d{font-size:12.5px;color:var(--stage-muted);margin-top:2px}
+.sim-top{order:1}.sim-bot{order:3}
+.sim-panel h4{font-size:24px}
+.sim-panel .go{display:inline-block;margin-top:16px;font-weight:600;text-decoration:none}
+
+/* ---------- TILES (PESTEL) ---------- */
+.pestel{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+@media (max-width:900px){.pestel{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:480px){.pestel{grid-template-columns:repeat(2,1fr)}}
+.ptile{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;text-align:left;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s,border-color .2s}
+.ptile:hover{transform:translateY(-3px);border-color:var(--cobalt)}
+.ptile.on{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
+.ptile .L{font-family:var(--display);font-weight:800;font-size:54px;line-height:1}
+.ptile .N{font-weight:600}
+.ppanel{margin-top:14px}
+
+/* ---------- TABS ---------- */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tab{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:999px;cursor:pointer;font-size:14px}
+.tab:hover{border-color:var(--cobalt)}
+.tab.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--card)}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13.5px;color:var(--muted)}
+.seg button.on{background:var(--cobalt);color:#fff}
+
+.pending{border:1.5px dashed var(--line);border-radius:var(--r);padding:22px;background:transparent}
+.pending h4{font-size:18px;margin:10px 0 6px}
+.pending ul{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+
+/* ---------- CHARTS ---------- */
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-width:0}
+.chart-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}
+.chart-top h4{font-size:18px;font-weight:600}
+.cbox{position:relative;height:340px}
+.cbox.sm{height:260px}
+@media (max-width:600px){.cbox{height:270px}}
+.note{font-size:13.5px;color:var(--muted);margin-top:10px}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:640px}
+th,td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
+tr:last-child td{border-bottom:0}
+.up{color:var(--calc)} .down{color:var(--coral)}
+
+.extremes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+@media (max-width:760px){.extremes{grid-template-columns:repeat(2,1fr)}}
+.ext{border-radius:12px;padding:14px;background:var(--card);border:1px solid var(--line)}
+.ext .k{font-size:12px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.ext .v{font-family:var(--display);font-size:26px;font-weight:600}
+.ext.hi{border-color:var(--coral)} .ext.hi .v{color:var(--coral)}
+
+/* ---------- SURVEY PHONE ---------- */
+.survey{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+@media (max-width:900px){.survey{grid-template-columns:1fr}}
+.phone{width:100%;max-width:380px;margin:0 auto;background:var(--stage);border-radius:38px;padding:12px;box-shadow:0 30px 60px -30px #0C0F1D80}
+.screen{background:#F4F1FA;border-radius:28px;min-height:560px;display:flex;flex-direction:column;overflow:hidden;color:#202124}
+.gf-top{height:10px;background:#673AB7}
+.gf-head{padding:16px 18px 10px;background:#fff;border-bottom:1px solid #e3e0ea}
+.gf-head .t{font-family:var(--body);font-weight:600;font-size:15px}
+.gf-head .s{font-size:12px;color:#5f6368;margin-top:2px}
+.gf-prog{height:4px;background:#e3e0ea;border-radius:4px;margin-top:10px;overflow:hidden}
+.gf-prog i{display:block;height:100%;background:#673AB7;transition:width .3s}
+.gf-body{padding:14px;flex:1}
+.gf-q{background:#fff;border-radius:10px;padding:16px;border:1px solid #e3e0ea}
+.gf-q .qt{font-size:14.5px;font-weight:500}
+.gf-q .qt i{color:#d93025;font-style:normal}
+.gf-q .qh{font-size:12px;color:#5f6368;margin-top:3px}
+.gf-opts{display:grid;gap:9px;margin-top:12px}
+.gf-opt{display:flex;gap:10px;align-items:center;font-size:13.5px;cursor:pointer;border:0;background:none;text-align:left;padding:2px 0;color:#202124}
+.gf-opt .o{width:17px;height:17px;border:2px solid #5f6368;border-radius:50%;flex:none}
+.gf-opt.sq .o{border-radius:3px}
+.gf-opt.sel .o{border-color:#673AB7;background:radial-gradient(#673AB7 45%,transparent 50%)}
+.gf-opt.sq.sel .o{background:#673AB7}
+.gf-grid{display:grid;gap:4px;margin-top:10px;font-size:11.5px}
+.gf-grid .gr{display:grid;grid-template-columns:1fr repeat(5,22px);gap:2px;align-items:center}
+.gf-grid.wide .gr{grid-template-columns:1fr repeat(4,30px)}
+.gf-grid .gh{color:#5f6368;text-align:center;font-size:10px}
+.gf-dot{width:14px;height:14px;border:2px solid #5f6368;border-radius:50%;margin:auto;cursor:pointer;background:none;padding:0}
+.gf-dot.sel{border-color:#673AB7;background:radial-gradient(#673AB7 40%,transparent 46%)}
+.gf-scale{display:flex;justify-content:space-between;align-items:end;margin-top:14px;font-size:11.5px;color:#5f6368;gap:4px}
+.gf-scale .c{display:grid;gap:4px;justify-items:center}
+.gf-input{margin-top:14px;border:0;border-bottom:1px solid #9aa0a6;background:transparent;font:inherit;font-size:14px;padding:6px 0;width:60%;color:#202124}
+.gf-nav{display:flex;justify-content:space-between;padding:12px 14px 18px}
+.gf-btn{background:#673AB7;color:#fff;border:0;border-radius:6px;padding:8px 16px;font-size:13px;cursor:pointer}
+.gf-btn.ghost{background:transparent;color:#673AB7}
+.gf-btn[disabled]{opacity:.35;cursor:default}
+.qlist{counter-reset:q;display:grid;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+.qlist li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;cursor:pointer;font-size:14px}
+.qlist li:hover{background:var(--card)}
+.qlist li.on{background:var(--card);box-shadow:0 0 0 1px var(--cobalt) inset}
+.qlist li .i{font-family:var(--mono);color:var(--muted);font-size:12px}
+.qlist li .ty{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.persona-map{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pm{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;font-size:13.5px}
+.pm b{font-family:var(--mono);font-weight:500;color:var(--cobalt);margin-left:6px;font-size:12px}
+
+/* ---------- SCENARIOS ---------- */
+.scen-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+@media (max-width:600px){.scen-tabs{grid-template-columns:1fr}}
+.scen{border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:16px;text-align:left;cursor:pointer;transition:border-color .2s}
+.scen .k{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.scen .v{font-family:var(--display);font-size:30px;font-weight:600;margin-top:4px}
+.scen .g{font-size:13.5px;color:var(--muted)}
+.scen.on{border-color:var(--sc);box-shadow:0 0 0 1px var(--sc) inset}
+.scen.on .v{color:var(--sc)}
+.scen-detail{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+@media (max-width:760px){.scen-detail{grid-template-columns:1fr}}
+.scen-detail ul{margin:8px 0 0;padding-left:18px}
+.scen-detail li+li{margin-top:6px}
+
+/* ---------- SIMULATOR ---------- */
+.simu{display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start}
+@media (max-width:900px){.simu{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.preset{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
+.preset:hover{border-color:var(--coral);color:var(--coral)}
+.ctrl{display:grid;gap:6px;padding:14px 0;border-bottom:1px solid var(--line)}
+.ctrl:last-child{border-bottom:0}
+.ctrl label{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:500;align-items:center;flex-wrap:wrap}
+.ctrl output{font-family:var(--mono);font-size:14px;color:var(--cobalt);font-weight:500}
+.ctrl .h{font-size:12.5px;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--cobalt)}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:600px){.res{grid-template-columns:1fr 1fr}}
+.r{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.r .k{font-size:12.5px;color:var(--muted)}
+.r .v{font-family:var(--display);font-size:24px;font-weight:600;margin-top:2px}
+.r .d{font-family:var(--mono);font-size:12px;margin-top:2px}
+.verdict{margin-top:14px;padding:16px 18px;border-radius:12px;background:var(--cobalt-soft);font-size:15px}
+.verdict.bad{background:var(--coral-soft)}
+.bars-cmp{margin-top:14px;display:grid;gap:8px}
+.bc{display:grid;grid-template-columns:120px 1fr 110px;gap:10px;align-items:center;font-size:13.5px}
+.bc .track{height:14px;background:var(--paper);border-radius:7px;overflow:hidden}
+.bc .fill{height:100%;border-radius:7px;transition:width .35s}
+.bc .val{text-align:right;font-family:var(--mono);font-size:12.5px}
+
+/* ---------- FINDINGS ---------- */
+.find{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.find{grid-template-columns:1fr}}
+.find .card{border-top:4px solid var(--fc)}
+.find h4{display:flex;align-items:center;gap:8px}
+.find ul{margin:6px 0 0;padding-left:18px}
+.find li+li{margin-top:8px}
+
+.bib{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.bib li{padding-left:2.2em;text-indent:-2.2em;font-size:15px}
+.bib li .tag{text-indent:0}
+
+footer{margin-top:80px;background:var(--stage);color:var(--stage-muted);padding-block:28px;font-size:13px}
+
+.hud{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--stage);color:var(--stage-fg);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:12.5px;display:flex;gap:10px;align-items:center;z-index:55;box-shadow:0 10px 30px -10px #0008}
+.hud[hidden]{display:none}
+.hud button{background:#ffffff18;border:0;color:var(--stage-fg);border-radius:999px;width:28px;height:28px;cursor:pointer}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<nav class="nav" aria-label="Apartados">
+  <div class="wrap">
+    <a class="brand" href="#inicio">JORDÁN<span>MUSIK</span></a>
+    <div class="links" id="links">
+      <a href="#s1"><b>1</b>SIM</a>
+      <a href="#s2"><b>2</b>Macroentorno</a>
+      <a href="#s3"><b>3</b>Microentorno</a>
+      <a href="#s4"><b>4</b>Encuesta</a>
+      <a href="#s5"><b>5</b>Análisis</a>
+      <a href="#s6"><b>6</b>Fuentes</a>
+      <a href="#s7"><b>7</b>Conclusión</a>
+    </div>
+    <div class="navbtns">
+      <button class="pill-btn" id="presentBtn" type="button">▶ Presentar</button>
+    </div>
+  </div>
+  <div class="progress" id="progress"></div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero stop" id="inicio">
+  <div class="wrap">
+    <div class="eyebrow">Investigación Comercial · Sistema de Información de Marketing</div>
+    <h1>JORDÁN<em>MUSIK</em></h1>
+    <p class="sub">Decidir mejor escuchando a los datos.</p>
+    <p class="lede">Cada barra es un mes real de ventas de los JORDÁNPODS, de enero de 2022 a diciembre de 2024. Pasa el ratón por encima para ver las unidades.</p>
+    <div class="eq" id="eq" role="img" aria-label="Ventas mensuales de JORDÁNPODS 2022-2024"></div>
+    <div class="eq-axis"><span>2022</span><span>2023</span><span>2024</span></div>
+    <div class="kpis num">
+      <div class="kpi"><div class="v" id="k1">19.338</div><div class="l">unidades vendidas (2022-2024)</div></div>
+      <div class="kpi"><div class="v" id="k2">1,53 M€</div><div class="l">ingresos acumulados</div></div>
+      <div class="kpi"><div class="v" id="k3">55,5 %</div><div class="l">margen bruto sobre ingresos</div></div>
+      <div class="kpi"><div class="v" id="k4">+44,5 %</div><div class="l">unidades 2024 frente a 2022</div></div>
+    </div>
+    <div class="legend">
+      <span>Cómo leer esta web:</span>
+      <span class="tag real">Dato real</span>
+      <span class="tag calc">Cálculo</span>
+      <span class="tag hip">Hipótesis</span>
+      <span class="tag prev">Previsión</span>
+      <span class="tag pend">Pendiente</span>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ================= 1 ================= -->
+<section class="sec stop" id="s1">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">1</div>
+      <div class="sec-kicker">Introducción</div>
+      <h2>Una marca que crece necesita un sistema para decidir</h2>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><h4>La empresa</h4><span class="tag real">Dato real</span></div>
+        <p>JORDÁNMUSIK es una marca de auriculares con sede en Cartagena (Región de Murcia). Lleva cuatro años en el mercado, vende solo en España y su producto estrella son los JORDÁNPODS, unos auriculares inalámbricos.</p>
+        <div class="facts num">
+          <div class="fact"><div class="k">Sede</div><div class="v">Cartagena</div></div>
+          <div class="fact"><div class="k">CEO</div><div class="v">Pablo Jordán</div></div>
+          <div class="fact"><div class="k">Precio medio 2024</div><div class="v">79,23 €</div></div>
+          <div class="fact"><div class="k">Canales</div><div class="v">Tienda, online y marketplace</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><h4>Por qué necesita un SIM</h4><span class="tag calc">Cálculo</span></div>
+        <p>Las ventas han crecido un 44,5 % en dos años, pero el crecimiento trae decisiones más arriesgadas: cuánto stock comprar para noviembre, si subir el precio o cómo evitar otro mes como noviembre de 2023, cuando las devoluciones se dispararon al 12 %.</p>
+        <p class="muted">Hasta ahora el CEO decidía con los datos de ventas. El SIM añade lo que ocurre fuera (mercado, competencia, consumidor) y herramientas para anticiparse.</p>
+      </div>
+    </div>
+
+    <div class="sub-head"><h3>¿Qué es un SIM?</h3><span class="muted small">Pulsa cada subsistema</span></div>
+    <div class="sim">
+      <div class="sim-map" id="simMap">
+        <button class="sim-node sim-top" data-k="0" type="button"><div class="n">01</div><div class="t">Datos internos</div><div class="d">Ventas, costes, devoluciones</div></button>
+        <button class="sim-node sim-top" data-k="1" type="button"><div class="n">02</div><div class="t">Inteligencia</div><div class="d">Macro y microentorno</div></button>
+        <div class="sim-core"><small>Centro del sistema</small>Decisiones del CEO</div>
+        <button class="sim-node sim-bot" data-k="2" type="button"><div class="n">03</div><div class="t">Investigación comercial</div><div class="d">Encuesta al consumidor</div></button>
+        <button class="sim-node sim-bot" data-k="3" type="button"><div class="n">04</div><div class="t">Análisis</div><div class="d">Previsiones y simulaciones</div></button>
+      </div>
+      <div class="card sim-panel" id="simPanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2 ================= -->
+<section class="sec stop" id="s2">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">2</div>
+      <div class="sec-kicker">Macroentorno · Sistema de inteligencia</div>
+      <h2>Las fuerzas que JORDÁNMUSIK no controla</h2>
+    </div>
+    <p class="lead">Análisis PESTEL con datos de España y de la Región de Murcia. Pulsa cada letra para ver el factor.</p>
+    <div class="pestel" id="pestel" style="margin-top:24px"></div>
+    <div class="ppanel" id="ppanel"></div>
+  </div>
+</section>
+
+<!-- ================= 3 ================= -->
+<section class="sec stop" id="s3">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">3</div>
+      <div class="sec-kicker">Microentorno</div>
+      <h2>Quién rodea a los JORDÁNPODS</h2>
+    </div>
+    <div class="tabs" id="microTabs" role="tablist"></div>
+    <div id="microPanel"></div>
+  </div>
+</section>
+
+<!-- ================= 4 ================= -->
+<section class="sec stop" id="s4">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">4</div>
+      <div class="sec-kicker">Investigación comercial</div>
+      <h2>Preguntar al consumidor antes de decidir</h2>
+    </div>
+    <div class="survey">
+      <div>
+        <div class="grid2">
+          <div class="card">
+            <h4>Ficha técnica</h4>
+            <div class="facts">
+              <div class="fact"><div class="k">Objetivo</div><div class="v">Conocer preferencias y construir el buyer persona</div></div>
+              <div class="fact"><div class="k">Público</div><div class="v">Personas de 14 años o más que usan auriculares, en España</div></div>
+              <div class="fact"><div class="k">Método</div><div class="v">Cuestionario online en Google Forms</div></div>
+              <div class="fact"><div class="k">Preguntas</div><div class="v">15 cerradas, cuantitativas</div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="row" style="justify-content:space-between"><h4>Tamaño de muestra</h4><span class="tag calc">Cálculo</span></div>
+            <p class="mono num" style="font-size:15px">n = Z² · p · q / e²<br>n = 1,96² · 0,5 · 0,5 / 0,05² ≈ <b>385</b></p>
+            <p class="muted small">Población grande, nivel de confianza del 95 % y margen de error del 5 %. Es el tamaño que haría falta si el formulario se publicara.</p>
+            <p class="small" style="margin-top:10px"><span class="tag pend">Pendiente</span> Sin resultados: el formulario está diseñado pero no publicado.</p>
+          </div>
+        </div>
+        <div class="sub-head" style="margin-top:28px"><h3>Las 15 preguntas</h3><span class="muted small">Pulsa una para verla en el móvil</span></div>
+        <ol class="qlist" id="qlist"></ol>
+        <div class="sub-head" style="margin-top:28px"><h3>De la encuesta al buyer persona</h3></div>
+        <div class="persona-map" id="pmap"></div>
+      </div>
+      <div class="phone" aria-label="Vista previa del formulario">
+        <div class="screen">
+          <div class="gf-top"></div>
+          <div class="gf-head">
+            <div class="t">Estudio sobre hábitos y preferencias en auriculares</div>
+            <div class="s" id="gfSec">Sección 1 de 5</div>
+            <div class="gf-prog"><i id="gfProg"></i></div>
+          </div>
+          <div class="gf-body"><div class="gf-q" id="gfQ"></div></div>
+          <div class="gf-nav">
+            <button class="gf-btn ghost" id="gfPrev" type="button">Atrás</button>
+            <button class="gf-btn" id="gfNext" type="button">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5 ================= -->
+<section class="sec stop" id="s5">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">5</div>
+      <div class="sec-kicker">Sistema de análisis</div>
+      <h2>Lo que dicen 36 meses de ventas</h2>
+    </div>
+    <p class="lead">Base de datos interna de JORDÁNMUSIK: 36 meses (enero de 2022 a diciembre de 2024) con unidades, precio, coste, canal, devoluciones y satisfacción.</p>
+
+    <!-- A -->
+    <div class="sub-head stop" id="s5a"><span class="letter">5.A</span><h3>Datos internos</h3><span class="tag real">Dato real</span></div>
+    <div class="chart-card">
+      <div class="chart-top">
+        <h4 id="mainTitle">Evolución mensual</h4>
+        <div class="row">
+          <div class="seg" id="metricSeg">
+            <button data-m="u" class="on" type="button">Unidades</button>
+            <button data-m="ing" type="button">Ingresos</button>
+            <button data-m="mb" type="button">Margen</button>
+          </div>
+          <div class="seg" id="viewSeg">
+            <button data-v="line" class="on" type="button">Línea temporal</button>
+            <button data-v="cmp" type="button">Comparar años</button>
+          </div>
+        </div>
+      </div>
+      <div class="cbox"><canvas id="chMain" aria-label="Gráfico de evolución mensual"></canvas></div>
+      <p class="note" id="mainNote"></p>
+    </div>
+    <div class="extremes num" id="extremes"></div>
+
+    <div class="tbl-wrap" style="margin-top:20px">
+      <table id="yearTable" class="num"></table>
+    </div>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="chart-card">
+        <div class="chart-top"><h4>Estacionalidad</h4><span class="tag calc">Cálculo</span></div>
+        <div class="cbox sm"><canvas id="chSeason"></canvas></div>
+        <p class="note">Desviación de cada mes respecto a un mes medio de su año (media 2022-2024). <b>Noviembre vende un 19 % más</b> y diciembre un 12 % más; julio es el mes más flojo.</p>
+      </div>
+      <div class="chart-card">
+        <div class="chart-top"><h4>Calidad: devoluciones y satisfacción</h4><span class="tag real">Dato real</span></div>
+        <div class="cbox sm"><canvas id="chQuality"></canvas></div>
+        <p class="note">En <b>noviembre de 2023</b> las devoluciones subieron al 11,98 % (77 unidades) y la satisfacción cayó a 3,41 sobre 5, justo en el mes de más ventas. La satisfacción no volvió a superar 4 hasta febrero de 2024.</p>
+      </div>
+    </div>
+    <p class="note">La base de datos solo recoge un producto (JORDÁNPODS), así que el análisis de «mejores productos» se hace por periodos y canales.</p>
+
+    <!-- B -->
+    <div class="sub-head stop" id="s5b"><span class="letter">5.B</span><h3>Previsión de ventas 2025</h3><span class="tag prev">Previsión</span></div>
+    <div class="scen-tabs" id="scenTabs"></div>
+    <div class="chart-card">
+      <div class="chart-top"><h4>2024 real y 2025 previsto, por meses</h4><span class="tag prev">Previsión</span></div>
+      <div class="cbox"><canvas id="chForecast"></canvas></div>
+      <p class="note" id="scenMethod"></p>
+    </div>
+    <div class="scen-detail" id="scenDetail"></div>
+
+    <!-- C -->
+    <div class="sub-head stop" id="s5c"><span class="letter">5.C</span><h3>Simulador de decisiones</h3><span class="tag hip">Hipótesis</span></div>
+    <p class="muted" style="max-width:72ch;margin-bottom:16px">Punto de partida real: el mes medio de 2024 (<span class="num" id="baseTxt"></span>). Los resultados son estimaciones. La reacción de las ventas al precio (elasticidad) y el efecto de la publicidad son hipótesis que se pueden mover.</p>
+    <div class="presets" id="presets">
+      <button class="preset" data-p="up" type="button">Subir precio 10 %</button>
+      <button class="preset" data-p="down" type="button">Bajar precio 10 %</button>
+      <button class="preset" data-p="cost" type="button">Costes +15 %</button>
+      <button class="preset" data-p="peak" type="button">Pico tipo noviembre (+19 %)</button>
+      <button class="preset" data-p="ads" type="button">Campaña de 3.000 €</button>
+      <button class="preset" data-p="reset" type="button">Reiniciar</button>
+    </div>
+    <div class="simu">
+      <div class="card">
+        <div class="ctrl"><label for="sPrice">Cambio de precio <output id="oPrice"></output></label><input type="range" id="sPrice" min="-25" max="25" step="1" value="0"></div>
+        <div class="ctrl"><label for="sCost">Cambio de coste unitario <output id="oCost"></output></label><input type="range" id="sCost" min="-10" max="30" step="1" value="0"></div>
+        <div class="ctrl"><label for="sElas">Elasticidad precio <span class="tag hip">Hipótesis</span> <output id="oElas"></output></label><input type="range" id="sElas" min="-3" max="0" step="0.1" value="-1.5"><span class="h">Con −1,5, si el precio sube un 10 %, las ventas bajan un 15 %. Se podrá ajustar con la pregunta 12 de la encuesta.</span></div>
+        <div class="ctrl"><label for="sPeak">Pico de demanda <output id="oPeak"></output></label><input type="range" id="sPeak" min="0" max="50" step="1" value="0"></div>
+        <div class="ctrl"><label for="sAds">Inversión en publicidad al mes <output id="oAds"></output></label><input type="range" id="sAds" min="0" max="10000" step="250" value="0"></div>
+        <div class="ctrl"><label for="sLift">Ventas extra que traería la campaña <span class="tag hip">Hipótesis</span> <output id="oLift"></output></label><input type="range" id="sLift" min="0" max="40" step="1" value="0"></div>
+      </div>
+      <div>
+        <div class="res num" id="res"></div>
+        <div class="bars-cmp" id="barsCmp"></div>
+        <div class="verdict" id="verdict"></div>
+      </div>
+    </div>
+
+    <!-- D -->
+    <div class="sub-head stop" id="s5d"><span class="letter">5.D</span><h3>Anticipación de cambios</h3></div>
+    <div class="grid3">
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><h4>Económicos</h4><span class="tag pend">Pendiente</span></div>
+        <p class="muted">Se completará con los indicadores de vuestro documento (inflación, consumo, confianza del consumidor) y con qué umbral debería activar una decisión.</p>
+      </div>
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><h4>Políticos y legales</h4><span class="tag real">Dato real</span></div>
+        <p><b>Cargador común (USB-C).</b> La Directiva (UE) 2022/2380 obliga a que los auriculares vendidos en la UE se carguen por USB-C desde el 28 de diciembre de 2024.</p>
+        <p><b>Baterías.</b> El Reglamento (UE) 2023/1542 exige, con excepciones, que las baterías portátiles se puedan extraer y sustituir a partir de 2027. Hay que revisar si afecta al diseño de los JORDÁNPODS.</p>
+      </div>
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><h4>Tecnológicos</h4><span class="tag real">Dato real</span></div>
+        <p><b>Bluetooth LE Audio y Auracast.</b> Es el nuevo estándar de audio Bluetooth: menor consumo y emisión a varios auriculares a la vez. Los próximos modelos de la competencia lo incorporarán; es un punto a vigilar para la siguiente versión de los JORDÁNPODS.</p>
+      </div>
+    </div>
+
+    <!-- E -->
+    <div class="sub-head stop" id="s5e"><span class="letter">5.E</span><h3>Packaging</h3></div>
+    <div class="grid2">
+      <div class="card">
+        <div class="row" style="justify-content:space-between"><h4>Marco obligatorio</h4><span class="tag real">Dato real</span></div>
+        <p>El Reglamento (UE) 2025/40 de envases y residuos de envases endurece las exigencias de reciclabilidad y reduce el espacio vacío permitido. Se aplica desde agosto de 2026 y afecta directamente a la caja de los JORDÁNPODS.</p>
+      </div>
+      <div class="pending">
+        <span class="tag pend">Pendiente</span>
+        <h4>Propuesta conectada con la encuesta</h4>
+        <p class="muted">Se diseñará con las respuestas a las preguntas 11 (importancia de la sostenibilidad) y 13 (importancia de un envase sostenible): materiales, tamaño, información del envase y experiencia de apertura.</p>
+      </div>
+    </div>
+
+    <!-- F -->
+    <div class="sub-head stop" id="s5f"><span class="letter">5.F</span><h3>Conclusiones del análisis</h3><span class="tag calc">Cálculo</span></div>
+    <div class="find">
+      <div class="card" style="--fc:var(--calc)">
+        <h4>Oportunidades</h4>
+        <ul>
+          <li>Crecimiento sostenido: <b class="num">+19,6 %</b> en 2023 y <b class="num">+20,8 %</b> en 2024.</li>
+          <li>Noviembre y diciembre concentran el <b class="num">19,3 %</b> de las ventas de 2024. Ahí se juega el año.</li>
+          <li>El canal online es el primero (<b class="num">43 %</b> de las unidades en 2024) y es donde más ha crecido el pico de noviembre.</li>
+        </ul>
+      </div>
+      <div class="card" style="--fc:var(--coral)">
+        <h4>Problemas</h4>
+        <ul>
+          <li>Crisis de calidad en noviembre de 2023: devoluciones al <b class="num">11,98 %</b> y satisfacción en <b class="num">3,41</b>.</li>
+          <li>El coste unitario sube un <b class="num">2,2 %</b> en 2024 con el precio estable, y el margen baja del 56,1 % al 54,9 %.</li>
+          <li>Las incidencias posventa pasan de 57 a 85 al año (<b class="num">+49 %</b>).</li>
+        </ul>
+      </div>
+      <div class="card" style="--fc:var(--cobalt)">
+        <h4>Mejoras</h4>
+        <ul>
+          <li>Control de calidad por lotes antes de cada temporada alta.</li>
+          <li>Compras de stock planificadas con el índice estacional, no con la media.</li>
+          <li>Revisar el precio con la pregunta 12 de la encuesta antes de subirlo para compensar costes.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6 ================= -->
+<section class="sec stop" id="s6">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">6</div>
+      <div class="sec-kicker">Bibliografía · APA 7</div>
+      <h2>Fuentes</h2>
+    </div>
+    <ul class="bib">
+      <li>Bluetooth SIG. (s. f.). <i>LE Audio</i>. <a href="https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/le-audio/" target="_blank" rel="noopener">https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/le-audio/</a></li>
+      <li>Directiva (UE) 2022/2380 del Parlamento Europeo y del Consejo, de 23 de noviembre de 2022, por la que se modifica la Directiva 2014/53/UE relativa a la armonización de las legislaciones de los Estados miembros sobre la comercialización de equipos radioeléctricos. <i>Diario Oficial de la Unión Europea</i>, L 315. <a href="https://eur-lex.europa.eu/eli/dir/2022/2380/oj" target="_blank" rel="noopener">https://eur-lex.europa.eu/eli/dir/2022/2380/oj</a></li>
+      <li>JORDÁNMUSIK. (2025). <i>Base de datos de ventas mensuales de JORDÁNPODS 2022-2024</i> [Conjunto de datos interno no publicado].</li>
+      <li>Kotler, P., y Armstrong, G. (2018). <i>Principios de marketing</i> (17.ª ed.). Pearson.</li>
+      <li>Reglamento (UE) 2023/1542 del Parlamento Europeo y del Consejo, de 12 de julio de 2023, relativo a las pilas y baterías y sus residuos. <i>Diario Oficial de la Unión Europea</i>, L 191. <a href="https://eur-lex.europa.eu/eli/reg/2023/1542/oj" target="_blank" rel="noopener">https://eur-lex.europa.eu/eli/reg/2023/1542/oj</a></li>
+      <li>Reglamento (UE) 2025/40 del Parlamento Europeo y del Consejo, de 19 de diciembre de 2024, relativo a los envases y residuos de envases. <i>Diario Oficial de la Unión Europea</i>. <a href="https://eur-lex.europa.eu/eli/reg/2025/40/oj" target="_blank" rel="noopener">https://eur-lex.europa.eu/eli/reg/2025/40/oj</a></li>
+      <li><span class="tag pend">Pendiente</span> Fuentes del macro y microentorno de vuestro documento.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 7 ================= -->
+<section class="sec stop" id="s7">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">7</div>
+      <div class="sec-kicker">Conclusión</div>
+      <h2>Qué gana JORDÁNMUSIK con su SIM</h2>
+    </div>
+    <div class="grid3">
+      <div class="card"><h4>Saber dónde está</h4><p class="muted">Los datos internos muestran una empresa que crece un 20 % al año, con un pico claro en noviembre y un margen que empieza a estrecharse.</p></div>
+      <div class="card"><h4>Saber qué hacer</h4><p class="muted">Las previsiones y el simulador convierten esos datos en decisiones concretas: cuánto stock comprar, qué precio aguanta el margen y cuánto debe vender una campaña para pagarse.</p></div>
+      <div class="card"><h4>Anticiparse</h4><p class="muted">La vigilancia del entorno y la encuesta al consumidor permiten adelantarse a cambios legales, tecnológicos y de gusto antes de que afecten a las ventas.</p></div>
+    </div>
+    <div class="pending" style="margin-top:16px"><span class="tag pend">Pendiente</span><p class="muted" style="margin-top:8px">La conclusión final se completará cuando estén el macro y microentorno y la propuesta de packaging.</p></div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">JORDÁNMUSIK · Proyecto de Investigación Comercial · 1.º Marketing y Publicidad</div></footer>
+
+<div class="hud" id="hud" hidden>
+  <button type="button" id="hudPrev" aria-label="Anterior">‹</button>
+  <span id="hudPos">1 / 1</span>
+  <button type="button" id="hudNext" aria-label="Siguiente">›</button>
+  <button type="button" id="hudExit" aria-label="Salir del modo presentación">✕</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+<script>
+(function(){
+"use strict";
+// [mes, unidades, precio, coste, ingresos, margen, uds tienda, uds online, uds marketplace, devoluciones, % devol, satisfacción, incidencias]
+const D=[["2022-01",429,79.26,35.13,34002.49,18932.25,172,193,64,9,2.1,4.27,5],["2022-02",418,79.78,34.96,33348.8,18734.36,160,198,60,8,1.91,4.19,5],["2022-03",435,77.76,34.04,33826.93,19019.26,170,178,87,9,2.07,4.0,5],["2022-04",454,77.68,34.99,35266.51,19382.53,185,209,60,11,2.42,4.09,5],["2022-05",420,79.52,35.03,33399.22,18686.57,174,188,58,10,2.38,4.24,4],["2022-06",421,79.3,36.23,33384.03,18130.52,173,186,62,11,2.61,4.09,4],["2022-07",436,79.25,34.9,34553.21,19335.14,178,194,64,11,2.52,4.19,4],["2022-08",421,79.35,35.15,33404.85,18606.37,172,174,75,10,2.38,4.22,5],["2022-09",420,78.32,34.98,32894.39,18201.68,167,185,68,10,2.38,4.09,4],["2022-10",442,79.23,34.42,35020.66,19808.94,180,198,64,10,2.26,4.17,5],["2022-11",507,79.29,35.57,40201.59,22166.88,208,235,64,12,2.37,3.92,6],["2022-12",508,78.29,35.38,39769.11,21798.12,217,220,71,13,2.56,4.1,5],["2023-01",534,80.87,35.4,43182.32,24281.11,225,229,80,13,2.43,4.17,6],["2023-02",480,79.47,34.55,38147.44,21565.69,192,208,80,10,2.08,4.09,5],["2023-03",486,77.81,35.7,37815.03,20464.15,205,221,60,11,2.26,4.33,5],["2023-04",515,79.66,34.3,41023.13,23359.11,214,229,72,12,2.33,4.08,6],["2023-05",505,78.03,35.29,39402.79,21579.61,209,218,78,10,1.98,4.16,6],["2023-06",539,79.79,36.1,43005.24,23549.91,230,241,68,11,2.04,4.21,6],["2023-07",483,80.16,34.5,38716.6,22050.81,208,213,62,10,2.07,4.32,6],["2023-08",472,78.18,34.72,36900.64,20514.29,202,215,55,8,1.69,4.08,5],["2023-09",569,79.96,35.05,45499.16,25555.81,234,245,90,11,1.93,4.29,6],["2023-10",528,79.41,34.75,41929.95,23582.87,220,230,78,10,1.89,4.2,5],["2023-11",643,79.82,34.22,51325.58,29319.12,271,280,92,77,11.98,3.41,7],["2023-12",598,80.9,35.03,48376.28,27425.78,255,251,92,36,6.02,3.53,7],["2024-01",623,78.75,35.27,49064.12,27091.63,257,278,88,8,1.28,3.5,7],["2024-02",641,78.25,36.04,50155.86,27056.27,265,286,90,8,1.25,4.13,7],["2024-03",602,78.11,35.34,47022.51,25747.66,320,160,122,10,1.66,4.18,6],["2024-04",646,78.18,36.57,50506.99,26879.56,259,284,103,10,1.55,4.14,7],["2024-05",615,78.92,35.41,48537.58,26761.43,258,260,97,10,1.63,4.17,7],["2024-06",622,79.34,35.64,49350.2,27182.76,264,273,85,14,2.25,4.2,7],["2024-07",580,79.28,36.21,45980.48,24980.56,237,256,87,10,1.72,4.27,7],["2024-08",648,79.83,35.18,51728.01,28928.41,270,281,97,12,1.85,4.04,7],["2024-09",626,79.01,35.91,49462.14,26980.15,256,279,91,12,1.92,4.3,7],["2024-10",593,80.45,36.45,47708.95,26091.98,235,269,89,12,2.02,3.96,7],["2024-11",777,78.74,35.0,61177.36,33985.27,315,371,91,14,1.8,4.1,8],["2024-12",702,81.72,35.89,57367.56,32171.15,291,318,93,15,2.14,4.15,8]];
+const MES=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+const MESL=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const YEARS=[2022,2023,2024];
+const nf0=new Intl.NumberFormat("es-ES",{maximumFractionDigits:0,useGrouping:"always"});
+const nf1=new Intl.NumberFormat("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
+const nf2=new Intl.NumberFormat("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:"always"});
+const eur0=v=>nf0.format(Math.round(v))+" €";
+const eur2=v=>nf2.format(v)+" €";
+const pct1=v=>(v>0?"+":"")+nf1.format(v)+" %";
+const lab=r=>{const [y,m]=r[0].split("-");return MES[+m-1]+" "+y.slice(2)};
+const $=s=>document.querySelector(s);
+
+/* ---------- Aggregates ---------- */
+const byYear={};
+YEARS.forEach(y=>{
+  const rs=D.filter(r=>r[0].startsWith(y));
+  const s=i=>rs.reduce((a,r)=>a+r[i],0);
+  const u=s(1),ing=s(4),mb=s(5);
+  byYear[y]={rows:rs,u,ing,mb,ct:ing-mb,ph:s(6),on:s(7),mk:s(8),dev:s(9),inc:s(12),sat:rs.reduce((a,r)=>a+r[11],0)/rs.length};
+});
+// seasonal index: unidades del mes / media mensual de su año, promedio de los 3 años
+const SI=MES.map((_,m)=>YEARS.reduce((a,y)=>a+byYear[y].rows[m][1]/(byYear[y].u/12),0)/3);
+
+/* ---------- Hero equalizer ---------- */
+(function(){
+  const eq=$("#eq"); const max=Math.max(...D.map(r=>r[1]));
+  D.forEach((r,i)=>{
+    const b=document.createElement("div");
+    b.className="bar"+(r[1]===max?" max":"");
+    b.style.height=(r[1]/max*100)+"%";
+    b.style.animationDelay=(i*25)+"ms";
+    b.tabIndex=0;
+    const [y,m]=r[0].split("-");
+    b.innerHTML='<span class="tip">'+MESL[+m-1]+" "+y+" · "+nf0.format(r[1])+" uds</span>";
+    b.setAttribute("aria-label",MESL[+m-1]+" "+y+": "+r[1]+" unidades");
+    eq.appendChild(b);
+  });
+  const tu=YEARS.reduce((a,y)=>a+byYear[y].u,0), ti=YEARS.reduce((a,y)=>a+byYear[y].ing,0), tm=YEARS.reduce((a,y)=>a+byYear[y].mb,0);
+  $("#k1").textContent=nf0.format(tu);
+  $("#k2").textContent=nf2.format(ti/1e6)+" M€";
+  $("#k3").textContent=nf1.format(tm/ti*100)+" %";
+  $("#k4").textContent=pct1((byYear[2024].u/byYear[2022].u-1)*100);
+})();
+
+/* ---------- SIM diagram ---------- */
+const SIMS=[
+  {t:"Sistema de datos internos",d:"Recoge la información que la empresa ya genera: pedidos, ventas, precios, costes, devoluciones y satisfacción.",a:"En JORDÁNMUSIK es la base de datos de 36 meses de los JORDÁNPODS. Gracias a ella sabemos que noviembre es el mes clave y que en noviembre de 2023 hubo un problema de calidad.",h:"#s5a",l:"Ver los datos internos"},
+  {t:"Sistema de inteligencia de marketing",d:"Vigila de forma continua lo que pasa fuera de la empresa: economía, leyes, tecnología, competencia y tendencias.",a:"Para JORDÁNMUSIK significa seguir el PESTEL y la competencia en auriculares inalámbricos, y detectar a tiempo cambios como la obligación del USB-C.",h:"#s2",l:"Ver el macroentorno"},
+  {t:"Sistema de investigación comercial",d:"Diseña estudios concretos para responder preguntas que los datos internos no contestan.",a:"La encuesta de 15 preguntas busca saber cuánto pagarían los clientes, qué valoran y quién es el buyer persona de los JORDÁNPODS.",h:"#s4",l:"Ver la encuesta"},
+  {t:"Sistema de análisis",d:"Convierte los datos en conclusiones y decisiones con estadística, previsiones y modelos.",a:"Incluye la previsión de 2025 en tres escenarios y un simulador para probar subidas de precio, de costes, picos de demanda y campañas.",h:"#s5b",l:"Ver previsiones y simulador"}
+];
+function setSim(k){
+  document.querySelectorAll(".sim-node").forEach(n=>n.classList.toggle("on",+n.dataset.k===k));
+  const s=SIMS[k];
+  $("#simPanel").innerHTML='<div class="sec-kicker">Subsistema '+(k+1)+' de 4</div><h4 style="margin:6px 0 10px">'+s.t+'</h4><p>'+s.d+'</p><p class="muted" style="margin-top:12px"><b style="color:var(--ink)">Aplicado a JORDÁNMUSIK:</b> '+s.a+'</p><a class="go" href="'+s.h+'">'+s.l+' →</a>';
+}
+document.querySelectorAll(".sim-node").forEach(n=>n.addEventListener("click",()=>setSim(+n.dataset.k)));
+setSim(0);
+
+/* ---------- PESTEL ---------- */
+const PEST=[["P","Político"],["E","Económico"],["S","Sociocultural"],["T","Tecnológico"],["E","Ecológico"],["L","Legal"]];
+(function(){
+  const box=$("#pestel");
+  PEST.forEach((p,i)=>{
+    const b=document.createElement("button");b.type="button";b.className="ptile";
+    b.innerHTML='<span class="L">'+p[0]+'</span><span><span class="N">'+p[1]+'</span><br><span class="tag pend" style="margin-top:6px">Pendiente</span></span>';
+    b.addEventListener("click",()=>{box.querySelectorAll(".ptile").forEach(x=>x.classList.remove("on"));b.classList.add("on");
+      $("#ppanel").innerHTML='<div class="pending"><span class="tag pend">Pendiente</span><h4>Factor '+p[1].toLowerCase()+'</h4><p class="muted">Aquí irá el contenido de vuestro documento de investigación, con este formato:</p><ul><li>Dato concreto de España o de la Región de Murcia, con su fuente.</li><li>Cómo afecta a JORDÁNMUSIK.</li><li>Si es una oportunidad o una amenaza.</li></ul></div>';});
+    box.appendChild(b);
+    if(i===0) b.click();
+  });
+})();
+
+/* ---------- Microentorno ---------- */
+const MICRO=["Clientes","Competencia","Proveedores","Canales","Mercado"];
+let chChannels=null;
+function setMicro(k){
+  document.querySelectorAll("#microTabs .tab").forEach((t,i)=>{t.classList.toggle("on",i===k);t.setAttribute("aria-selected",i===k)});
+  const p=$("#microPanel");
+  if(chChannels){chChannels.destroy();chChannels=null}
+  if(MICRO[k]==="Canales"){
+    const y24=byYear[2024];
+    p.innerHTML='<div class="grid2"><div class="chart-card"><div class="chart-top"><h4>Unidades por canal (% del año)</h4><span class="tag real">Dato real</span></div><div class="cbox sm"><canvas id="chChannels"></canvas></div></div><div class="card"><h4>Cómo vende JORDÁNMUSIK</h4><p>En 2024: <b class="num">'+nf1.format(y24.on/y24.u*100)+' %</b> online, <b class="num">'+nf1.format(y24.ph/y24.u*100)+' %</b> en tienda física y <b class="num">'+nf1.format(y24.mk/y24.u*100)+' %</b> en marketplace.</p><p class="muted">El reparto es muy estable en los tres años. La única excepción es <b>marzo de 2024</b>: la tienda física subió al 53 % y el online bajó al 27 %. Conviene averiguar qué pasó (¿una incidencia en la web? ¿una acción en tienda?).</p><p class="muted">En el pico de noviembre de 2024 el online llegó al 48 %, su máximo.</p><p style="margin-top:14px"><span class="tag pend">Pendiente</span> <span class="muted small">Intermediarios concretos (tiendas, marketplaces) de vuestro documento.</span></p></div></div>';
+    drawChannels();
+  } else {
+    p.innerHTML='<div class="pending"><span class="tag pend">Pendiente</span><h4>'+MICRO[k]+'</h4><p class="muted">Contenido de vuestro documento de investigación.'+(MICRO[k]==="Competencia"?" Formato previsto: tabla comparativa de auriculares inalámbricos parecidos a los JORDÁNPODS (marca, modelo, precio, batería, cancelación de ruido, canal y estrategia), con un gráfico de posicionamiento precio-prestaciones.":"")+(MICRO[k]==="Clientes"?" Se completará con el buyer persona que salga de la encuesta.":"")+'</p></div>';
+  }
+}
+(function(){
+  const t=$("#microTabs");
+  MICRO.forEach((m,i)=>{const b=document.createElement("button");b.type="button";b.className="tab";b.textContent=m;b.setAttribute("role","tab");b.addEventListener("click",()=>setMicro(i));t.appendChild(b)});
+})();
+
+/* ---------- Survey ---------- */
+const Q=[
+ {s:1,t:"¿Qué edad tienes?",ty:"single",o:["Menos de 14 años","14-17","18-24","25-34","35-44","45-54","55 o más"],p:"Demografía"},
+ {s:2,t:"Género",ty:"single",o:["Mujer","Hombre","Otro","Prefiero no decirlo"],p:"Demografía"},
+ {s:2,t:"¿Cuál es tu ocupación principal?",ty:"single",o:["Estudiante","Estudio y trabajo","Trabajo por cuenta ajena","Autónomo/a","Desempleado/a","Jubilado/a"],p:"Demografía"},
+ {s:2,t:"¿Dónde vives?",ty:"single",o:["Cartagena","Resto de la Región de Murcia","Otra comunidad autónoma"],p:"Demografía"},
+ {s:2,t:"¿Con qué frecuencia usas auriculares?",ty:"single",o:["Todos los días","Varias veces por semana","Una vez por semana o menos","Nunca o casi nunca"],p:"Uso"},
+ {s:3,t:"¿En qué situaciones los usas?",ty:"multi",h:"Puedes marcar varias opciones.",o:["Transporte o desplazamientos","Deporte","Estudio o trabajo","Llamadas","Videojuegos","En casa","Viajes"],p:"Uso"},
+ {s:3,t:"¿Qué tipo de auriculares usas principalmente?",ty:"single",o:["Intrauditivos inalámbricos con estuche","Intrauditivos con cable","De diadema inalámbricos","De diadema con cable","Deportivos con gancho"],p:"Uso"},
+ {s:3,t:"¿Cuánto costaron tus auriculares actuales?",ty:"single",o:["Menos de 20 €","20-49 €","50-99 €","100-149 €","150 € o más","No lo sé o fueron un regalo"],p:"Precio"},
+ {s:3,t:"¿Cada cuánto cambias de auriculares?",ty:"single",o:["Menos de 6 meses","6-12 meses","1-2 años","Más de 2 años"],p:"Compra"},
+ {s:3,t:"¿Por qué motivos has cambiado de auriculares?",ty:"multi",h:"Puedes marcar varias opciones.",o:["Se rompieron","La batería duraba poco","Eran incómodos","Fallos de conexión","Los perdí","Quería mejores prestaciones","Por diseño","Nunca los he cambiado"],p:"Frenos"},
+ {s:4,t:"Valora la importancia de cada aspecto al comprar auriculares",ty:"grid",h:"1 = nada importante · 5 = muy importante",rows:["Calidad de sonido","Batería","Comodidad","Cancelación de ruido","Diseño","Precio","Marca","Resistencia al agua","Garantía","Sostenibilidad"],cols:["1","2","3","4","5"],p:"Motivaciones"},
+ {s:4,t:"¿Cuál es el precio máximo que pagarías por unos auriculares inalámbricos? (en €)",ty:"number",p:"Precio"},
+ {s:4,t:"¿Qué importancia tiene para ti que el envase sea sostenible?",ty:"scale",lo:"Nada importante",hi:"Muy importante",p:"Valores"},
+ {s:4,t:"¿Qué relación tienes con estas marcas?",ty:"grid",rows:["Apple","Samsung","Sony","JBL","Xiaomi","Soundcore","Bose","JORDÁNMUSIK"],cols:["No la conozco","La conozco","La he usado","La uso ahora"],p:"Marcas"},
+ {s:5,t:"¿Qué probabilidad hay de que compraras unos JORDÁNPODS?",ty:"scale",lo:"Seguro que no",hi:"Seguro que sí",h:"JORDÁNPODS son los auriculares inalámbricos de JORDÁNMUSIK, una marca de Cartagena (Murcia).",p:"Potencial"}
+];
+const TYN={single:"Opción única",multi:"Casillas",grid:"Cuadrícula",number:"Número",scale:"Escala 1-5"};
+const ans={}; let qi=0;
+function renderQ(){
+  const q=Q[qi]; const a=ans[qi]||(ans[qi]=q.ty==="multi"?[]:q.ty==="grid"?{}:null);
+  $("#gfSec").textContent="Sección "+q.s+" de 5 · Pregunta "+(qi+1)+" de 15";
+  $("#gfProg").style.width=((qi+1)/15*100)+"%";
+  let h='<div class="qt">'+(qi+1)+". "+q.t+' <i>*</i></div>'+(q.h?'<div class="qh">'+q.h+"</div>":"");
+  if(q.ty==="single"||q.ty==="multi"){
+    h+='<div class="gf-opts">'+q.o.map((o,i)=>{const sel=q.ty==="multi"?a.includes(i):a===i;return '<button type="button" class="gf-opt'+(q.ty==="multi"?" sq":"")+(sel?" sel":"")+'" data-i="'+i+'"><span class="o"></span>'+o+"</button>"}).join("")+"</div>";
+  } else if(q.ty==="grid"){
+    const wide=q.cols.length===4;
+    h+='<div class="gf-grid'+(wide?" wide":"")+'"><div class="gr"><span></span>'+q.cols.map(c=>'<span class="gh">'+c+"</span>").join("")+"</div>"+q.rows.map((r,ri)=>'<div class="gr"><span>'+r+"</span>"+q.cols.map((c,ci)=>'<button type="button" class="gf-dot'+(a[ri]===ci?" sel":"")+'" data-r="'+ri+'" data-c="'+ci+'" aria-label="'+r+": "+c+'"></button>').join("")+"</div>").join("")+"</div>";
+  } else if(q.ty==="number"){
+    h+='<input class="gf-input" id="gfNum" type="number" min="0" max="500" placeholder="Tu respuesta" value="'+(a??"")+'">';
+  } else {
+    h+='<div class="gf-scale"><span>'+q.lo+"</span>"+[1,2,3,4,5].map(v=>'<span class="c">'+v+'<button type="button" class="gf-dot'+(a===v?" sel":"")+'" data-v="'+v+'" aria-label="'+v+'"></button></span>').join("")+"<span>"+q.hi+"</span></div>";
+  }
+  $("#gfQ").innerHTML=h;
+  $("#gfPrev").disabled=qi===0;
+  $("#gfNext").textContent=qi===14?"Enviar":"Siguiente";
+  $("#gfNext").disabled=qi===14;
+  document.querySelectorAll("#qlist li").forEach((li,i)=>li.classList.toggle("on",i===qi));
+  $("#gfQ").querySelectorAll(".gf-opt").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.i;if(q.ty==="multi"){const k=a.indexOf(i);k<0?a.push(i):a.splice(k,1)}else ans[qi]=i;renderQ()}));
+  $("#gfQ").querySelectorAll(".gf-dot[data-r]").forEach(b=>b.addEventListener("click",()=>{a[+b.dataset.r]=+b.dataset.c;renderQ()}));
+  $("#gfQ").querySelectorAll(".gf-dot[data-v]").forEach(b=>b.addEventListener("click",()=>{ans[qi]=+b.dataset.v;renderQ()}));
+  const n=$("#gfNum"); if(n) n.addEventListener("input",()=>{ans[qi]=n.value});
+}
+(function(){
+  const ol=$("#qlist");
+  Q.forEach((q,i)=>{const li=document.createElement("li");li.tabIndex=0;li.innerHTML='<span class="i">'+String(i+1).padStart(2,"0")+"</span><span>"+q.t+'</span><span class="ty">'+TYN[q.ty]+"</span>";li.addEventListener("click",()=>{qi=i;renderQ()});li.addEventListener("keydown",e=>{if(e.key==="Enter"){qi=i;renderQ()}});ol.appendChild(li)});
+  $("#gfPrev").addEventListener("click",()=>{if(qi>0){qi--;renderQ()}});
+  $("#gfNext").addEventListener("click",()=>{if(qi<14){qi++;renderQ()}});
+  const groups={};Q.forEach((q,i)=>{(groups[q.p]=groups[q.p]||[]).push(i+1)});
+  $("#pmap").innerHTML=Object.entries(groups).map(([k,v])=>'<span class="pm">'+k+"<b>P"+v.join(", P")+"</b></span>").join("");
+  renderQ();
+})();
+
+/* ---------- Theme colors for charts ---------- */
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function C(){return{ink:css("--ink"),muted:css("--muted"),line:css("--line"),cobalt:css("--cobalt"),coral:css("--coral"),calc:css("--calc"),hip:css("--hip"),prev:css("--prev"),card:css("--card"),soft:css("--cobalt-soft")}}
+function alpha(hex,a){const h=hex.replace("#","");const n=parseInt(h.length===3?h.split("").map(c=>c+c).join(""):h,16);return "rgba("+(n>>16&255)+","+(n>>8&255)+","+(n&255)+","+a+")"}
+function baseOpts(c){
+  return{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
+    plugins:{legend:{labels:{color:c.muted,boxWidth:12,boxHeight:12,font:{family:"IBM Plex Sans"}}},tooltip:{backgroundColor:c.ink,titleColor:c.card,bodyColor:c.card,padding:10,titleFont:{family:"IBM Plex Mono"},bodyFont:{family:"IBM Plex Sans"}}},
+    scales:{x:{ticks:{color:c.muted,font:{family:"IBM Plex Mono",size:11}},grid:{display:false},border:{color:c.line}},y:{ticks:{color:c.muted,font:{family:"IBM Plex Mono",size:11}},grid:{color:c.line},border:{display:false}}}};
+}
+if(window.Chart){Chart.defaults.font.family="IBM Plex Sans";}
+
+/* ---------- 5A main chart ---------- */
+let metric="u",view="line",chMain=null;
+const MI={u:{i:1,n:"Unidades",f:v=>nf0.format(v)+" uds"},ing:{i:4,n:"Ingresos",f:eur0},mb:{i:5,n:"Margen bruto",f:eur0}};
+function drawMain(){
+  if(!window.Chart)return; const c=C(); const m=MI[metric];
+  if(chMain)chMain.destroy();
+  const o=baseOpts(c);
+  o.plugins.tooltip.callbacks={label:x=>" "+(x.dataset.label?x.dataset.label+": ":"")+m.f(x.parsed.y)};
+  o.scales.y.ticks.callback=v=>metric==="u"?nf0.format(v):nf0.format(v/1000)+" k€";
+  let cfg;
+  if(view==="line"){
+    const vals=D.map(r=>r[m.i]); const mx=Math.max(...vals), mn=Math.min(...vals);
+    const cols=D.map(r=>{const v=r[m.i];return v===mx?c.coral:v===mn?c.hip:alpha(c.cobalt,r[0].startsWith("2022")?.45:r[0].startsWith("2023")?.7:1)});
+    o.plugins.legend.display=false;
+    cfg={type:"bar",data:{labels:D.map(lab),datasets:[{label:m.n,data:vals,backgroundColor:cols,borderRadius:4,maxBarThickness:22}]},options:o};
+    const iM=vals.indexOf(mx),im=vals.indexOf(mn);
+    $("#mainNote").innerHTML="Máximo: <b>"+lab(D[iM])+"</b> ("+m.f(mx)+"). Mínimo: <b>"+lab(D[im])+"</b> ("+m.f(mn)+"). Las barras más oscuras son los años más recientes.";
+  } else {
+    const ds=YEARS.map((y,k)=>({label:String(y),data:byYear[y].rows.map(r=>r[m.i]),borderColor:[alpha(c.cobalt,.4),alpha(c.cobalt,.7),c.coral][k],backgroundColor:[alpha(c.cobalt,.4),alpha(c.cobalt,.7),c.coral][k],borderWidth:k===2?3:2,pointRadius:k===2?3:0,tension:.3}));
+    cfg={type:"line",data:{labels:MES,datasets:ds},options:o};
+    $("#mainNote").innerHTML="Los tres años tienen la misma forma: estables de enero a octubre y un salto en noviembre y diciembre. Cada año arranca por encima del anterior.";
+  }
+  $("#mainTitle").textContent=m.n+(view==="line"?" por mes":" · comparación por años");
+  chMain=new Chart($("#chMain"),cfg);
+}
+document.querySelectorAll("#metricSeg button").forEach(b=>b.addEventListener("click",()=>{metric=b.dataset.m;document.querySelectorAll("#metricSeg button").forEach(x=>x.classList.toggle("on",x===b));drawMain()}));
+document.querySelectorAll("#viewSeg button").forEach(b=>b.addEventListener("click",()=>{view=b.dataset.v;document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x===b));drawMain()}));
+
+/* extremes + table */
+(function(){
+  const u=D.map(r=>r[1]); const mx=Math.max(...u), mn=Math.min(...u);
+  const rmx=D[u.indexOf(mx)], rmn=D[u.indexOf(mn)];
+  const best=SI.indexOf(Math.max(...SI)), worst=SI.indexOf(Math.min(...SI));
+  $("#extremes").innerHTML=
+    '<div class="ext hi"><div class="k">Mes récord</div><div class="v">'+nf0.format(mx)+' uds</div><div class="small muted">'+MESL[+rmx[0].slice(5)-1]+" "+rmx[0].slice(0,4)+"</div></div>"+
+    '<div class="ext"><div class="k">Mes más bajo</div><div class="v">'+nf0.format(mn)+' uds</div><div class="small muted">'+MESL[+rmn[0].slice(5)-1]+" "+rmn[0].slice(0,4)+"</div></div>"+
+    '<div class="ext"><div class="k">Mejor mes del año</div><div class="v">'+MES[best]+'</div><div class="small muted">'+pct1((SI[best]-1)*100)+" sobre un mes medio</div></div>"+
+    '<div class="ext"><div class="k">Peor mes del año</div><div class="v">'+MES[worst]+'</div><div class="small muted">'+pct1((SI[worst]-1)*100)+" bajo un mes medio</div></div>";
+  let h="<thead><tr><th>Año</th><th>Unidades</th><th>Crec.</th><th>Ingresos</th><th>Margen bruto</th><th>Margen %</th><th>Precio medio</th><th>Coste medio</th><th>Devol.</th></tr></thead><tbody>";
+  YEARS.forEach((y,k)=>{const b=byYear[y];const g=k?(b.u/byYear[YEARS[k-1]].u-1)*100:null;
+    h+="<tr><td><b>"+y+"</b></td><td>"+nf0.format(b.u)+"</td><td class=\""+(g===null?"":"up")+"\">"+(g===null?"—":pct1(g))+"</td><td>"+eur0(b.ing)+"</td><td>"+eur0(b.mb)+"</td><td>"+nf1.format(b.mb/b.ing*100)+" %</td><td>"+eur2(b.ing/b.u)+"</td><td>"+eur2(b.ct/b.u)+"</td><td>"+nf0.format(b.dev)+"</td></tr>"});
+  $("#yearTable").innerHTML=h+"</tbody>";
+})();
+
+let chSeason=null,chQuality=null,chForecast=null;
+function drawSeason(){
+  if(!window.Chart)return;const c=C();if(chSeason)chSeason.destroy();
+  const o=baseOpts(c);o.plugins.legend.display=false;o.scales.y.ticks.callback=v=>v+" %";
+  o.plugins.tooltip.callbacks={label:x=>" "+pct1(x.parsed.y)+" frente a un mes medio"};
+  const v=SI.map(s=>+((s-1)*100).toFixed(1));
+  chSeason=new Chart($("#chSeason"),{type:"bar",data:{labels:MES,datasets:[{data:v,backgroundColor:v.map(x=>x>5?c.coral:x<0?alpha(c.cobalt,.55):c.cobalt),borderRadius:4}]},options:o});
+}
+function drawQuality(){
+  if(!window.Chart)return;const c=C();if(chQuality)chQuality.destroy();
+  const o=baseOpts(c);
+  o.scales.y.ticks.callback=v=>v+" %";o.scales.y.title={display:true,text:"Devoluciones",color:c.muted};
+  o.scales.y2={position:"right",min:3,max:4.6,ticks:{color:c.muted,font:{family:"IBM Plex Mono",size:11}},grid:{display:false},border:{display:false},title:{display:true,text:"Satisfacción",color:c.muted}};
+  o.plugins.tooltip.callbacks={label:x=>x.datasetIndex===0?" Devoluciones: "+nf2.format(x.parsed.y)+" %":" Satisfacción: "+nf2.format(x.parsed.y)+" / 5"};
+  chQuality=new Chart($("#chQuality"),{data:{labels:D.map(lab),datasets:[
+    {type:"bar",label:"% devoluciones",data:D.map(r=>r[10]),backgroundColor:D.map(r=>r[10]>5?c.coral:alpha(c.cobalt,.35)),borderRadius:3,yAxisID:"y"},
+    {type:"line",label:"Satisfacción (1-5)",data:D.map(r=>r[11]),borderColor:c.calc,backgroundColor:c.calc,pointRadius:0,borderWidth:2,tension:.3,yAxisID:"y2"}]},options:o});
+}
+function drawChannels(){
+  if(!window.Chart||!$("#chChannels"))return;const c=C();
+  const o=baseOpts(c);o.scales.x.stacked=true;o.scales.y.stacked=true;o.scales.y.max=100;o.scales.y.ticks.callback=v=>v+" %";
+  o.plugins.tooltip.callbacks={label:x=>" "+x.dataset.label+": "+nf1.format(x.parsed.y)+" %"};
+  const mk=(k,lbl,col)=>({label:lbl,data:YEARS.map(y=>byYear[y][k]/byYear[y].u*100),backgroundColor:col,borderRadius:2});
+  chChannels=new Chart($("#chChannels"),{type:"bar",data:{labels:YEARS.map(String),datasets:[mk("on","Online",c.cobalt),mk("ph","Tienda física",alpha(c.cobalt,.45)),mk("mk","Marketplace",c.coral)]},options:o});
+}
+
+/* ---------- 5B forecast ---------- */
+// Realista: tendencia lineal sobre las ventas desestacionalizadas (mínimos cuadrados) y vuelta a aplicar la estacionalidad.
+const ds=D.map((r,i)=>r[1]/SI[i%12]); const n=ds.length; const xm=(n-1)/2, ym=ds.reduce((a,b)=>a+b,0)/n;
+let sxy=0,sxx=0; ds.forEach((y,i)=>{sxy+=(i-xm)*(y-ym);sxx+=(i-xm)*(i-xm)}); const slope=sxy/sxx, icpt=ym-slope*xm;
+const realM=MES.map((_,m)=>(icpt+slope*(36+m))*SI[m]);
+const realT=realM.reduce((a,b)=>a+b,0);
+const u24=byYear[2024].u, u22=byYear[2022].u;
+const cagr=Math.pow(u24/u22,1/2)-1;
+const siSum=SI.reduce((a,b)=>a+b,0);
+const spread=T=>SI.map(s=>T*s/siSum);
+const p24=byYear[2024].ing/u24, m24=byYear[2024].mb/u24;
+const SC=[
+ {k:"Pesimista",col:"--coral",T:u24*0.95,data:null,
+  m:"Hipótesis: las ventas caen un 5 % respecto a 2024 y se reparten según la estacionalidad histórica.",
+  causas:["Competencia de marcas de bajo precio en marketplaces.","Un nuevo problema de calidad en temporada alta, como en noviembre de 2023.","Consumo más débil en electrónica."],
+  dec:["Control de calidad por lotes antes de octubre.","Reducir compras de stock y evitar exceso de inventario.","Promociones selectivas en el canal con más margen, sin una bajada general de precio."]},
+ {k:"Realista",col:"--cobalt",T:realT,
+  m:"Método: tendencia lineal de las ventas desestacionalizadas de 2022-2024, proyectada a 2025 y multiplicada por el índice estacional de cada mes.",
+  causas:["Se mantiene la tendencia de los últimos tres años.","No hay cambios bruscos de precio ni de competencia.","El pico de noviembre y diciembre se repite."],
+  dec:["Planificar compras mes a mes con el índice estacional.","Mantener el precio y vigilar el coste unitario.","Revisar cada mes la venta real frente a la prevista y corregir."]},
+ {k:"Optimista",col:"--calc",T:u24*(1+cagr),
+  m:"Hipótesis: se mantiene el crecimiento medio anual de 2022-2024 ("+pct1(cagr*100)+").",
+  causas:["Un Black Friday y una Navidad más fuertes que en 2024.","La encuesta confirma que el precio está por debajo de lo que el cliente pagaría.","Más peso del canal online."],
+  dec:["Asegurar stock extra para el último trimestre y negociar el coste por volumen.","Reforzar la posventa para no repetir lo de noviembre de 2023.","Invertir en publicidad online en octubre y noviembre."]}
+];
+SC[0].data=spread(SC[0].T); SC[1].data=realM; SC[2].data=spread(SC[2].T);
+let sc=1;
+function drawForecast(){
+  if(!window.Chart)return;const c=C();if(chForecast)chForecast.destroy();
+  const o=baseOpts(c);o.scales.y.ticks.callback=v=>nf0.format(v);
+  o.plugins.tooltip.callbacks={label:x=>" "+x.dataset.label+": "+nf0.format(Math.round(x.parsed.y))+" uds"};
+  const dsets=[{label:"2024 real",data:byYear[2024].rows.map(r=>r[1]),borderColor:c.ink,backgroundColor:c.ink,borderWidth:2.5,pointRadius:2,tension:.3}];
+  SC.forEach((s,i)=>{const col=css(s.col);dsets.push({label:"2025 "+s.k.toLowerCase(),data:s.data,borderColor:i===sc?col:alpha(col,.25),backgroundColor:i===sc?alpha(col,.12):"transparent",fill:i===sc,borderDash:[6,4],borderWidth:i===sc?2.5:1.5,pointRadius:0,tension:.3})});
+  chForecast=new Chart($("#chForecast"),{type:"line",data:{labels:MES,datasets:dsets},options:o});
+}
+function setScen(k){
+  sc=k;
+  document.querySelectorAll(".scen").forEach((b,i)=>b.classList.toggle("on",i===k));
+  const s=SC[k];
+  $("#scenMethod").innerHTML='<span class="tag '+(k===1?"calc":"hip")+'">'+(k===1?"Cálculo":"Hipótesis")+"</span> "+s.m;
+  $("#scenDetail").innerHTML='<div class="card"><h4>Posibles causas</h4><span class="tag hip">Hipótesis</span><ul>'+s.causas.map(x=>"<li>"+x+"</li>").join("")+'</ul></div><div class="card"><h4>Decisiones</h4><p class="muted small">Ingresos estimados: <b class="num" style="color:var(--ink)">'+eur0(s.T*p24)+'</b> · margen bruto estimado: <b class="num" style="color:var(--ink)">'+eur0(s.T*m24)+'</b> (con el precio y el margen unitario de 2024)</p><ul>'+s.dec.map(x=>"<li>"+x+"</li>").join("")+"</ul></div>";
+  drawForecast();
+}
+(function(){
+  $("#scenTabs").innerHTML=SC.map((s,i)=>'<button type="button" class="scen" style="--sc:var('+s.col+')"><div class="k">'+s.k+'</div><div class="v num">'+nf0.format(Math.round(s.T))+' uds</div><div class="g num">'+pct1((s.T/u24-1)*100)+" frente a 2024</div></button>").join("");
+  document.querySelectorAll(".scen").forEach((b,i)=>b.addEventListener("click",()=>setScen(i)));
+})();
+
+/* ---------- 5C simulator ---------- */
+const BU=u24/12, BP=p24, BC=byYear[2024].ct/u24, BM=BU*(BP-BC);
+$("#baseTxt").textContent=nf0.format(BU)+" unidades a "+eur2(BP)+", coste de "+eur2(BC)+" y "+eur0(BM)+" de margen bruto";
+const S={price:$("#sPrice"),cost:$("#sCost"),elas:$("#sElas"),peak:$("#sPeak"),ads:$("#sAds"),lift:$("#sLift")};
+function sim(){
+  const dp=+S.price.value/100, dc=+S.cost.value/100, e=+S.elas.value, pk=+S.peak.value/100, ad=+S.ads.value, lf=+S.lift.value/100;
+  $("#oPrice").textContent=pct1(dp*100); $("#oCost").textContent=pct1(dc*100); $("#oElas").textContent=nf1.format(e);
+  $("#oPeak").textContent="+"+nf0.format(pk*100)+" %"; $("#oAds").textContent=eur0(ad); $("#oLift").textContent="+"+nf0.format(lf*100)+" %";
+  const P=BP*(1+dp), Cu=BC*(1+dc), mu=P-Cu;
+  const U=Math.max(0,BU*(1+e*dp))*(1+pk)*(1+lf);
+  const M=U*mu-ad; const dM=M-BM;
+  const beU=(BM+ad)/mu; // unidades para igualar el margen actual cubriendo la publicidad
+  const adU=ad>0?ad/mu:0;
+  const stock=U-BU;
+  const box=(k,v,d,cls,tag)=>'<div class="r"><div class="k">'+k+(tag?' <span class="tag '+tag+'" style="font-size:9.5px;padding:1px 6px">'+(tag==="calc"?"Cálculo":"Estimación")+"</span>":"")+'</div><div class="v">'+v+'</div><div class="d '+(cls||"muted")+'">'+d+"</div></div>";
+  $("#res").innerHTML=
+    box("Precio de venta",eur2(P),pct1(dp*100)+" sobre "+eur2(BP),"","calc")+
+    box("Margen por unidad",eur2(mu),pct1((mu/(BP-BC)-1)*100),mu>=BP-BC?"up":"down","calc")+
+    box("Unidades al mes",nf0.format(U),pct1((U/BU-1)*100),U>=BU?"up":"down","hip")+
+    box("Margen bruto al mes",eur0(M),(dM>=0?"+":"")+eur0(dM)+" frente a la base",dM>=0?"up":"down","hip")+
+    box("Unidades para no perder margen",mu>0?nf0.format(beU):"—",mu>0?pct1((beU/BU-1)*100)+" sobre la base":"El precio no cubre el coste","","calc")+
+    box("Stock extra necesario",(stock>=0?"+":"")+nf0.format(stock)+" uds",(stock>=0?"Inversión en compras: ":"Ahorro en compras: ")+eur0(Math.abs(stock)*Cu),"","calc");
+  const mx=Math.max(BM,M,1);
+  $("#barsCmp").innerHTML=
+    '<div class="bc"><span>Margen actual</span><div class="track"><div class="fill" style="width:'+(BM/mx*100)+'%;background:var(--muted)"></div></div><span class="val">'+eur0(BM)+"</span></div>"+
+    '<div class="bc"><span>Margen simulado</span><div class="track"><div class="fill" style="width:'+(Math.max(0,M)/mx*100)+'%;background:'+(dM>=0?"var(--calc)":"var(--coral)")+'"></div></div><span class="val">'+eur0(M)+"</span></div>";
+  let v="";
+  if(dp===0&&dc===0&&pk===0&&ad===0&&lf===0) v="Mueve los controles o pulsa un ejemplo para simular una decisión.";
+  else {
+    v=dM>=0?"<b>Esta decisión mejora el margen mensual en "+eur0(dM)+"</b>, con las hipótesis elegidas.":"<b>Esta decisión reduce el margen mensual en "+eur0(-dM)+"</b>, con las hipótesis elegidas.";
+    if(ad>0) v+=" La campaña de "+eur0(ad)+" se paga sola si trae al menos <b>"+nf0.format(Math.ceil(adU))+" unidades extra</b> ("+pct1(adU/BU*100)+" de las ventas de un mes medio).";
+    if(dc>0&&dp===0) v+=" Para mantener el margen sin subir el precio habría que vender "+nf0.format(beU)+" unidades al mes.";
+    if(pk>0) v+=" Un pico del "+nf0.format(pk*100)+" % exige tener "+nf0.format(Math.round(stock))+" unidades más en stock antes de que empiece.";
+  }
+  const vd=$("#verdict"); vd.innerHTML=v; vd.classList.toggle("bad",dM<0);
+}
+Object.values(S).forEach(i=>i.addEventListener("input",sim));
+const PRE={up:{price:10},down:{price:-10},cost:{cost:15},peak:{peak:19},ads:{ads:3000,lift:10},reset:{}};
+document.querySelectorAll(".preset").forEach(b=>b.addEventListener("click",()=>{const p=PRE[b.dataset.p];S.price.value=p.price||0;S.cost.value=p.cost||0;S.peak.value=p.peak||0;S.ads.value=p.ads||0;S.lift.value=p.lift||0;S.elas.value=-1.5;sim()}));
+sim();
+
+/* ---------- draw all + theme changes ---------- */
+function drawAll(){drawMain();drawSeason();drawQuality();setScen(sc);const k=[...document.querySelectorAll("#microTabs .tab")].findIndex(t=>t.classList.contains("on"));setMicro(k<0?3:k)}
+drawAll();
+let rt;const redraw=()=>{clearTimeout(rt);rt=setTimeout(drawAll,60)};
+try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",redraw)}catch(e){}
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+
+/* ---------- nav highlight + progress ---------- */
+const links=[...document.querySelectorAll("#links a")];
+function onScroll(){
+  const h=document.documentElement; const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
+  $("#progress").style.width=(p*100)+"%";
+  let cur=null; document.querySelectorAll("section.sec").forEach(s=>{if(s.getBoundingClientRect().top<140)cur=s.id});
+  links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+cur));
+  if(present){const st=stops();let i=0;st.forEach((s,k)=>{if(s.getBoundingClientRect().top<160)i=k});pos=i;$("#hudPos").textContent=(i+1)+" / "+st.length}
+}
+addEventListener("scroll",onScroll,{passive:true});
+
+/* ---------- presentation mode ---------- */
+let present=false,pos=0;
+const stops=()=>[...document.querySelectorAll(".stop")];
+function go(d){const st=stops();pos=Math.max(0,Math.min(st.length-1,pos+d));st[pos].scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});$("#hudPos").textContent=(pos+1)+" / "+st.length}
+function setPresent(on){
+  present=on; $("#hud").hidden=!on; $("#presentBtn").textContent=on?"■ Salir":"▶ Presentar";
+  if(on){try{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{})}catch(e){} onScroll();}
+  else{try{document.fullscreenElement&&document.exitFullscreen().catch(()=>{})}catch(e){}}
+}
+$("#presentBtn").addEventListener("click",()=>setPresent(!present));
+$("#hudPrev").addEventListener("click",()=>go(-1));
+$("#hudNext").addEventListener("click",()=>go(1));
+$("#hudExit").addEventListener("click",()=>setPresent(false));
+addEventListener("keydown",e=>{
+  if(!present)return; const t=e.target; if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
+  if(["ArrowRight","ArrowDown","PageDown"," "].includes(e.key)){e.preventDefault();go(1)}
+  else if(["ArrowLeft","ArrowUp","PageUp"].includes(e.key)){e.preventDefault();go(-1)}
+  else if(e.key==="Escape")setPresent(false);
+});
+document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement&&present)setPresent(false)});
+onScroll();
+})();
+</script>
+</body>
+</html>
