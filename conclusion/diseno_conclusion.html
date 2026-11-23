@@ -1,0 +1,48 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
+@font-face{font-family:Lilita;src:url(LilitaOne-Regular.ttf)}
+@font-face{font-family:Mont;src:url("Montserrat[wght].ttf");font-weight:100 900}
+@font-face{font-family:Tinos;src:url(Tinos-Regular.ttf)}
+@font-face{font-family:Tinos;src:url(Tinos-Bold.ttf);font-weight:700}
+:root{--navy:#232F5F;--title:#2E3A84;--peri:#6F7BCF;--coral:#EF5F56;--teal:#3F7E8F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:transparent;font-family:Tinos,serif;color:var(--navy)}
+#c{width:767px;display:flex;flex-direction:column;gap:12px;padding:2px}
+.intro{background:#fff;border-radius:16px;padding:14px 20px;font-size:15.5px;line-height:1.42;text-align:justify}
+.intro b{font-weight:700}
+.tbl{display:grid;grid-template-columns:1fr 30px 1fr;gap:6px 0;align-items:stretch}
+.h{font-family:Lilita;font-size:24px;color:#fff;border-radius:14px;padding:6px 14px;display:flex;align-items:center;gap:8px}
+.h.a{background:#8A90A8}
+.h.d{background:var(--navy)}
+.h small{font-family:Mont;font-size:10px;font-weight:700;letter-spacing:1.5px;opacity:.9;margin-left:auto}
+.cell{border-radius:12px;padding:7px 12px;font-size:13.4px;line-height:1.3;display:flex;align-items:center}
+.cell.a{background:#ffffffb3;color:#5d6380}
+.cell.d{background:#fff;border-left:5px solid var(--teal)}
+.cell.d b{font-weight:700;color:var(--title)}
+.arr{display:flex;align-items:center;justify-content:center;color:var(--peri);font-family:Mont;font-weight:900;font-size:18px}
+.end{background:var(--navy);color:#fff;border-radius:16px;padding:14px 20px;font-size:15.5px;line-height:1.42}
+.end b{color:#F2B544}
+.firma{display:flex;justify-content:space-between;align-items:flex-end;margin-top:10px;padding-top:10px;border-top:1px solid #ffffff30;font-size:14.5px}
+.firma strong{font-family:Lilita;font-weight:400;font-size:20px;color:#fff}
+</style></head><body><div id="c">
+<div class="intro">Pablo, este trabajo no termina aquí: es el punto de partida de una nueva forma de dirigir JORDÁNMUSIK. Hasta ahora tu empresa ha crecido gracias a un buen producto, pero muchas decisiones se tomaban sobre la marcha, sin un plan y sin saber qué pensaban tus clientes. Con las medidas que te proponemos, <b>cada decisión tendrá detrás información, un momento del año pensado para ella y una forma de comprobar si funciona</b>. Así cambiaría la organización de tu empresa:</div>
+<div class="tbl" id="t">
+ <div class="h a">Antes</div><div></div><div class="h d">Después</div>
+</div>
+<div class="end">Si aplicas estas medidas, JORDÁNMUSIK dejará de ser una empresa que reacciona a lo que pasa y pasará a ser una empresa que <b>se adelanta</b>: con dos tiendas, clientes que vuelven y una marca que se reconoce, preparada para seguir creciendo año tras año.
+ <div class="firma"><span>Gracias por confiar en nosotros para dar este paso.</span><strong>Sonia y Brayan, tu equipo de marketing</strong></div>
+</div>
+</div>
+<script>
+const R=[
+["No sabías quién te compraba ni qué opinaba de tus auriculares.","La <b>encuesta con código de descuento</b> te dice quiénes son tus clientes, qué buscan y qué precio les parece justo."],
+["Las promociones surgían sin un plan y las ventas dependían casi solo del final de año.","Un <b>calendario de promociones</b> te dice qué hacer en cada momento: meses flojos, vuelta a clase, Black Friday, y Navidad y Reyes."],
+["Abrir una nueva tienda era una idea sin fecha.","La <b>apertura de Granada</b> está planificada antes del Black Friday, con su propia campaña de lanzamiento."],
+["La temporada alta llegaba sin preparar y un fallo de calidad afectaba a muchos clientes a la vez.","Preparas la temporada con tiempo: <b>stock en septiembre, lotes revisados y un segundo proveedor</b>."],
+["La caja de los auriculares era solo un envase.","El <b>packaging personalizado</b> hace que tu marca se reconozca, sea sostenible y esté lista para regalar."],
+["Vendías siempre el mismo modelo, igual que el resto del año.","Las <b>ediciones limitadas</b> dan a tus clientes un motivo especial para comprar en las fechas clave."],
+["El cliente compraba sin probar y, si no le convencía, lo devolvía.","<b>Probar los auriculares en tienda</b> ayuda a que el cliente acierte y a que haya menos devoluciones."],
+["La publicidad se hacía sin saber dónde estaban tus clientes.","Las <b>redes sociales y los influencers</b> llevan tu marca justo donde tus clientes se informan antes de comprar."],
+["El cliente compraba y no tenías forma de que volviera ni de conocerlo.","La <b>app con el programa de Notas</b> premia a quien vuelve, te da información de cada compra y te permite avisarle de tus ofertas."],
+["Toda la empresa dependía de un solo producto y de un solo tipo de cliente.","Los <b>auriculares para personas mayores</b> abren la puerta a un público nuevo que crece cada año."]];
+document.getElementById('t').insertAdjacentHTML('beforeend',R.map(r=>`<div class="cell a">${r[0]}</div><div class="arr">→</div><div class="cell d"><span>${r[1]}</span></div>`).join(''));
+</script></body></html>
