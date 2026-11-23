@@ -155,5 +155,6 @@ function init() {
 
   renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
   box.classList.add('ready');
+  if (fallback) fallback.hidden = true; // el modelo 3D ya se ve: quitamos la foto de reserva
   window.__visor = { scene, camera, controls };
 }
