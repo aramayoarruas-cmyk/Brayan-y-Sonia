@@ -289,13 +289,41 @@ footer{margin-top:80px;background:var(--stage);color:var(--stage-muted);padding-
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
+
+/* ---------- PORTADA 360 (estilo del Canva) ---------- */
+@font-face{font-family:"Lilita One";src:url(assets/fonts/LilitaOne-Regular.ttf) format("truetype");font-display:swap}
+@font-face{font-family:"Montserrat";src:url(assets/fonts/Montserrat-VF.ttf) format("truetype");font-weight:100 900;font-display:swap}
+.portada{position:relative;overflow:hidden;background:linear-gradient(180deg,#D7E2F8 0%,#B9C2EC 55%,#8F9AD6 100%);color:#232F5F;scroll-margin-top:56px}
+.portada .wrap{position:relative;min-height:min(86vh,780px);display:grid;grid-template-rows:auto 1fr auto;padding-block:28px 22px}
+.p-marco{position:absolute;left:6%;right:6%;top:9%;bottom:7%;background:#ffffff22;border-radius:6px;pointer-events:none}
+.p-tit{position:relative;z-index:1;pointer-events:none;user-select:none}
+.p-jordan{font-family:"Lilita One","Segoe UI",system-ui,sans-serif;font-size:clamp(68px,15.5vw,190px);line-height:.92;letter-spacing:.01em;background:linear-gradient(180deg,#2A2F68 0%,#4E5AA8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
+.p-pods{font-family:"Montserrat","Segoe UI",system-ui,sans-serif;font-weight:300;font-size:clamp(64px,14vw,176px);line-height:.9;color:#6576A8;opacity:.85;margin:0 0 0 18%;letter-spacing:.01em}
+.visor{position:absolute;top:0;bottom:0;left:26%;right:0;z-index:2;cursor:grab;touch-action:pan-y}
+@media (max-width:900px){.visor{left:0;top:16%;bottom:24%}}
+.visor.dragging{cursor:grabbing}
+.visor canvas{display:block;width:100%!important;height:100%!important}
+.visor-foto{position:absolute;right:4%;bottom:8%;height:72%;z-index:2}
+.p-sombra{position:absolute;left:50%;bottom:9%;width:46%;height:60px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(35,47,95,.35),rgba(35,47,95,0) 70%);z-index:1;pointer-events:none}
+.p-pie{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;pointer-events:none}
+.p-pie>*{pointer-events:auto}
+.p-hint{display:inline-flex;align-items:center;gap:10px;background:#232F5F;color:#fff;font-family:"Montserrat",system-ui,sans-serif;font-weight:600;font-size:14px;padding:10px 16px;border-radius:999px;box-shadow:0 12px 26px -14px #232F5F;transition:opacity .4s}
+.p-hint .ico{display:inline-block;animation:giro 2.6s ease-in-out infinite}
+.p-hint.used{opacity:.75}
+@keyframes giro{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
+.p-btns{display:flex;gap:8px}
+.p-btn{font-family:"Montserrat",system-ui,sans-serif;font-weight:600;font-size:13.5px;border:1.5px solid #232F5F;color:#232F5F;background:#ffffffaa;border-radius:999px;padding:9px 15px;cursor:pointer;text-decoration:none}
+.p-btn:hover{background:#fff}
+.p-firma{width:100%;text-align:center;font-family:"Montserrat",system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#F2F4FF;margin-top:6px}
+@media (max-width:700px){.p-pods{margin-left:8%}.portada .wrap{min-height:640px}.p-sombra{width:80%}}
+@media (prefers-reduced-motion: reduce){.p-hint .ico{animation:none}}
 </style>
 <style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
 <body>
 <nav class="nav" aria-label="Apartados">
   <div class="wrap">
-    <a class="brand" href="#inicio">JORDÁN<span>MUSIK</span></a>
+    <a class="brand" href="#portada">JORDÁN<span>MUSIK</span></a>
     <div class="links" id="links">
       <a href="#s1"><b>1</b>SIM</a>
       <a href="#s2"><b>2</b>Macroentorno</a>
@@ -313,6 +341,25 @@ footer{margin-top:80px;background:var(--stage);color:var(--stage-muted);padding-
 </nav>
 
 <!-- ================= HERO ================= -->
+<section class="portada stop" id="portada" aria-label="JORDÁNPODS en 360 grados">
+  <div class="p-marco"></div>
+  <div class="wrap">
+    <div class="p-tit">
+      <h1 class="p-jordan">JORDAN</h1>
+      <p class="p-pods">PODS</p>
+    </div>
+    <div></div>
+    <div class="p-pie">
+      <span class="p-hint" id="visor-hint"><span class="ico">↔</span> Arrastra para girar los JORDÁNPODS en 360°</span>
+      <span class="p-btns"><button class="p-btn" id="visor-reset" type="button">Centrar</button><a class="p-btn" href="#inicio">Ver el proyecto ↓</a></span>
+      <div class="p-firma">Trabajo de investigación · Brayan Aramayo y Sonia Lázaro</div>
+    </div>
+  </div>
+  <div class="p-sombra"></div>
+  <div class="visor" id="visor3d" role="img" aria-label="Modelo 3D de los auriculares JORDÁNPODS. Arrastra para girarlo."></div>
+  <img class="visor-foto" id="visor-foto" src="assets/jordanpods.png" alt="Auriculares JORDÁNPODS" hidden>
+</section>
+
 <header class="hero stop" id="inicio">
   <div class="wrap">
     <div class="eyebrow">Investigación Comercial · Sistema de Información de Marketing</div>
@@ -1019,5 +1066,7 @@ document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement
 onScroll();
 })();
 </script>
+<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/"}}</script>
+<script type="module" src="js/jordanpods3d.js"></script>
 </body>
 </html>
