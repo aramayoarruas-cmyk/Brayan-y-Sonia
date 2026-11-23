@@ -19,12 +19,17 @@ h1 span{color:var(--peri)}
 .legend{position:absolute;left:30px;right:30px;top:510px;display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-family:Mont;font-size:11px;font-weight:700}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .legend i{width:12px;height:12px;border-radius:4px;display:inline-block}
-.cards{position:absolute;left:30px;right:30px;top:540px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:#fff;border-radius:16px;padding:11px 14px;border-left:6px solid var(--c);min-height:0}
-.card .k{font-family:Mont;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--c)}
-.card b{display:block;font-family:Lilita;font-weight:400;font-size:18px;line-height:1.1;margin-top:1px}
-.card p{font-size:13.2px;line-height:1.32;margin-top:3px}
-.dif{position:absolute;left:30px;right:30px;top:872px;background:var(--navy);color:#fff;border-radius:20px;padding:14px 18px;display:grid;grid-template-columns:170px 1fr;gap:16px}
+.cuerpo{position:absolute;left:30px;right:30px;top:150px;bottom:66px;display:flex;flex-direction:column;gap:16px}
+.cards{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:14px}
+.card{background:#fff;border-radius:18px;padding:18px 20px;border-left:7px solid var(--c);display:flex;flex-direction:column;justify-content:center}
+.card{position:relative}
+.card .ico{position:absolute;right:18px;top:16px;width:46px;height:46px;border-radius:14px;background:#EEF2FB;display:flex;align-items:center;justify-content:center;font-size:24px}
+.card .dato{font-family:Mont;font-size:11.5px;font-weight:600;color:#6b74a0;margin-top:10px;padding-top:9px;border-top:1px dashed #d6dcee;line-height:1.4}
+.card .dato::before{content:"Dato: ";font-weight:800;color:var(--c)}
+.card .k{font-family:Mont;font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--c)}
+.card b{display:block;font-family:Lilita;font-weight:400;font-size:23px;line-height:1.1;margin-top:1px}
+.card p{font-size:15.5px;line-height:1.38;margin-top:6px}
+.dif{flex:none;background:var(--navy);color:#fff;border-radius:20px;padding:14px 18px;display:grid;grid-template-columns:170px 1fr;gap:16px}
 .dif .stat{background:#ffffff14;border-radius:14px;padding:10px;text-align:center;display:flex;flex-direction:column;justify-content:center}
 .dif .stat .v{font-family:Lilita;font-size:46px;line-height:1;color:var(--coral)}
 .dif .stat small{font-family:Mont;font-size:10.5px;font-weight:600;line-height:1.35;margin-top:4px;opacity:.92}
@@ -41,25 +46,13 @@ h1 span{color:var(--peri)}
 <h1><span>1.</span> Un año de promociones</h1>
 <div class="sub">Apertura en Granada en temporada alta + campaña de publicidad todo el año</div>
 
-<div class="chart">
- <div class="h"><b>¿Cuánto vende cada mes respecto a un mes normal?</b><small>Media 2022-2024 · Excel de ventas JORDÁNPODS</small></div>
- <svg id="svg" width="755" height="306" viewBox="0 0 755 306"></svg>
-</div>
-<div class="legend">
- <span><i style="background:#EF5F56"></i>Meses flojos: descuentos</span>
- <span><i style="background:#3F7E8F"></i>Vuelta a clase</span>
- <span><i style="background:#6F7BCF"></i>Navidad y Reyes</span>
- <span><i style="background:#232F5F"></i>Black Friday y temporada alta</span>
- <span><i style="background:#F2B544"></i>Apertura de Granada</span>
-</div>
-
-<div class="cards">
- <div class="card" style="--c:#EF5F56"><span class="k">Feb · Mar · May · Jul · Ago</span><b>Meses de bajas ventas</b><p>Descuentos especiales, ofertas 2x1 o promociones por tiempo limitado para animar las compras.</p></div>
- <div class="card" style="--c:#3F7E8F"><span class="k">Septiembre</span><b>Vuelta a clase</b><p>Descuentos para estudiantes y jóvenes, justo cuando las ventas se recuperan tras el verano.</p></div>
- <div class="card" style="--c:#D99A1E"><span class="k">Finales de octubre</span><b>Apertura en Granada</b><p>Anuncios en redes antes de abrir y promociones especiales solo para la tienda nueva del C.C. Nevada.</p></div>
- <div class="card" style="--c:#232F5F"><span class="k">Noviembre</span><b>Black Friday</b><p>Descuentos atractivos para vender más y captar clientes nuevos, también en Granada.</p></div>
- <div class="card" style="--c:#6F7BCF"><span class="k">Diciembre · Enero</span><b>Navidad y Reyes</b><p>Packs especiales y promociones para que sea más fácil comprar regalos.</p></div>
- <div class="card" style="--c:#232F5F"><span class="k">Noviembre · Diciembre</span><b>Meses de mayor venta</b><p>Packs con accesorios, ediciones especiales o promociones por compras a partir de cierta cantidad.</p></div>
+<div class="cuerpo"><div class="cards">
+ <div class="card" style="--c:#EF5F56"><span class="k">Feb · Mar · May · Jul · Ago</span><span class="ico">🏷️</span><b>Meses de bajas ventas</b><p>Descuentos especiales, ofertas 2x1 o promociones por tiempo limitado para animar las compras.</p><p class="dato">Venden por debajo de un mes normal; julio es el más flojo (−6,5 %).</p></div>
+ <div class="card" style="--c:#3F7E8F"><span class="k">Septiembre</span><span class="ico">🎒</span><b>Vuelta a clase</b><p>Descuentos para estudiantes y jóvenes, justo cuando las ventas se recuperan tras el verano.</p><p class="dato">Las ventas se recuperan tras el verano.</p></div>
+ <div class="card" style="--c:#D99A1E"><span class="k">Finales de octubre</span><span class="ico">📍</span><b>Apertura en Granada</b><p>Anuncios en redes antes de abrir y promociones especiales solo para la tienda nueva del C.C. Nevada.</p><p class="dato">En Granada aún no nos conocen: hay que darnos a conocer antes de abrir.</p></div>
+ <div class="card" style="--c:#232F5F"><span class="k">Noviembre</span><span class="ico">🛍️</span><b>Black Friday</b><p>Descuentos atractivos para vender más y captar clientes nuevos, también en Granada.</p><p class="dato">Noviembre es el mejor mes del año, todos los años (+19 %).</p></div>
+ <div class="card" style="--c:#6F7BCF"><span class="k">Diciembre · Enero</span><span class="ico">🎁</span><b>Navidad y Reyes</b><p>Packs especiales y promociones para que sea más fácil comprar regalos.</p><p class="dato">Diciembre es el segundo mejor mes (+12,5 %) y enero sigue vendiendo bien.</p></div>
+ <div class="card" style="--c:#232F5F"><span class="k">Noviembre · Diciembre</span><span class="ico">📦</span><b>Meses de mayor venta</b><p>Packs con accesorios, ediciones especiales o promociones por compras a partir de cierta cantidad.</p><p class="dato">Noviembre y diciembre suman casi 1 de cada 5 ventas del año.</p></div>
 </div>
 
 <div class="dif">
@@ -75,29 +68,7 @@ h1 span{color:var(--peri)}
   <p class="obj"><b>Objetivo:</b> diferenciar a JORDÁNMUSIK de otras marcas, hacer más atractivos sus productos y mejorar la satisfacción de los clientes.</p>
  </div>
 </div>
-<div class="foot"></div>
+</div><div class="foot"></div>
 
-<script>
-const V=[-1.6,-4.9,-5.3,0.3,-4.5,-1.9,-6.5,-4.8,0.1,-2.6,19.2,12.5];
-const M=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
-const C=["#6F7BCF","#EF5F56","#EF5F56","#AEB4CC","#EF5F56","#AEB4CC","#EF5F56","#EF5F56","#3F7E8F","#AEB4CC","#232F5F","#232F5F"];
-const TAG=["Reyes","Ofertas","Ofertas","","Ofertas","","Ofertas","Ofertas","Clases","","B. Friday","Navidad"];
-const W=755,left=34,colW=(W-left)/12,base=196,k=7.2; // 1 % = 7,2 px
-let s='';
-// grid lines
-for(const g of [-5,0,5,10,15,20]){const y=base-g*k;s+=`<line x1="${left}" x2="${W}" y1="${y}" y2="${y}" stroke="${g===0?'#232F5F':'#E3E7F3'}" stroke-width="${g===0?1.5:1}"/><text x="${left-6}" y="${y+4}" text-anchor="end" font-family="Mont" font-size="10" fill="#7b84a8">${g>0?'+':''}${g}%</text>`;}
-V.forEach((v,i)=>{const x=left+i*colW+colW*0.18,w=colW*0.64,h=Math.abs(v)*k,y=v>=0?base-h:base;
- s+=`<rect x="${x}" y="${y}" width="${w}" height="${Math.max(h,2)}" rx="5" fill="${C[i]}"/>`;
- const ty=v>=0?y-6:y+h+13; s+=`<text x="${x+w/2}" y="${ty}" text-anchor="middle" font-family="Mont" font-weight="800" font-size="10.5" fill="#232F5F">${v>0?'+':''}${String(v).replace('.',',')}%</text>`;
- s+=`<text x="${x+w/2}" y="${base+78}" text-anchor="middle" font-family="Mont" font-weight="700" font-size="11.5" fill="#232F5F">${M[i]}</text>`;
- if(TAG[i]){const tw=TAG[i].length*5.6+12;const tx=x+w/2-tw/2;const yy=base+90; s+=`<rect x="${tx}" y="${yy}" width="${tw}" height="17" rx="8.5" fill="${C[i]}"/><text x="${x+w/2}" y="${yy+12}" text-anchor="middle" font-family="Mont" font-weight="700" font-size="9" fill="#fff">${TAG[i]}</text>`;}
-});
-// Granada flag between Oct and Nov
-const gx=left+10*colW; s+=`<line x1="${gx}" x2="${gx}" y1="10" y2="${base+60}" stroke="#F2B544" stroke-width="2.5" stroke-dasharray="5 4"/>`;
-s+=`<rect x="${gx-128}" y="6" width="122" height="38" rx="10" fill="#F2B544"/><text x="${gx-67}" y="21" text-anchor="middle" font-family="Lilita" font-size="13.5" fill="#232F5F">Apertura</text><text x="${gx-67}" y="37" text-anchor="middle" font-family="Lilita" font-size="13.5" fill="#232F5F">en Granada</text>`;
-s+=`<polygon points="${gx-6},20 ${gx},25 ${gx-6},30" fill="#F2B544"/>`;
-// temporada alta bracket
-const tx1=left+10*colW+4,tx2=W-2; s+=`<text x="${(tx1+tx2)/2}" y="22" text-anchor="middle" font-family="Mont" font-weight="800" font-size="10" fill="#232F5F" letter-spacing="1">TEMPORADA ALTA</text><text x="${(tx1+tx2)/2}" y="36" text-anchor="middle" font-family="Mont" font-weight="600" font-size="9.5" fill="#7b84a8">1 de cada 5 ventas</text>`;
-document.getElementById('svg').innerHTML=s;
-</script>
+
 </body></html>
