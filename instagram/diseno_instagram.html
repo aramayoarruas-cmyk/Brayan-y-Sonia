@@ -1,0 +1,109 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
+@font-face{font-family:Lilita;src:url(LilitaOne-Regular.ttf)}
+@font-face{font-family:Mont;src:url(Montserrat-VF.ttf);font-weight:100 900}
+:root{--navy:#232F5F;--title:#2E3A84;--peri:#6F7BCF;--bg:#E1E9F6;--coral:#EF5F56;--teal:#3F7E8F;--gold:#F2B544}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:transparent;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#0f1419}
+#wrap{padding:40px;display:inline-block}
+.phone{width:400px;height:1012px;background:#0d0f1c;border-radius:56px;padding:13px;box-shadow:0 40px 70px -34px rgba(35,47,95,.75)}
+.scr{width:100%;height:100%;background:#fff;border-radius:44px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.notch{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:110px;height:30px;background:#0d0f1c;border-radius:18px;z-index:3}
+.status{height:50px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 30px 6px;font-size:14px;font-weight:700;flex:none}
+.top{display:flex;align-items:center;justify-content:space-between;padding:6px 16px 8px;flex:none}
+.top .user{display:flex;align-items:center;gap:6px;font-weight:800;font-size:19px}
+.verif{width:16px;height:16px}
+.top .icons{display:flex;gap:18px}
+.top svg{width:24px;height:24px}
+.head{display:flex;align-items:center;gap:18px;padding:4px 16px 0}
+.pic{width:86px;height:86px;border-radius:50%;padding:3px;background:conic-gradient(from 200deg,#6F7BCF,#EF5F56,#F2B544,#3F7E8F,#6F7BCF);flex:none}
+.pic div{width:100%;height:100%;border-radius:50%;border:3px solid #fff;background:radial-gradient(circle at 50% 40%,#E1E9F6,#AEB6EA);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.pic img{width:72px}
+.stats{flex:1;display:flex;justify-content:space-around;text-align:center}
+.stats b{display:block;font-size:17px;font-weight:800}
+.stats span{font-size:13px}
+.bio{padding:10px 16px 0;font-size:13.5px;line-height:1.38}
+.bio .name{font-weight:800}
+.bio .cat{color:#6b7280}
+.bio a{color:#00376b;font-weight:600;text-decoration:none}
+.foll{display:flex;align-items:center;gap:6px;padding:8px 16px 0;font-size:12.5px}
+.foll .av{display:flex}
+.foll .av i{width:20px;height:20px;border-radius:50%;border:2px solid #fff;margin-left:-6px;display:block}
+.foll .av i:first-child{margin-left:0}
+.btns{display:flex;gap:6px;padding:12px 16px 0}
+.btns div{flex:1;text-align:center;border-radius:9px;padding:8px 0;font-weight:700;font-size:14px;background:#efeff3}
+.btns .f{background:#0095f6;color:#fff}
+.btns .s{flex:0 0 36px}
+.hl{display:flex;gap:14px;padding:14px 16px 4px;overflow:hidden}
+.h{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11.5px;width:64px;flex:none}
+.h div{width:62px;height:62px;border-radius:50%;border:1.5px solid #d4d4d8;padding:3px}
+.h div span{width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:Lilita;font-size:20px;color:#fff}
+.tabs{display:flex;border-top:1px solid #efeff3;margin-top:8px;flex:none}
+.tabs div{flex:1;display:flex;justify-content:center;padding:10px 0;color:#9ca3af}
+.tabs div.on{color:#0f1419;border-bottom:1.5px solid #0f1419}
+.tabs svg{width:24px;height:24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;flex:1 1 0;min-height:0;overflow:hidden;align-content:start;grid-auto-rows:123px}
+.head,.bio,.foll,.btns,.hl{flex:none}
+.post{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.post .ic{position:absolute;right:6px;top:6px;width:16px;height:16px;fill:#fff;filter:drop-shadow(0 0 2px rgba(0,0,0,.35))}
+.post .t{font-family:Lilita;line-height:.95}
+.post small{font-family:Mont;font-weight:700;font-size:8px;letter-spacing:1.2px;text-transform:uppercase}
+.nav{height:70px;display:flex;justify-content:space-around;align-items:center;border-top:1px solid #efeff3;flex:none;padding-bottom:12px}
+.nav svg{width:26px;height:26px}
+.nav .me{width:26px;height:26px;border-radius:50%;border:2px solid #0f1419;background:radial-gradient(circle,#E1E9F6,#AEB6EA);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.nav .me img{width:22px}
+</style></head><body><div id="wrap">
+<div class="phone"><div class="scr"><div class="notch"></div>
+ <div class="status"><span>9:41</span><span>●●● ⌔ ▮</span></div>
+ <div class="top">
+  <div class="user">jordanmusik <svg class="verif" viewBox="0 0 24 24"><path fill="#0095f6" d="M12 1.5l2.6 2 3.2-.4 1 3.1 2.8 1.6-.9 3.1 1.5 2.9-2.4 2.2-.2 3.2-3.2.5-2 2.6-2.9-1.4-3 1.4-2-2.6-3.2-.5-.2-3.2L.8 13.8l1.5-2.9-.9-3.1 2.8-1.6 1-3.1 3.2.4z"/><path fill="#fff" d="M10.4 15.6 7 12.2l1.4-1.4 2 2 5.2-5.2L17 9z"/></svg></div>
+  <div class="icons"><svg viewBox="0 0 24 24" fill="none" stroke="#0f1419" stroke-width="2"><path d="M12 5v14M5 12h14"/><rect x="3" y="3" width="18" height="18" rx="5"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#0f1419" stroke-width="2.2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+ </div>
+ <div class="head">
+  <div class="pic"><div><img src="jordanpods.png" alt=""></div></div>
+  <div class="stats"><div><b>186</b><span>publicaciones</span></div><div><b>23 mil</b><span>seguidores</span></div><div><b>142</b><span>seguidos</span></div></div>
+ </div>
+ <div class="bio">
+  <div class="name">JORDÁNMUSIK · JORDÁNPODS</div>
+  <div class="cat">Tienda de electrónica</div>
+  <div>🎧 Auriculares que suenan a ti<br>📍 Cartagena · C.C. Espacio Mediterráneo<br>🚀 Muy pronto en Granada (C.C. Nevada)<br>♪ Únete al Club y suma Notas con cada compra</div>
+  <a>🔗 Club JORDÁNMUSIK y tienda online</a>
+ </div>
+ <div class="foll"><span class="av"><i style="background:#6F7BCF"></i><i style="background:#EF5F56"></i><i style="background:#3F7E8F"></i></span><span>Le siguen <b>412 cuentas</b> que tú sigues</span></div>
+ <div class="btns"><div class="f">Seguir</div><div>Mensaje</div><div>Tienda</div><div class="s">⌄</div></div>
+ <div class="hl">
+  <div class="h"><div><span style="background:#232F5F">♪</span></div>Club Notas</div>
+  <div class="h"><div><span style="background:#EF5F56">%</span></div>Black Friday</div>
+  <div class="h"><div><span style="background:#3F7E8F">📍</span></div>Granada</div>
+  <div class="h"><div><span style="background:#6F7BCF">★</span></div>Reseñas</div>
+  <div class="h"><div><span style="background:#F2B544;color:#232F5F">?</span></div>Encuesta</div>
+ </div>
+ <div class="tabs"><div class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 8h18M8 3l3 5M14 3l3 5M10 12v6l5-3z"/></svg></div><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M6 20c1-3 3.5-4.5 6-4.5s5 1.5 6 4.5"/></svg></div></div>
+ <div class="grid">
+  <!-- 1 -->
+  <div class="post" style="background:linear-gradient(180deg,#D7E2F8,#9FA9DE)"><span class="t" style="font-size:19px;color:#2E3A84;margin-top:4px">JORDAN</span><img src="jordanpods.png" style="height:70%;margin-top:-6px" alt=""></div>
+  <!-- 2 -->
+  <div class="post" style="background:#EF5F56;color:#fff"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4h12v12H4zM8 8h12v12H8z" fill="none" stroke="#fff" stroke-width="2"/></svg><small>Black Friday</small><span class="t" style="font-size:46px">x2</span><small>Notas dobles</small></div>
+  <!-- 3 -->
+  <div class="post" style="background:radial-gradient(circle at 50% 45%,#3a3d4d,#14151b)"><svg class="ic" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><img src="r1.png" style="width:86%" alt=""><small style="color:#fff;position:absolute;bottom:7px">Nuevo · Negro</small></div>
+  <!-- 4 -->
+  <div class="post" style="background:#232F5F;color:#fff"><span style="font-size:22px">📍</span><small style="opacity:.8">Muy pronto</small><span class="t" style="font-size:24px">GRANADA</span><small style="opacity:.8">C.C. Nevada</small></div>
+  <!-- 5 -->
+  <div class="post" style="background:#E9EBFC"><img src="mailing_encuesta.png" style="width:100%;height:100%;object-fit:cover;object-position:top" alt=""></div>
+  <!-- 6 -->
+  <div class="post" style="background:#E1E9F6;color:#232F5F"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4h12v12H4zM8 8h12v12H8z" fill="none" stroke="#232F5F" stroke-width="2"/></svg><span class="t" style="font-size:34px;color:#6F7BCF">♪</span><span class="t" style="font-size:16px">Club<br>JORDÁNMUSIK</span><small style="margin-top:3px">1 € = 1 Nota</small></div>
+  <!-- 7 -->
+  <div class="post" style="background:linear-gradient(160deg,#F3F5FC,#C9CEF4)"><img src="r4.png" style="width:84%" alt=""></div>
+  <!-- 8 -->
+  <div class="post" style="background:#3F7E8F;color:#fff"><svg class="ic" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><span style="font-size:26px">🎶</span><span class="t" style="font-size:17px;margin-top:4px">¿Qué canción<br>escuchas hoy?</span></div>
+  <!-- 9 -->
+  <div class="post" style="background:#F2B544"><img src="r3.png" style="height:88%" alt=""></div>
+ </div>
+ <div class="nav">
+  <svg viewBox="0 0 24 24" fill="#0f1419"><path d="M12 3 3 10v11h6v-6h6v6h6V10z"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#0f1419" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#0f1419" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg>
+  <svg viewBox="0 0 24 24" fill="none" stroke="#0f1419" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M10 9v6l5-3z"/></svg>
+  <span class="me"><img src="jordanpods.png" alt=""></span>
+ </div>
+</div></div>
+</div></body></html>
