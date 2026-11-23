@@ -314,6 +314,10 @@ footer{margin-top:80px;background:var(--stage);color:var(--stage-muted);padding-
 .p-btns{display:flex;gap:8px}
 .p-btn{font-family:"Montserrat",system-ui,sans-serif;font-weight:600;font-size:13.5px;border:1.5px solid #232F5F;color:#232F5F;background:#ffffffaa;border-radius:999px;padding:9px 15px;cursor:pointer;text-decoration:none}
 .p-btn:hover{background:#fff}
+.p-colores{display:inline-flex;gap:4px;background:#ffffffaa;border:1.5px solid #232F5F;border-radius:999px;padding:3px}
+.p-sw{display:inline-flex;align-items:center;gap:6px;border:0;background:transparent;border-radius:999px;padding:6px 11px;font-family:"Montserrat",system-ui,sans-serif;font-weight:600;font-size:13px;color:#232F5F;cursor:pointer}
+.p-sw i{width:14px;height:14px;border-radius:50%;border:1.5px solid #fff;box-shadow:0 0 0 1px #232F5F55}
+.p-sw[aria-pressed="true"]{background:#232F5F;color:#fff}
 .p-firma{width:100%;text-align:center;font-family:"Montserrat",system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#F2F4FF;margin-top:6px}
 @media (max-width:700px){.p-pods{margin-left:8%}.portada .wrap{min-height:640px}.p-sombra{width:80%}}
 @media (prefers-reduced-motion: reduce){.p-hint .ico{animation:none}}
@@ -350,8 +354,8 @@ footer{margin-top:80px;background:var(--stage);color:var(--stage-muted);padding-
     </div>
     <div></div>
     <div class="p-pie">
-      <span class="p-hint" id="visor-hint"><span class="ico">↔</span> Arrastra para girar los JORDÁNPODS en 360°</span>
-      <span class="p-btns"><button class="p-btn" id="visor-reset" type="button">Centrar</button><a class="p-btn" href="#inicio">Ver el proyecto ↓</a></span>
+      <span class="p-hint" id="visor-hint"><span class="ico">↔</span> Arrastra para girarlos en 360° · al soltar vuelven a su sitio</span>
+      <span class="p-btns"><span class="p-colores" role="group" aria-label="Color de los cascos"><button class="p-sw" data-color="negro" type="button" aria-pressed="true" title="Negro"><i style="background:#19191c"></i>Negro</button><button class="p-sw" data-color="azul" type="button" aria-pressed="false" title="Azul marino"><i style="background:#2b2f63"></i>Azul</button></span><a class="p-btn" href="#inicio">Ver el proyecto ↓</a></span>
       <div class="p-firma">Trabajo de investigación · Brayan Aramayo y Sonia Lázaro</div>
     </div>
   </div>
