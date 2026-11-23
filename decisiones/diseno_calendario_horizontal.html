@@ -1,0 +1,78 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
+@font-face{font-family:Lilita;src:url(LilitaOne-Regular.ttf)}
+@font-face{font-family:Mont;src:url("Montserrat[wght].ttf");font-weight:100 900}
+@font-face{font-family:Tinos;src:url(Tinos-Regular.ttf)}
+@font-face{font-family:Tinos;src:url(Tinos-Bold.ttf);font-weight:700}
+:root{--navy:#232F5F;--title:#2E3A84;--peri:#6F7BCF;--bg:#E1E9F6;--coral:#EF5F56;--teal:#3F7E8F;--gold:#F2B544;--grey:#AEB4CC}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:827px;height:1170px;background:var(--bg);font-family:Tinos,serif;color:var(--navy);position:relative;overflow:hidden}
+.topbar{position:absolute;left:0;top:0;width:100%;height:38px;background:var(--navy);color:#fff;font-family:Mont;font-size:18px;text-align:center;line-height:38px}
+.corner{position:absolute;left:0;top:0;width:0;height:0;border-top:120px solid var(--navy);border-right:90px solid transparent}
+.foot{position:absolute;left:0;bottom:0;width:100%;height:44px;background:var(--navy)}
+h1{position:absolute;left:96px;top:58px;font-family:Lilita;font-weight:400;font-size:44px;color:var(--title);line-height:1}
+h1 span{color:var(--peri)}
+.sub{position:absolute;left:98px;top:108px;font-family:Mont;font-weight:600;font-size:13px;color:var(--peri);letter-spacing:.3px}
+.chart{position:absolute;left:30px;right:30px;top:146px;height:356px;background:#fff;border-radius:20px;padding:14px 18px}
+.chart .h{display:flex;justify-content:space-between;align-items:baseline;font-family:Mont}
+.chart .h b{font-size:14px;font-weight:800}
+.chart .h small{font-size:10.5px;color:#7b84a8;font-weight:600}
+.legend{position:absolute;left:30px;right:30px;top:510px;display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-family:Mont;font-size:11px;font-weight:700}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.cuerpo{position:absolute;left:30px;right:30px;top:68px;bottom:66px;display:flex;flex-direction:column;gap:16px}
+.cards{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:14px}
+.card{background:#fff;border-radius:18px;padding:18px 20px;border-left:7px solid var(--c);display:flex;flex-direction:column;justify-content:center}
+.card{position:relative}
+.card .ico{position:absolute;right:18px;top:16px;width:46px;height:46px;border-radius:14px;background:#EEF2FB;display:flex;align-items:center;justify-content:center;font-size:24px}
+.card .dato{font-family:Mont;font-size:11.5px;font-weight:600;color:#6b74a0;margin-top:10px;padding-top:9px;border-top:1px dashed #d6dcee;line-height:1.4}
+.card .dato::before{content:"Dato: ";font-weight:800;color:var(--c)}
+.card .k{font-family:Mont;font-size:11.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--c)}
+.card b{display:block;font-family:Lilita;font-weight:400;font-size:23px;line-height:1.1;margin-top:1px}
+.card p{font-size:15.5px;line-height:1.38;margin-top:6px}
+.dif{flex:none;background:var(--navy);color:#fff;border-radius:20px;padding:14px 18px;display:grid;grid-template-columns:170px 1fr;gap:16px}
+.dif .stat{background:#ffffff14;border-radius:14px;padding:10px;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.dif .stat .v{font-family:Lilita;font-size:46px;line-height:1;color:var(--coral)}
+.dif .stat small{font-family:Mont;font-size:10.5px;font-weight:600;line-height:1.35;margin-top:4px;opacity:.92}
+.dif .k{font-family:Mont;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold)}
+.dif h3{font-family:Lilita;font-weight:400;font-size:21px;line-height:1.1;margin-top:1px}
+.acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.acts div{background:#ffffff14;border-radius:12px;padding:8px}
+.acts div b{display:block;font-family:Mont;font-size:11.5px;font-weight:800}
+.acts div span{font-size:12.4px;line-height:1.3;display:block;margin-top:2px;opacity:.95}
+.obj{font-size:13px;margin-top:8px;line-height:1.35}
+.obj b{color:var(--gold)}
+
+body.h{width:1600px;height:auto;background:transparent;overflow:visible}
+body.h .topbar,body.h .corner,body.h .foot{display:none}
+body.h .cuerpo{position:static;width:1520px;margin:20px;gap:16px}
+body.h .cards{grid-template-columns:repeat(3,1fr);grid-auto-rows:auto}
+body.h .card{padding:20px 22px}
+</style></head><body class="h">
+<div class="topbar">Sistema de análisis</div><div class="corner"></div>
+
+<div class="cuerpo"><div class="cards">
+ <div class="card" style="--c:#EF5F56"><span class="k">Feb · Mar · May · Jul · Ago</span><span class="ico">🏷️</span><b>Meses de bajas ventas</b><p>Descuentos especiales, ofertas 2x1 o promociones por tiempo limitado para animar las compras. Así evitamos que las ventas caigan en los meses más flojos y mantenemos la marca activa todo el año.</p><p class="dato">Venden por debajo de un mes normal; julio es el más flojo (−6,5 %).</p></div>
+ <div class="card" style="--c:#3F7E8F"><span class="k">Septiembre</span><span class="ico">🎒</span><b>Vuelta a clase</b><p>Descuentos para estudiantes y jóvenes, justo cuando las ventas se recuperan tras el verano. Es el momento en que muchos vuelven al transporte y a estudiar con auriculares.</p><p class="dato">Septiembre vuelve a vender como un mes normal después del bajón de julio y agosto.</p></div>
+ <div class="card" style="--c:#D99A1E"><span class="k">Finales de octubre</span><span class="ico">📍</span><b>Apertura en Granada</b><p>Anuncios en redes antes de abrir y promociones especiales solo para la tienda nueva del C.C. Nevada, para que llegue al Black Friday ya conocida.</p><p class="dato">En Granada aún no nos conocen: hay que darnos a conocer antes de abrir.</p></div>
+ <div class="card" style="--c:#232F5F"><span class="k">Noviembre</span><span class="ico">🛍️</span><b>Black Friday</b><p>Descuentos atractivos para vender más y captar clientes nuevos, también en Granada. Con stock preparado desde septiembre para las dos tiendas.</p><p class="dato">Noviembre es el mejor mes del año, todos los años (+19 %).</p></div>
+ <div class="card" style="--c:#6F7BCF"><span class="k">Diciembre · Enero</span><span class="ico">🎁</span><b>Navidad y Reyes</b><p>Packs especiales y promociones para que sea más fácil comprar regalos, con la caja de regalo personalizada y la edición limitada.</p><p class="dato">Diciembre es el segundo mejor mes (+12,5 %) y enero sigue vendiendo bien.</p></div>
+ <div class="card" style="--c:#232F5F"><span class="k">Noviembre · Diciembre</span><span class="ico">📦</span><b>Meses de mayor venta</b><p>Packs con accesorios, ediciones especiales o promociones por compras a partir de cierta cantidad, para que cada cliente gaste un poco más en cada compra.</p><p class="dato">Noviembre y diciembre suman casi 1 de cada 5 ventas del año.</p></div>
+</div>
+
+<div class="dif">
+ <div class="stat"><span class="v">12 %</span><small>de devoluciones en noviembre de 2023, frente al 2 % habitual. Satisfacción: 3,41 sobre 5</small></div>
+ <div>
+  <span class="k">Noviembre y diciembre · Por las devoluciones de 2023</span>
+  <h3>Diferenciarnos y evitar devoluciones</h3>
+  <div class="acts">
+   <div><b>Packaging personalizado</b><span>Un envase más atractivo y reconocible, ideal para regalar y sostenible.</span></div>
+   <div><b>Ediciones limitadas</b><span>Diseños exclusivos y numerados, como la Midnight Gold.</span></div>
+   <div><b>Probar en tienda</b><span>Probar los cascos antes de comprar, en Cartagena y Granada, para acertar y devolver menos.</span></div>
+  </div>
+  <p class="obj"><b>Objetivo:</b> diferenciar a JORDÁNMUSIK de otras marcas, hacer más atractivos sus productos y mejorar la satisfacción de los clientes.</p>
+ </div>
+</div>
+</div><div class="foot"></div>
+
+
+</body></html>

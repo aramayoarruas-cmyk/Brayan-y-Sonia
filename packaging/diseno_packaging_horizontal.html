@@ -1,0 +1,140 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
+@font-face{font-family:Lilita;src:url(LilitaOne-Regular.ttf)}
+@font-face{font-family:Mont;src:url("Montserrat[wght].ttf");font-weight:100 900}
+@font-face{font-family:Tinos;src:url(Tinos-Regular.ttf)}
+@font-face{font-family:Tinos;src:url(Tinos-Bold.ttf);font-weight:700}
+:root{--navy:#232F5F;--title:#2E3A84;--peri:#6F7BCF;--bg:#E1E9F6;--coral:#EF5F56;--teal:#3F7E8F;--gold:#C9A24A;--gold2:#F3DC9A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:transparent;font-family:Mont,sans-serif;color:var(--navy)}
+.page{width:827px;height:1170px;background:var(--bg);position:relative;overflow:hidden;margin-bottom:20px}
+.page.dark{background:#E9E6DF}
+.topbar{position:absolute;left:0;top:0;width:100%;height:38px;background:var(--navy);color:#fff;font-size:18px;text-align:center;line-height:38px}
+.corner{position:absolute;left:0;top:0;width:0;height:0;border-top:120px solid var(--navy);border-right:90px solid transparent}
+.foot{position:absolute;left:0;bottom:0;width:100%;height:44px;background:var(--navy)}
+h1{position:absolute;left:96px;top:58px;font-family:Lilita;font-weight:400;font-size:44px;color:var(--title);line-height:1}
+h1 span{color:var(--peri)}
+.sub{position:absolute;left:98px;top:108px;font-weight:600;font-size:13px;color:var(--peri)}
+.stage{position:absolute;left:0;right:0;top:140px;height:560px;display:flex;align-items:center;justify-content:center}
+.floor{position:absolute;left:50%;top:560px;width:520px;height:70px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(35,47,95,.35),rgba(35,47,95,0) 70%)}
+.scene{perspective:1800px}
+.box{position:relative;width:340px;height:340px;transform-style:preserve-3d;transform:rotateX(-24deg) rotateY(-33deg)}
+.face{position:absolute;overflow:hidden;backface-visibility:hidden}
+.front{width:340px;height:340px;transform:translateZ(62px)}
+.right{width:124px;height:340px;left:108px;transform:rotateY(90deg) translateZ(170px)}
+.top{width:340px;height:124px;top:108px;transform:rotateX(90deg) translateZ(170px)}
+.right::after,.top::after{content:"";position:absolute;inset:0;pointer-events:none}
+.right::after{background:linear-gradient(90deg,rgba(0,0,0,.18),rgba(0,0,0,.08))}
+.top::after{background:linear-gradient(0deg,rgba(255,255,255,.06),rgba(255,255,255,.16))}
+
+/* ---------- CAJA 1: PACKAGING PERSONALIZADO ---------- */
+.b1.front{background:linear-gradient(180deg,#DCE5F8 0%,#B6BFEB 60%,#9AA5DD 100%)}
+.b1 .jordan{position:absolute;left:18px;top:16px;font-family:Lilita;font-size:66px;line-height:.9;background:linear-gradient(180deg,#2A2F68,#4E5AA8);-webkit-background-clip:text;color:transparent}
+.b1 .pods{position:absolute;left:96px;top:72px;font-weight:300;font-size:58px;color:#6576A8;letter-spacing:1px}
+.b1 .foto{position:absolute;right:-6px;top:70px;height:250px;filter:drop-shadow(0 10px 12px rgba(35,47,95,.4))}
+.b1 .claim{position:absolute;left:18px;top:150px;font-family:Lilita;font-size:17px;line-height:1.15;color:#232F5F;width:120px}
+.b1 .gift{position:absolute;left:0;right:0;bottom:0;height:62px;background:#fff;display:flex;align-items:center;gap:10px;padding:0 14px;border-top:3px solid #EF5F56}
+.b1 .gift .bow{width:34px;height:34px;border-radius:10px;background:#EF5F56;color:#fff;display:flex;align-items:center;justify-content:center;font-size:19px;flex:none}
+.b1 .gift .lines{flex:1;font-family:Mont;font-size:10px;font-weight:700;color:#232F5F;line-height:1.9}
+.b1 .gift .lines i{display:inline-block;width:150px;border-bottom:1.5px dashed #9aa1c0;margin-left:4px;vertical-align:-2px}
+.b1.right{background:#232F5F;color:#fff;display:flex;flex-direction:column;align-items:center;padding:14px 8px;gap:10px;text-align:center}
+.b1.right .t{font-family:Lilita;font-size:15px;line-height:1.1}
+.b1.right img.qr{width:78px;height:78px;background:#fff;padding:5px;border-radius:8px}
+.b1.right small{font-size:8px;font-weight:600;line-height:1.35;opacity:.9}
+.b1.right .icons{display:flex;flex-direction:column;gap:6px;margin-top:auto;width:100%}
+.b1.right .ic{border:1.3px solid #ffffff88;border-radius:8px;padding:5px 4px;font-size:7.5px;font-weight:700;line-height:1.25}
+.b1.right .ic b{display:block;font-size:13px}
+.b1.top{background:#232F5F;display:flex;align-items:center;justify-content:center;gap:14px;color:#fff}
+.b1.top img{height:76px}
+.b1.top .w{font-family:Lilita;font-size:22px;line-height:1}
+.b1.top .w small{display:block;font-family:Mont;font-size:9px;font-weight:600;opacity:.85;margin-top:3px}
+
+/* ---------- CAJA 2: EDICIÓN LIMITADA ---------- */
+.goldtxt{background:linear-gradient(180deg,#F6E3A7 0%,#C9A24A 45%,#8E6B22 100%);-webkit-background-clip:text;color:transparent}
+.b2.front{background:radial-gradient(circle at 60% 40%,#2a2a2e 0%,#121214 70%)}
+.b2 .frame{position:absolute;inset:12px;border:1.5px solid #C9A24A;border-radius:4px}
+.b2 .ed{position:absolute;left:0;right:0;top:26px;text-align:center;font-size:9.5px;font-weight:800;letter-spacing:4px;color:#C9A24A}
+.b2 .name{position:absolute;left:0;right:0;top:42px;text-align:center;font-family:Lilita;font-size:44px;line-height:.95}
+.b2 .name small{display:block;font-family:Mont;font-weight:300;font-size:26px;letter-spacing:6px;margin-top:2px}
+.b2 .foto{position:absolute;left:50%;transform:translateX(-50%);top:118px;height:178px;filter:drop-shadow(0 12px 14px rgba(0,0,0,.6))}
+.b2 .num{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-size:10px;font-weight:700;letter-spacing:3px;color:#C9A24A}
+.b2.right{background:#141416;color:#C9A24A;display:flex;flex-direction:column;align-items:center;padding:18px 10px;text-align:center;gap:8px}
+.b2.right .t{font-family:Lilita;font-size:16px;line-height:1.1}
+.b2.right ul{list-style:none;font-size:8.5px;font-weight:600;line-height:1.5;color:#E9D9A8}
+.b2.right ul li::before{content:"◆ ";color:#C9A24A;font-size:6px;vertical-align:1px}
+.b2.right .seal{margin-top:auto;width:70px;height:70px;border-radius:50%;border:1.5px solid #C9A24A;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;line-height:1.05}
+.b2.right .seal b{font-family:Lilita;font-size:24px;font-weight:400}
+.b2.right .seal small{font-size:7px;letter-spacing:1.5px}
+.b2.top{background:#18181b;display:flex;align-items:center;justify-content:center}
+.b2.top .emb{width:96px;height:96px;border-radius:50%;border:1.5px solid #C9A24A;display:flex;align-items:center;justify-content:center}
+.b2.top .emb img{height:62px}
+.b2.top .l{position:absolute;font-size:8.5px;font-weight:800;letter-spacing:3px;color:#C9A24A}
+.ribbon{position:absolute;top:0;bottom:0;width:30px;background:linear-gradient(90deg,#8E6B22,#E6C774,#8E6B22)}
+
+/* ---------- TARJETAS ---------- */
+.feats{position:absolute;left:30px;right:30px;top:690px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feat{background:#fff;border-radius:18px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.feat .e{width:44px;height:44px;border-radius:14px;background:#EEF2FB;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+.feat b{font-family:Lilita;font-weight:400;font-size:18px;display:block;line-height:1.1}
+.feat p{font-family:Tinos,serif;font-size:14.5px;line-height:1.33;margin-top:3px}
+.why{position:absolute;left:30px;right:30px;top:928px;background:var(--navy);color:#fff;border-radius:18px;padding:14px 18px;font-family:Tinos,serif;font-size:15px;line-height:1.4}
+.why b{font-family:Mont;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#F2B544;display:block;margin-bottom:3px}
+.dark .feat .e{background:#F4EEDD}
+.dark .why{background:#141416}
+.dark .why b{color:#C9A24A}
+.solo{background:transparent;padding:40px;display:inline-flex}
+
+.hz{width:1440px;padding:10px 20px;display:grid;grid-template-columns:560px 1fr;gap:24px;align-items:center;background:transparent}
+.hz .stagebox{position:relative;height:500px;display:flex;align-items:center;justify-content:center}
+.hz .floorx{position:absolute;left:50%;top:385px;width:520px;height:80px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(35,47,95,.35),rgba(35,47,95,0) 70%)}
+.hz .right-col{display:flex;flex-direction:column;gap:14px}
+.hz .feats{position:static;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hz .why{position:static}
+.hz .feat{padding:18px 18px}
+.hz .feat b{font-size:22px}
+.hz .feat p{font-size:17px;line-height:1.36}
+.hz .feat .e{width:52px;height:52px;font-size:26px}
+.hz .why{font-size:17px;padding:18px 20px}
+.hz .why b{font-size:12px}
+.hz.dk .feat .e{background:#F4EEDD}
+.hz.dk .why{background:#141416}
+.hz.dk .why b{color:#C9A24A}
+.hz.dk .floorx{background:radial-gradient(ellipse at center,rgba(0,0,0,.42),rgba(0,0,0,0) 70%)}
+</style></head><body><div class="hz" id="hp1"><div class="stagebox"><div class="floorx"></div><div class="scene"><div class="box">
+  <div class="face front b1">
+   <div class="jordan">JORDAN</div><div class="pods">PODS</div>
+   <div class="claim">Auriculares que suenan a ti</div>
+   <img class="foto" src="jordanpods.png" alt="">
+   <div class="gift"><span class="bow">🎁</span><div class="lines">Para:<i></i><br>De:<i style="width:158px"></i></div></div>
+  </div>
+  <div class="face right b1">
+   <div class="t">Club JORDÁNMUSIK</div>
+   <img class="qr" src="qr.png" alt="">
+   <small>Escanea y suma 79 Notas con esta compra</small>
+   <div class="icons"><div class="ic"><b>♻</b>Caja 100 % cartón reciclado</div><div class="ic"><b>USB-C</b>Carga universal</div></div>
+  </div>
+  <div class="face top b1"><img src="escudo_pj.png" alt=""><div class="w">JORDÁNMUSIK<small>Cartagena · Granada</small></div></div>
+ </div></div></div><div class="right-col"><div class="feats">
+  <div class="feat"><span class="e">🎨</span><div><b>Diseño reconocible</b><p>Los colores, la letra y el escudo «pj» de la marca, para que la caja se distinga en la estantería.</p></div></div>
+  <div class="feat"><span class="e">🎁</span><div><b>Lista para regalar</b><p>Una banda con «Para» y «De» para escribir el nombre. Pensada para Navidad y Reyes.</p></div></div>
+  <div class="feat"><span class="e">♻️</span><div><b>Sostenible</b><p>Cartón reciclado y sin plástico. Evita el impuesto al plástico y gusta al cliente: el 75 % pagaría más por algo sostenible.</p></div></div>
+  <div class="feat"><span class="e">📱</span><div><b>Conecta con la app</b><p>Un código QR en el lateral para unirse al Club y sumar las Notas de la compra.</p></div></div>
+ </div><div class="why"><b>Por qué lo proponemos</b>En noviembre y diciembre es cuando más se vende y cuando más ofertas lanza la competencia. Una caja atractiva y reconocible ayuda a que el cliente elija los JORDÁNPODS y a que sean el regalo perfecto.</div></div></div><div class="hz dk" id="hp2"><div class="stagebox"><div class="floorx"></div><div class="scene"><div class="box">
+  <div class="face front b2">
+   <div class="frame"></div>
+   <div class="ed">EDICIÓN LIMITADA</div>
+   <div class="name goldtxt">JORDAN<small class="goldtxt">PODS</small></div>
+   <img class="foto" src="g1.png" alt="">
+   <div class="num">MIDNIGHT GOLD · Nº 0127 / 500</div>
+  </div>
+  <div class="face right b2">
+   <div class="t">Midnight<br>Gold</div>
+   <ul><li>Cascos negros con detalles dorados</li><li>Funda de terciopelo</li><li>Cable USB-C trenzado</li><li>Certificado numerado</li></ul>
+   <div class="seal"><b>500</b><small>UNIDADES</small></div>
+  </div>
+  <div class="face top b2"><span class="l" style="top:12px">JORDÁNMUSIK</span><div class="emb"><img src="escudo_oro.png" alt=""></div><span class="l" style="bottom:10px">EDICIÓN LIMITADA</span></div>
+ </div></div></div><div class="right-col"><div class="feats">
+  <div class="feat"><span class="e">✨</span><div><b>Diseño exclusivo</b><p>Cascos negros con el aro y el escudo «pj» en dorado, que no se venden en ningún otro modelo.</p></div></div>
+  <div class="feat"><span class="e">🔢</span><div><b>Unidades numeradas</b><p>Solo 500 cajas, cada una con su número y su certificado. Quien la tiene, tiene una pieza única.</p></div></div>
+  <div class="feat"><span class="e">🖤</span><div><b>Caja premium</b><p>Negro mate con letras doradas, por dentro una funda de terciopelo y un cable trenzado.</p></div></div>
+  <div class="feat"><span class="e">🤝</span><div><b>Colaboraciones</b><p>Se pueden crear nuevas ediciones con artistas o influencers, cada una con su diseño y su caja.</p></div></div>
+ </div><div class="why"><b>Por qué lo proponemos</b>Las ediciones limitadas despiertan el interés del cliente y dan qué hablar en redes. Lanzada en noviembre y diciembre, la Midnight Gold diferencia a JORDÁNMUSIK de las ofertas de la competencia y se convierte en el regalo especial del año.</div></div></div></body></html>
