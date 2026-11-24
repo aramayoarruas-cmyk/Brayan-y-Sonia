@@ -1,0 +1,132 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><style>
+@font-face{font-family:Lilita;src:url(LilitaOne-Regular.ttf)}
+@font-face{font-family:Mont;src:url("Montserrat[wght].ttf");font-weight:100 900}
+@font-face{font-family:Tinos;src:url(Tinos-Regular.ttf)}
+@font-face{font-family:Tinos;src:url(Tinos-Bold.ttf);font-weight:700}
+:root{--navy:#232F5F;--title:#2E3A84;--peri:#6F7BCF;--coral:#EF5F56;--teal:#3F7E8F;--gold:#F2B544;--soft:#EEF2FB;--grey:#B9BFD6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:transparent;font-family:Mont,sans-serif;color:var(--navy)}
+.blk{width:1500px;padding:16px;display:flex;flex-direction:column;gap:16px;margin-bottom:30px}
+.head{display:flex;align-items:center;gap:14px}
+.pill{background:var(--navy);color:#fff;font-family:Lilita;font-size:30px;padding:8px 22px;border-radius:16px}
+.sim{font-size:12px;font-weight:800;letter-spacing:1.5px;color:var(--coral);border:2px solid var(--coral);border-radius:999px;padding:6px 12px;text-transform:uppercase}
+.n{margin-left:auto;font-size:13px;font-weight:700;color:var(--title);background:#fff;border-radius:999px;padding:8px 14px}
+.grid{display:grid;gap:16px}
+.card{background:#fff;border-radius:20px;padding:18px 20px;box-shadow:0 10px 24px -20px rgba(35,47,95,.6);min-width:0}
+.card h4{font-family:Lilita;font-weight:400;font-size:21px;line-height:1.1}
+.card .q{font-size:11.5px;font-weight:600;color:#7b84a8;margin-top:3px}
+.bars{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.bar{display:grid;grid-template-columns:150px 1fr 48px;gap:10px;align-items:center;font-size:13px;font-weight:600}
+.bar .t{height:16px;background:var(--soft);border-radius:8px;overflow:hidden}
+.bar .t i{display:block;height:100%;border-radius:8px}
+.bar .v{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+.bar.hl{color:var(--coral)}
+.donut{display:flex;align-items:center;gap:18px;margin-top:14px}
+.donut .d{width:150px;height:150px;border-radius:50%;flex:none;position:relative}
+.donut .d::after{content:"";position:absolute;inset:30px;border-radius:50%;background:#fff}
+.donut .d b{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;font-family:Lilita;font-size:30px;font-weight:400;line-height:1}
+.donut .d b small{font-family:Mont;font-size:10px;font-weight:700;color:#7b84a8;margin-top:3px}
+.leg{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600}
+.leg span{display:flex;align-items:center;gap:8px}
+.leg i{width:12px;height:12px;border-radius:4px;flex:none}
+.leg em{font-style:normal;font-weight:800;margin-left:auto;padding-left:10px}
+.note{margin-top:12px;font-family:Tinos,serif;font-size:15px;line-height:1.38;background:var(--soft);border-radius:12px;padding:10px 12px}
+.note b{font-weight:700}
+.big{display:flex;align-items:baseline;gap:10px;margin-top:8px}
+.big b{font-family:Lilita;font-weight:400;font-size:64px;line-height:1}
+.big span{font-size:14px;font-weight:700;color:#5d6380;line-height:1.3}
+.scale{display:flex;gap:6px;align-items:flex-end;height:120px;margin-top:14px}
+.scale div{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;font-weight:800}
+.scale div i{display:block;width:100%;border-radius:8px 8px 3px 3px}
+.scale div span{font-size:11px;color:#7b84a8}
+.scl{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;color:#7b84a8;margin-top:4px}
+.ins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.in{background:#fff;border-radius:20px;padding:16px 18px;border-top:6px solid var(--c);display:flex;flex-direction:column;gap:6px}
+.in .k{display:flex;align-items:center;gap:10px}
+.in .k b{font-family:Lilita;font-weight:400;font-size:36px;color:var(--c);line-height:1}
+.in .k span{font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.in p{font-family:Tinos,serif;font-size:15px;line-height:1.38}
+.in p.dec{font-family:Mont;font-size:12.5px;font-weight:700;color:var(--c);margin-top:auto}
+
+.blk{width:780px}
+.grid{grid-template-columns:1fr!important}
+.ins{grid-template-columns:1fr 1fr}
+.head{flex-wrap:wrap}
+.n{margin-left:0}
+</style></head><body>
+
+<!-- ============ 1. PERFIL ============ -->
+<div class="blk" id="b1">
+ <div class="head"><span class="pill">¿Quién ha respondido?</span><span class="sim">Datos simulados</span><span class="n">385 respuestas · encuesta online con código del 5 %</span></div>
+ <div class="grid" style="grid-template-columns:1.1fr 1fr 1fr">
+  <div class="card"><h4>Edad</h4><div class="q">¿Qué edad tienes?</div><div class="bars" data-bars='[["Menos de 18",6],["18-24",31,1],["25-34",34,1],["35-44",15],["45-54",9],["55 o más",5]]' data-c="#4A56B8"></div><div class="note"><b>El 65 % tiene entre 18 y 34 años</b>: el perfil de Lucía, nuestro buyer persona.</div></div>
+  <div class="card"><h4>Ocupación</h4><div class="q">¿A qué te dedicas?</div><div class="donut" data-donut='[["Trabajo",38,"#232F5F"],["Estudio",33,"#6F7BCF"],["Estudio y trabajo",22,"#3F7E8F"],["Ninguna",7,"#B9BFD6"]]' data-center="55 %|estudian"></div><div class="note">Más de la mitad estudia: la <b>vuelta a clase</b> es una fecha clave.</div></div>
+  <div class="card"><h4>Provincia</h4><div class="q">¿En qué provincia vives?</div><div class="bars" data-bars='[["Murcia",57],["Granada",15,1],["Alicante",9],["Almería",6],["Otras",13]]' data-c="#3F7E8F"></div><div class="note"><b>El 15 % ya vive en Granada</b>: hay clientes antes de abrir la tienda.</div></div>
+ </div>
+</div>
+
+<!-- ============ 2. USO Y PREFERENCIAS ============ -->
+<div class="blk" id="b2">
+ <div class="head"><span class="pill">Uso y preferencias</span><span class="sim">Datos simulados</span><span class="n">385 respuestas</span></div>
+ <div class="grid" style="grid-template-columns:1fr 1fr">
+  <div class="card"><h4>¿En qué momentos usas auriculares?</h4><div class="q">Varias respuestas posibles</div><div class="bars" data-bars='[["En el transporte",71,1],["Estudiando",54],["Haciendo deporte",48],["Trabajando",41],["En casa",39],["Videojuegos",22]]' data-c="#6F7BCF"></div></div>
+  <div class="card"><h4>Importancia al elegir auriculares</h4><div class="q">Media de 1 (nada) a 5 (mucho)</div><div class="bars" data-max="5" data-dec="1" data-bars='[["Calidad de sonido",4.6,1],["Batería",4.5,1],["Comodidad",4.4],["Precio",4.2],["Cancelación de ruido",3.7],["Diseño",3.4]]' data-c="#232F5F"></div></div>
+  <div class="card"><h4>El aspecto más importante</h4><div class="q">Si solo pudieras elegir uno</div><div class="donut" data-donut='[["Calidad de sonido",29,"#232F5F"],["Batería",24,"#4A56B8"],["Precio",21,"#EF5F56"],["Comodidad",16,"#3F7E8F"],["Cancelación de ruido",6,"#F2B544"],["Diseño",4,"#B9BFD6"]]' data-center="53 %|sonido o batería"></div></div>
+  <div class="card"><h4>¿Cuánto pagarías por unos auriculares inalámbricos?</h4><div class="q">Los JORDÁNPODS cuestan unos 79 €</div><div class="bars" data-bars='[["Menos de 30 €",12],["30 € - 60 €",41],["60 € - 100 €",36,1],["Más de 100 €",11]]' data-c="#4A56B8"></div><div class="note"><b>El 47 % pagaría 60 € o más.</b> Los 79 € están en el límite: mejor <b>no subir el precio</b> y apoyarse en promociones.</div></div>
+ </div>
+</div>
+
+<!-- ============ 3. COMPRA E INFORMACIÓN ============ -->
+<div class="blk" id="b3">
+ <div class="head"><span class="pill">Cómo compran y se informan</span><span class="sim">Datos simulados</span><span class="n">385 respuestas</span></div>
+ <div class="grid" style="grid-template-columns:1fr 1fr">
+  <div class="card"><h4>¿Cuándo sueles comprarlos?</h4><div class="q">Varias respuestas posibles</div><div class="bars" data-bars='[["Black Friday",46,1],["Cuando los necesito",44],["Regalo de Navidad",38,1],["Rebajas",27]]' data-c="#232F5F"></div><div class="note">Confirma el pico de ventas: <b>Black Friday y Navidad</b> mueven a casi la mitad de los clientes.</div></div>
+  <div class="card"><h4>¿Dónde sueles comprarlos?</h4><div class="q">Varias respuestas posibles</div><div class="bars" data-bars='[["Tienda física",52,1],["Amazon",49],["Web de la marca",31],["Otro",8]]' data-c="#3F7E8F"></div><div class="note">La <b>tienda física</b> sigue siendo la preferida: probar antes de comprar importa.</div></div>
+  <div class="card"><h4>¿Qué miras antes de comprar?</h4><div class="q">Varias respuestas posibles</div><div class="bars" data-bars='[["Reseñas de compradores",63,1],["TikTok",41,1],["YouTube",37],["Instagram",34],["Amigos o familia",33],["Lo que dicen en tienda",21]]' data-c="#6F7BCF"></div></div>
+  <div class="card"><h4>Principal razón para cambiar de auriculares</h4><div class="q">Una sola respuesta</div><div class="bars" data-bars='[["Falla la batería",31,1],["Se rompen",24],["Quiero unos mejores",17],["Almohadillas sucias sin repuesto",12,1],["Los pierdo",9],["Se rayan muy rápido",5],["Otro",2]]' data-c="#EF5F56"></div></div>
+ </div>
+</div>
+
+<!-- ============ 4. MARCA, SOSTENIBILIDAD Y ECONOMÍA ============ -->
+<div class="blk" id="b4">
+ <div class="head"><span class="pill">Marca, packaging y economía</span><span class="sim">Datos simulados</span><span class="n">385 respuestas</span></div>
+ <div class="grid" style="grid-template-columns:1fr 1fr 1fr">
+  <div class="card"><h4>¿Conoces los JORDÁNPODS?</h4><div class="q">Una sola respuesta</div><div class="donut" data-donut='[["Sí, los tengo",10,"#232F5F"],["Los conozco",27,"#4A56B8"],["Me suenan",24,"#6F7BCF"],["No los conozco",39,"#B9BFD6"]]' data-center="61 %|nos conoce"></div><div class="note"><b>El 39 % no nos conoce</b>: hay que ganar notoriedad en redes.</div></div>
+  <div class="card"><h4>Marca que usan ahora</h4><div class="q">Una sola respuesta</div><div class="bars" data-bars='[["AirPods (Apple)",24],["Samsung",15],["Xiaomi",14],["JBL",11],["JORDÁNPODS",10,1],["Sony",8],["Otras o no sabe",18]]' data-c="#B9BFD6"></div></div>
+  <div class="card"><h4>¿Te importa que la caja sea de cartón reciclado?</h4><div class="q">De 1 (nada) a 5 (mucho)</div><div class="big"><b style="color:var(--teal)">71 %</b><span>le da un 4 o un 5<br>Media: 3,9 sobre 5</span></div><div class="scale" data-scale='[4,7,18,33,38]'></div><div class="scl"><span>Nada</span><span>Mucho</span></div></div>
+ </div>
+ <div class="grid" style="grid-template-columns:1.2fr 1fr">
+  <div class="card"><h4>¿Pagarías algo más por unos auriculares sostenibles?</h4><div class="q">Una sola respuesta</div><div class="donut" data-donut='[["Sí, hasta 5 € más",45,"#3F7E8F"],["Sí, hasta 10 € más",22,"#2b6170"],["Sí, más de 10 €",8,"#1d4652"],["No",25,"#B9BFD6"]]' data-center="75 %|pagaría más"></div><div class="note"><b>El 75 % pagaría más por un producto sostenible.</b> El packaging de cartón reciclado es un argumento de venta, no solo una obligación.</div></div>
+  <div class="card"><h4>La subida de precios, ¿te ha hecho gastar menos en tecnología?</h4><div class="q">De 1 (gasto mucho menos) a 5 (gasto lo mismo o más)</div><div class="big"><b style="color:var(--coral)">41 %</b><span>gasta menos en tecnología<br>(respuestas 1 y 2)</span></div><div class="scale" data-scale='[14,27,31,18,10]' data-cols='["#EF5F56","#EF5F56","#B9BFD6","#6F7BCF","#6F7BCF"]'></div><div class="scl"><span>Mucho menos</span><span>Igual o más</span></div></div>
+ </div>
+</div>
+
+<!-- ============ 5. CONCLUSIONES DE LA ENCUESTA ============ -->
+<div class="blk" id="b5">
+ <div class="head"><span class="pill">Lo que nos dice la encuesta</span><span class="sim">Datos simulados</span></div>
+ <div class="ins">
+  <div class="in" style="--c:#232F5F"><div class="k"><b>65 %</b><span>Tiene 18-34 años</span></div><p>Nuestro cliente es joven, estudia o trabaja y usa los auriculares sobre todo en el transporte.</p><p class="dec">→ Buyer persona Lucía confirmado</p></div>
+  <div class="in" style="--c:#3F7E8F"><div class="k"><b>15 %</b><span>Vive en Granada</span></div><p>Ya hay clientes en Granada antes de abrir, y la tienda física es el lugar de compra preferido.</p><p class="dec">→ Apoya la apertura en Granada</p></div>
+  <div class="in" style="--c:#EF5F56"><div class="k"><b>46 %</b><span>Compra en Black Friday</span></div><p>Casi la mitad espera al Black Friday y el 38 % compra como regalo de Navidad.</p><p class="dec">→ Calendario de promociones</p></div>
+  <div class="in" style="--c:#6F7BCF"><div class="k"><b>63 %</b><span>Mira reseñas</span></div><p>Las reseñas, TikTok y YouTube deciden la compra, y el 39 % todavía no conoce los JORDÁNPODS.</p><p class="dec">→ Redes sociales e influencers</p></div>
+  <div class="in" style="--c:#D99A1E"><div class="k"><b>31 %</b><span>Cambia por la batería</span></div><p>La batería es el principal motivo de cambio y el 12 % se queja de no tener almohadillas de repuesto.</p><p class="dec">→ Pack con almohadillas y cambio de batería</p></div>
+  <div class="in" style="--c:#2b6170"><div class="k"><b>75 %</b><span>Pagaría más si es sostenible</span></div><p>Al 71 % le importa que la caja sea de cartón reciclado.</p><p class="dec">→ Packaging personalizado y sostenible</p></div>
+ </div>
+</div>
+
+<script>
+document.querySelectorAll('[data-bars]').forEach(el=>{
+ const d=JSON.parse(el.dataset.bars),c=el.dataset.c,max=+(el.dataset.max||0)||Math.max(...d.map(x=>x[1])),dec=el.dataset.dec;
+ el.innerHTML=d.map(([l,v,h])=>`<div class="bar${h?' hl':''}"><span>${l}</span><span class="t"><i style="width:${v/max*100}%;background:${h?'#EF5F56':c}"></i></span><span class="v">${dec?String(v).replace('.',','):v+' %'}</span></div>`).join('');
+});
+document.querySelectorAll('[data-donut]').forEach(el=>{
+ const d=JSON.parse(el.dataset.donut);let a=0;const st=d.map(([l,v,c])=>{const s=`${c} ${a}% ${a+v}%`;a+=v;return s}).join(',');
+ const [cv,cl]=(el.dataset.center||'').split('|');
+ el.innerHTML=`<div class="d" style="background:conic-gradient(${st})"><b>${cv}<small>${cl}</small></b></div><div class="leg">${d.map(([l,v,c])=>`<span><i style="background:${c}"></i>${l}<em>${v} %</em></span>`).join('')}</div>`;
+});
+document.querySelectorAll('[data-scale]').forEach(el=>{
+ const d=JSON.parse(el.dataset.scale),cols=el.dataset.cols?JSON.parse(el.dataset.cols):['#B9BFD6','#B9BFD6','#B9BFD6','#3F7E8F','#3F7E8F'],mx=Math.max(...d);
+ el.innerHTML=d.map((v,i)=>`<div>${v} %<i style="height:${v/mx*80}px;background:${cols[i]}"></i><span>${i+1}</span></div>`).join('');
+});
+</script>
+</body></html>
