@@ -16,7 +16,7 @@
   --r:22px;--wrap:1240px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:70px;overflow-x:clip}
+html{scroll-behavior:smooth;scroll-padding-top:130px;overflow-x:clip}
 body{background:var(--bg);color:var(--text);font-family:Mont,system-ui,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{max-width:100%;display:block}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
@@ -38,20 +38,36 @@ b,strong{font-weight:800;color:#fff}
 
 /* ---------- Navegación ---------- */
 .barra-progreso{position:fixed;left:0;top:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--peri),var(--gold))}
-nav.menu{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,backdrop-filter .3s}
-nav.menu.solida{background:rgba(4,6,26,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-nav.menu .wrap{display:flex;align-items:center;gap:22px;height:64px}
+nav.menu{position:fixed;top:0;left:0;right:0;z-index:50}
+nav.menu .fila1{display:flex;align-items:center;gap:18px;height:54px}
+.nav-sub{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--dim);letter-spacing:.5px}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:4px 0 12px}
+nav.menu .wrap{width:min(1400px,100% - 32px)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:8px 13px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);font-size:13px;font-weight:700;color:var(--muted);transition:all .25s;white-space:nowrap}
+.tab:hover{border-color:var(--peri2);color:#fff}
+.tab.active{background:#fff;color:#04061A;border-color:#fff;box-shadow:0 6px 20px -6px rgba(255,255,255,.45);transform:translateY(-1px)}
+.tab.star{background:linear-gradient(90deg,rgba(242,181,68,.18),rgba(242,181,68,.08));border-color:rgba(242,181,68,.55);color:var(--gold2)}
+.tab.star.active{background:linear-gradient(90deg,var(--gold2),var(--gold));color:#2b1700;border-color:var(--gold)}
+.tab-content:not(.active){display:none!important}
+.tab-content.active{display:block;animation:entraTab .55s cubic-bezier(.2,.8,.2,1)}
+section.tab-content.active.final{display:flex}
+@keyframes entraTab{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.siguiente{display:flex;justify-content:space-between;gap:14px;margin-top:70px;flex-wrap:wrap}
+.siguiente button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:18px 24px;border-radius:20px;border:1px solid var(--line);background:var(--card);transition:.3s;text-align:left;min-width:240px}
+.siguiente button small{font-size:11.5px;font-weight:900;letter-spacing:2px;color:var(--dim);text-transform:uppercase}
+.siguiente button b{font-family:Lilita;font-weight:400;font-size:24px}
+.siguiente button.sig{margin-left:auto;align-items:flex-end;text-align:right;border-color:rgba(242,181,68,.5);background:rgba(242,181,68,.08)}
+.siguiente button.sig b{color:var(--gold)}
+.siguiente button:hover{transform:translateY(-4px)}
+nav.menu.solida{background:rgba(4,6,26,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .marca{font-weight:900;font-size:19px;letter-spacing:.5px;text-decoration:none;display:flex;align-items:center;gap:10px}
 .marca img{width:28px;height:28px}
 .marca span{color:var(--gold)}
-nav.menu ul{display:flex;gap:4px;list-style:none;margin-left:auto}
-nav.menu ul a{display:block;text-decoration:none;font-size:13.5px;font-weight:700;color:var(--muted);padding:8px 12px;border-radius:999px;transition:.25s}
-nav.menu ul a:hover{color:#fff}
-nav.menu ul a.activo{color:#04061A;background:var(--gold)}
-@media (max-width:1100px){nav.menu ul{display:none}}
+@media (max-width:700px){.nav-sub{display:none}}
 
 /* ---------- Secciones y títulos ---------- */
-section{position:relative;padding:130px 0 90px}
+section{position:relative;padding:170px 0 90px}
 .num-gigante{position:absolute;right:3vw;top:40px;font-family:Lilita;font-size:clamp(140px,20vw,300px);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(160,170,255,.10);pointer-events:none;user-select:none}
 .etiqueta{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 .etiqueta::before{content:"";width:34px;height:2px;background:var(--gold)}
@@ -100,7 +116,7 @@ h3{font-family:Lilita;font-weight:400;font-size:clamp(26px,2.6vw,36px);line-heig
 
 /* ---------- PORTADA ---------- */
 .portada{min-height:100vh;padding:0;display:flex;align-items:center;overflow:hidden}
-.portada .wrap{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px;min-height:100vh;padding-top:70px}
+.portada .wrap{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px;min-height:100vh;padding-top:120px}
 @media (max-width:900px){.portada .wrap{grid-template-columns:1fr}}
 .portada .kicker{font-size:13px;font-weight:800;letter-spacing:4px;color:var(--gold)}
 .portada h1{font-family:Lilita;font-weight:400;font-size:clamp(64px,9.5vw,148px);line-height:.88;margin:18px 0 26px}
@@ -345,12 +361,12 @@ h3{font-family:Lilita;font-weight:400;font-size:clamp(26px,2.6vw,36px);line-heig
 .ejes{display:flex;justify-content:space-between;margin-top:14px;font-size:12.5px;font-weight:800;letter-spacing:2px;color:var(--dim);text-transform:uppercase}
 
 /* ---------- DECISIONES ---------- */
-.indice-dec{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:36px;position:sticky;top:74px;z-index:10;padding:10px;border-radius:20px;background:rgba(4,6,26,.75);backdrop-filter:blur(12px);border:1px solid var(--line)}
+.indice-dec{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:36px;position:sticky;top:124px;z-index:10;padding:10px;border-radius:20px;background:rgba(4,6,26,.75);backdrop-filter:blur(12px);border:1px solid var(--line)}
 @media (max-width:980px){.indice-dec{grid-template-columns:repeat(3,1fr);position:static}}
 .indice-dec a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;text-decoration:none;font-weight:800;font-size:13.5px;color:var(--muted);transition:.25s}
 .indice-dec a b{font-family:Lilita;font-weight:400;font-size:22px;color:var(--gold)}
 .indice-dec a:hover,.indice-dec a.activo{background:var(--card2);color:#fff}
-.decision{margin-top:80px;scroll-margin-top:170px}
+.decision{margin-top:80px;scroll-margin-top:220px}
 .dec-cab{display:flex;gap:22px;align-items:flex-start;margin-bottom:26px}
 .dec-cab .n{font-family:Lilita;font-size:90px;line-height:.8;background:linear-gradient(180deg,var(--gold2),var(--gold) 60%,#B87818);-webkit-background-clip:text;background-clip:text;color:transparent;flex:none}
 .dec-cab h3{font-size:clamp(30px,3.4vw,46px)}
@@ -478,7 +494,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 
 /* ---------- FINAL ---------- */
 .final{min-height:100vh;display:flex;align-items:center;overflow:hidden}
-.final .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center}
+.final .wrap{padding-top:120px;display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center}
 @media (max-width:900px){.final .wrap{grid-template-columns:1fr}}
 .eslogan{font-family:Lilita;font-weight:400;font-size:clamp(48px,5.6vw,90px);line-height:.95}
 .eslogan span{display:block}
@@ -509,23 +525,26 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 <div class="foco" id="foco" aria-hidden="true"></div>
 <div class="barra-progreso" id="progreso"></div>
 
-<nav class="menu" id="menu">
- <div class="wrap">
-  <a class="marca" href="#portada"><img src="assets/escudo_pj.png" alt="">JORDÁN<span>MUSIK</span></a>
-  <ul>
-   <li><a href="#intro">Introducción</a></li>
-   <li><a href="#inteligencia">Entorno</a></li>
-   <li><a href="#registro">Ventas</a></li>
-   <li><a href="#persona">Lucía</a></li>
-   <li><a href="#investigacion">Encuesta</a></li>
-   <li><a href="#dafo">DAFO</a></li>
-   <li><a href="#decisiones">Decisiones</a></li>
-   <li><a href="#conclusion">Conclusión</a></li>
-  </ul>
+<nav class="menu solida" id="menu">
+ <div class="wrap fila1">
+  <a class="marca" href="#inicio" data-ir="inicio"><img src="assets/escudo_pj.png" alt="">JORDÁN<span>MUSIK</span></a>
+  <span class="nav-sub">Sistema de Información de Marketing · Sonia y Brayan</span>
  </div>
+ <div class="wrap"><div class="tabs" id="tabs" role="tablist">
+  <button class="tab" data-tab="inicio">🎧 Inicio</button>
+  <button class="tab" data-tab="inteligencia">🌍 Sistema de inteligencia</button>
+  <button class="tab" data-tab="registro">📊 Sistema de registro</button>
+  <button class="tab" data-tab="persona">👩 Buyer persona</button>
+  <button class="tab" data-tab="investigacion">📋 Investigación comercial</button>
+  <button class="tab" data-tab="dafo">🧭 DAFO</button>
+  <button class="tab star" data-tab="decisiones">🚀 Decisiones</button>
+  <button class="tab" data-tab="conclusion">✅ Conclusión</button>
+  <button class="tab" data-tab="final">🙏 Despedida</button>
+ </div></div>
 </nav>
 
 <!-- ===================== PORTADA ===================== -->
+<div class="tab-content" id="tab-inicio">
 <header class="portada" id="portada" data-visor>
  <div class="wrap">
   <div>
@@ -548,7 +567,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
    </div>
   </div>
  </div>
- <a class="bajar" href="#intro"><i></i>BAJA</a>
+ <a class="bajar" href="#intro" data-bajar><i></i>BAJA</a>
 </header>
 
 <div class="cinta" aria-hidden="true"><div id="cinta"></div></div>
@@ -572,16 +591,17 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   </div>
 
   <div class="pasos">
-   <a class="paso" href="#inteligencia" data-r style="transition-delay:.05s;text-decoration:none"><span class="flecha">↘</span><div class="n">01</div><b>El entorno</b><span>Sistema de inteligencia: lo que pasa fuera de la empresa.</span></a>
-   <a class="paso" href="#registro" data-r style="transition-delay:.15s;text-decoration:none"><span class="flecha">↘</span><div class="n">02</div><b>Las ventas</b><span>Sistema de registro: lo que dicen los datos del Excel.</span></a>
-   <a class="paso" href="#investigacion" data-r style="transition-delay:.25s;text-decoration:none"><span class="flecha">↘</span><div class="n">03</div><b>Los clientes</b><span>Investigación comercial: quién compra y por qué.</span></a>
-   <a class="paso" href="#decisiones" data-r style="transition-delay:.35s;text-decoration:none"><span class="flecha">↘</span><div class="n">04</div><b>Las decisiones</b><span>Sistema de análisis: qué hacer con todo esto.</span></a>
+   <a class="paso" href="#inteligencia" data-ir="inteligencia" data-r style="transition-delay:.05s;text-decoration:none"><span class="flecha">↘</span><div class="n">01</div><b>El entorno</b><span>Sistema de inteligencia: lo que pasa fuera de la empresa.</span></a>
+   <a class="paso" href="#registro" data-ir="registro" data-r style="transition-delay:.15s;text-decoration:none"><span class="flecha">↘</span><div class="n">02</div><b>Las ventas</b><span>Sistema de registro: lo que dicen los datos del Excel.</span></a>
+   <a class="paso" href="#investigacion" data-ir="investigacion" data-r style="transition-delay:.25s;text-decoration:none"><span class="flecha">↘</span><div class="n">03</div><b>Los clientes</b><span>Investigación comercial: quién compra y por qué.</span></a>
+   <a class="paso" href="#decisiones" data-ir="decisiones" data-r style="transition-delay:.35s;text-decoration:none"><span class="flecha">↘</span><div class="n">04</div><b>Las decisiones</b><span>Sistema de análisis: qué hacer con todo esto.</span></a>
   </div>
  </div>
 </section>
 
+</div>
 <!-- ===================== INTELIGENCIA ===================== -->
-<section id="inteligencia">
+<section class="tab-content" id="tab-inteligencia">
  <span class="num-gigante">02</span>
  <div class="wrap">
   <span class="etiqueta">Sistema de inteligencia</span>
@@ -608,7 +628,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </section>
 
 <!-- ===================== REGISTRO ===================== -->
-<section id="registro">
+<section class="tab-content" id="tab-registro">
  <span class="num-gigante">03</span>
  <div class="wrap">
   <span class="etiqueta">Sistema de registro</span>
@@ -651,7 +671,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </section>
 
 <!-- ===================== BUYER PERSONA ===================== -->
-<section id="persona">
+<section class="tab-content" id="tab-persona">
  <span class="num-gigante">04</span>
  <div class="wrap">
   <span class="etiqueta">Buyer persona</span>
@@ -689,7 +709,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </section>
 
 <!-- ===================== INVESTIGACIÓN ===================== -->
-<section id="investigacion">
+<section class="tab-content" id="tab-investigacion">
  <span class="num-gigante">05</span>
  <div class="wrap">
   <span class="etiqueta">Investigación comercial</span>
@@ -745,7 +765,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </section>
 
 <!-- ===================== DAFO ===================== -->
-<section id="dafo">
+<section class="tab-content" id="tab-dafo">
  <span class="num-gigante">06</span>
  <div class="wrap">
   <span class="etiqueta">Sistema de análisis · DAFO</span>
@@ -764,7 +784,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </section>
 
 <!-- ===================== DECISIONES ===================== -->
-<section id="decisiones">
+<section class="tab-content" id="tab-decisiones">
  <span class="num-gigante">07</span>
  <div class="wrap">
   <span class="etiqueta">Sistema de análisis · Decisiones</span>
@@ -879,7 +899,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </section>
 
 <!-- ===================== CONCLUSIÓN ===================== -->
-<section id="conclusion">
+<section class="tab-content" id="tab-conclusion">
  <span class="num-gigante">08</span>
  <div class="wrap">
   <span class="etiqueta">Conclusión</span>
@@ -891,7 +911,7 @@ footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </section>
 
 <!-- ===================== FINAL ===================== -->
-<section class="final" id="final" data-visor>
+<section class="final tab-content" id="tab-final" data-visor>
  <div class="wrap">
   <div>
    <span class="etiqueta">Despedida</span>
@@ -975,12 +995,8 @@ $$('[data-split]').forEach(h=>{
 // Foco que sigue al ratón, barra de progreso y menú
 const foco=$('#foco');
 addEventListener('pointermove',e=>{foco.style.left=e.clientX+'px';foco.style.top=e.clientY+'px'},{passive:true});
-const menu=$('#menu'),prog=$('#progreso');
-addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';menu.classList.toggle('solida',h.scrollTop>40)},{passive:true});
-// Menú activo
-const enlaces=$$('nav.menu ul a');
-const obsMenu=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){enlaces.forEach(a=>a.classList.toggle('activo',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
-$$('section[id]').forEach(s=>obsMenu.observe(s));
+const prog=$('#progreso');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
 const decA=$$('#indice-dec a');
 const obsDec=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)decA.forEach(a=>a.classList.toggle('activo',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
 $$('.decision').forEach(d=>obsDec.observe(d));
@@ -1259,7 +1275,44 @@ const AD=[
 ];
 $('#ad').innerHTML=AD.map((r,i)=>`<div class="ad-fila" data-r style="transition-delay:${(i%3)*.06}s"><span class="antes">${r[0]}</span><span class="flecha">→</span><span class="despues">${r[1]}</span></div>`).join('');
 $$('#ad .ad-fila').forEach(el=>observar(el));
+
+/* =========================================================
+   PESTAÑAS (como la web de la UT2)
+   ========================================================= */
+const TABS=$$('#tabs .tab').map(t=>t.dataset.tab);
+const NOMBRES=Object.fromEntries($$('#tabs .tab').map(t=>[t.dataset.tab,t.textContent.replace(/^\S+\s/,'')]));
+// Botones «anterior / siguiente» al final de cada pestaña
+TABS.forEach((t,i)=>{
+  const c=$('#tab-'+t);
+  const wraps=c.querySelectorAll('.wrap');const dest=t==='final'?c.querySelector('.wrap > div'):wraps[wraps.length-1];
+  const ant=TABS[i-1],sig=TABS[i+1];
+  const d=document.createElement('div');d.className='siguiente';
+  d.innerHTML=(ant?`<button data-ir="${ant}"><small>← Anterior</small><b>${NOMBRES[ant]}</b></button>`:'')+(sig?`<button class="sig" data-ir="${sig}"><small>Siguiente →</small><b>${NOMBRES[sig]}</b></button>`:'');
+  if(dest)dest.appendChild(d);
+});
+let primera=true,actual='inicio';
+function irTab(id,sinScroll){
+  if(!TABS.includes(id))id='inicio';
+  actual=id;
+  $$('#tabs .tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===id));
+  $$('.tab-content').forEach(c=>c.classList.toggle('active',c.id==='tab-'+id));
+  const t=$(`#tabs .tab[data-tab="${id}"]`);try{t.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'})}catch(e){}
+  try{history.replaceState(null,'','#'+id)}catch(e){}
+  // Volver a animar lo que aparece al bajar
+  if(!primera){$('#tab-'+id).querySelectorAll('[data-r].vis,[data-split].vis,.cuadrante.vis').forEach(el=>{el.classList.remove('vis');obs.observe(el)})}
+  primera=false;
+  if(!sinScroll)window.scrollTo({top:0,behavior:'instant'});
+  window.dispatchEvent(new Event('resize'));
+}
+$$('#tabs .tab').forEach(t=>t.addEventListener('click',()=>irTab(t.dataset.tab)));
+document.addEventListener('click',e=>{const a=e.target.closest('[data-ir]');if(a){e.preventDefault();irTab(a.dataset.ir)}});
+$('[data-bajar]').addEventListener('click',e=>{e.preventDefault();$('#intro').scrollIntoView({behavior:'smooth'})});
+// Flechas del teclado para presentar
+addEventListener('keydown',e=>{if(e.target.closest('input'))return;const i=TABS.indexOf(actual);
+  if(e.key==='ArrowRight'&&i<TABS.length-1)irTab(TABS[i+1]);if(e.key==='ArrowLeft'&&i>0)irTab(TABS[i-1])});
+irTab(location.hash.slice(1)||'inicio',true);
 </script>
+
 <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/"}}</script>
 <script type="module" src="js/jordanpods3d.js"></script>
 </body>
