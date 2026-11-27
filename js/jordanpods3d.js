@@ -4,8 +4,6 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/RoomEnvironment.js';
 
-const box = document.getElementById('visor3d');
-const fallback = document.getElementById('visor-foto');
 
 function webglOk() {
   try {
@@ -14,7 +12,7 @@ function webglOk() {
   } catch (e) { return false; }
 }
 
-if (box && webglOk()) init();
+if (webglOk()) document.querySelectorAll('.visor3d').forEach((b) => init(b));
 
 /* Forma de «gajo» de anillo: diadema, almohadilla de la diadema y horquilla */
 function arco(r1, r2, a0, a1) {
@@ -39,7 +37,9 @@ function rectRedondo(w, h, r) {
   return s;
 }
 
-function init() {
+function init(box) {
+  const zona = box.closest('[data-visor]') || document;
+  const fallback = zona.querySelector('.visor-foto');
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -56,7 +56,9 @@ function init() {
   camera.lookAt(0, -0.1, 0);
 
   const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(3, 5, 4); scene.add(key);
-  const rim = new THREE.DirectionalLight(0xdfe4ff, 1.1); rim.position.set(-4, 3, -3); scene.add(rim);
+  const rim = new THREE.DirectionalLight(0xdfe4ff, 1.8); rim.position.set(-4, 3, -3); scene.add(rim);
+  const oro = new THREE.DirectionalLight(0xffc96b, 1.6); oro.position.set(4, -1, -4); scene.add(oro);
+  scene.add(new THREE.HemisphereLight(0xc9ceff, 0x0a0d1f, 0.3));
 
   // Materiales: plástico mate, piel de las almohadillas, tela y aro metálico
   const plastico = new THREE.MeshPhysicalMaterial({ roughness: 0.38, metalness: 0.0, clearcoat: 0.3, clearcoatRoughness: 0.45 });
@@ -144,9 +146,9 @@ function init() {
     const c = COLORES[nombre]; if (!c) return;
     plastico.color.setHex(c.plastico); plasticoOsc.color.setHex(c.oscuro); piel.color.setHex(c.piel);
     cargarLogo(c.logo);
-    document.querySelectorAll('[data-color]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.color === nombre ? 'true' : 'false'));
+    zona.querySelectorAll('[data-color]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.color === nombre ? 'true' : 'false'));
   }
-  document.querySelectorAll('[data-color]').forEach((b) => b.addEventListener('click', () => ponerColor(b.dataset.color)));
+  zona.querySelectorAll('[data-color]').forEach((b) => b.addEventListener('click', () => ponerColor(b.dataset.color)));
   ponerColor('negro');
 
   // Posición original: vista de tres cuartos, como en la foto del producto
@@ -158,7 +160,7 @@ function init() {
   scene.add(pivote);
 
   /* ---------- Girar arrastrando y volver al soltar ---------- */
-  const hint = document.getElementById('visor-hint');
+  const hint = zona.querySelector('.visor-hint');
   let arrastrando = false, lx = 0, ly = 0;
   const qx = new THREE.Quaternion(), qy = new THREE.Quaternion();
   const EJE_X = new THREE.Vector3(1, 0, 0), EJE_Y = new THREE.Vector3(0, 1, 0);
@@ -194,7 +196,10 @@ function init() {
 
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const reloj = new THREE.Clock();
+  let visible = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(box);
   renderer.setAnimationLoop(() => {
+    if (!visible) { reloj.getDelta(); return; }
     const dt = Math.min(reloj.getDelta(), 0.1), t = reloj.elapsedTime;
     if (!arrastrando) {
       // Al soltar, vuelve suavemente a la posición original
@@ -207,5 +212,5 @@ function init() {
 
   box.classList.add('ready');
   if (fallback) fallback.hidden = true;
-  window.__visor = { pivote, ORIGINAL };
+  (window.__visores = window.__visores || []).push({ pivote, ORIGINAL });
 }

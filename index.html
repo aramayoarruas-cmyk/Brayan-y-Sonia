@@ -2,1073 +2,1263 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>JORDÁNMUSIK SIM</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JORDÁNMUSIK · Sistema de Información de Marketing</title>
+<meta name="description" content="Proyecto de Investigación Comercial de Sonia Lázaro y Brayan Aramayo: un Sistema de Información de Marketing para JORDÁNMUSIK y sus JORDÁNPODS.">
+<link rel="icon" href="assets/escudo_pj.png">
 <style>
-/* Layout: web-presentación por "paradas" (secciones) con menú fijo; el hero es un ecualizador hecho con las ventas reales. */
+@font-face{font-family:Lilita;src:url(assets/fonts/LilitaOne-Regular.ttf);font-display:swap}
+@font-face{font-family:Mont;src:url(assets/fonts/Montserrat-VF.ttf);font-weight:100 900;font-display:swap}
 :root{
-  --paper:#F2F3F7; --card:#FFFFFF; --ink:#11141E; --muted:#5A6073; --line:#D8DBE5;
-  --cobalt:#2B44E8; --cobalt-soft:#E3E7FF; --coral:#E8542F; --coral-soft:#FDE6DF;
-  --stage:#0C0F1D; --stage-2:#161A2E; --stage-fg:#ECEEF8; --stage-muted:#9198B4;
-  --real:#2B44E8; --calc:#0B8576; --hip:#A66A00; --prev:#7443D1; --pend:#6B7084;
-  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --r:14px;
+  --bg:#04061A;--bg2:#0A0F33;--card:rgba(255,255,255,.045);--card2:rgba(255,255,255,.08);--line:rgba(160,170,255,.16);
+  --peri:#6F7BCF;--peri2:#A3ACF5;--blue:#4A56B8;--gold:#F2B544;--gold2:#FFDA8C;--coral:#EF5F56;
+  --text:#ECEEFF;--muted:#9CA3CC;--dim:#6B7299;
+  --r:22px;--wrap:1240px;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#0A0C14; --card:#121522; --ink:#E7E9F2; --muted:#979DB2; --line:#242939;
-    --cobalt:#8395FF; --cobalt-soft:#1B2147; --coral:#FF8466; --coral-soft:#3A1F19;
-    --real:#8395FF; --calc:#3CC4B0; --hip:#E5AE47; --prev:#AE8CF6; --pend:#8C91A6;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0A0C14; --card:#121522; --ink:#E7E9F2; --muted:#979DB2; --line:#242939;
-  --cobalt:#8395FF; --cobalt-soft:#1B2147; --coral:#FF8466; --coral-soft:#3A1F19;
-  --real:#8395FF; --calc:#3CC4B0; --hip:#E5AE47; --prev:#AE8CF6; --pend:#8C91A6;
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--stage)}
-h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
-p{margin:0}
-a{color:var(--cobalt)}
-button{font:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--coral);outline-offset:2px;border-radius:6px}
-.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.num{font-variant-numeric:tabular-nums}
-.mono{font-family:var(--mono)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px;overflow-x:clip}
+body{background:var(--bg);color:var(--text);font-family:Mont,system-ui,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+a{color:inherit}
+::selection{background:var(--gold);color:#04061A}
+b,strong{font-weight:800;color:#fff}
+.gold{color:var(--gold)}
+.wrap{width:min(var(--wrap),100% - 48px);margin-inline:auto}
 
-/* ---------- NAV ---------- */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--stage);color:var(--stage-fg);border-bottom:1px solid #ffffff14}
-.nav .wrap{display:flex;align-items:center;gap:16px;height:56px}
-.brand{font-family:var(--display);font-weight:800;letter-spacing:.02em;font-size:17px;white-space:nowrap;text-decoration:none;color:var(--stage-fg)}
-.brand span{color:#FF8466}
-.links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
-.links::-webkit-scrollbar{display:none}
-.links a{color:var(--stage-muted);text-decoration:none;font-size:13.5px;padding:7px 11px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}
-.links a b{font-family:var(--mono);font-weight:500;margin-right:5px;color:#FF8466}
-.links a:hover{color:var(--stage-fg);background:#ffffff10}
-.links a.on{color:var(--stage-fg);background:#ffffff1c}
-.navbtns{display:flex;gap:6px}
-.pill-btn{border:1px solid #ffffff2a;background:transparent;color:var(--stage-fg);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;white-space:nowrap}
-.pill-btn:hover{background:#ffffff14}
-.progress{position:absolute;left:0;bottom:-1px;height:2px;background:#FF8466;width:0}
+/* ---------- Fondo animado ---------- */
+.fondo{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+.fondo i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:flota 26s ease-in-out infinite alternate}
+.fondo i:nth-child(1){width:55vw;height:55vw;left:-15vw;top:-20vw;background:#2B3596}
+.fondo i:nth-child(2){width:40vw;height:40vw;right:-10vw;top:30vh;background:#5A3FA8;opacity:.35;animation-duration:32s}
+.fondo i:nth-child(3){width:35vw;height:35vw;left:30vw;bottom:-20vw;background:#8A6420;opacity:.28;animation-duration:38s}
+@keyframes flota{to{transform:translate(8vw,6vh) scale(1.15)}}
+.rejilla{position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(160,170,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(160,170,255,.05) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 75%)}
+.foco{position:fixed;width:600px;height:600px;border-radius:50%;left:0;top:0;z-index:-1;pointer-events:none;background:radial-gradient(circle,rgba(242,181,68,.10),transparent 60%);transform:translate(-50%,-50%);transition:opacity .3s}
 
-/* ---------- HERO ---------- */
-.hero{background:var(--stage);color:var(--stage-fg);padding-block:64px 40px;overflow:hidden;position:relative}
-.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--stage-muted)}
-.hero h1{font-size:clamp(46px,9vw,124px);font-weight:800;letter-spacing:-.02em;margin-top:14px}
-.hero h1 em{font-style:normal;color:#FF8466}
-.hero .sub{font-family:var(--display);font-size:clamp(20px,2.6vw,30px);font-weight:400;color:var(--stage-fg);margin-top:8px;max-width:30ch}
-.hero .lede{color:var(--stage-muted);max-width:60ch;margin-top:18px}
-.eq{margin-top:44px;display:grid;grid-template-columns:repeat(36,1fr);gap:4px;align-items:end;height:200px;position:relative}
-.eq .bar{position:relative;border-radius:4px 4px 1px 1px;background:linear-gradient(to top,#3348F0,#8C9BFF);transform-origin:bottom;animation:rise 1s cubic-bezier(.2,.8,.2,1) both;cursor:default}
-.eq .bar.max{background:linear-gradient(to top,#E8542F,#FFB199)}
-.eq .bar:hover{filter:brightness(1.25)}
-.eq .bar .tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;color:#11141E;font-family:var(--mono);font-size:11.5px;padding:4px 7px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:3}
-.eq .bar:hover .tip,.eq .bar:focus .tip{opacity:1}
-@keyframes rise{from{transform:scaleY(.04)}to{transform:scaleY(1)}}
-.eq-axis{display:grid;grid-template-columns:repeat(3,1fr);margin-top:8px;font-family:var(--mono);font-size:12px;color:var(--stage-muted)}
-.eq-axis span{border-top:1px solid #ffffff2a;padding-top:6px}
-.eq-cap{font-size:13px;color:var(--stage-muted);margin-top:10px}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#ffffff18;border-radius:var(--r);overflow:hidden;margin-top:36px}
-.kpi{background:var(--stage-2);padding:20px 22px}
-.kpi .v{font-family:var(--display);font-size:clamp(26px,3.4vw,40px);font-weight:600}
-.kpi .l{font-size:13.5px;color:var(--stage-muted);margin-top:2px}
-@media (max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.eq{height:140px;gap:2px}}
+/* ---------- Navegación ---------- */
+.barra-progreso{position:fixed;left:0;top:0;height:3px;width:0;z-index:60;background:linear-gradient(90deg,var(--peri),var(--gold))}
+nav.menu{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,backdrop-filter .3s}
+nav.menu.solida{background:rgba(4,6,26,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav.menu .wrap{display:flex;align-items:center;gap:22px;height:64px}
+.marca{font-weight:900;font-size:19px;letter-spacing:.5px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.marca img{width:28px;height:28px}
+.marca span{color:var(--gold)}
+nav.menu ul{display:flex;gap:4px;list-style:none;margin-left:auto}
+nav.menu ul a{display:block;text-decoration:none;font-size:13.5px;font-weight:700;color:var(--muted);padding:8px 12px;border-radius:999px;transition:.25s}
+nav.menu ul a:hover{color:#fff}
+nav.menu ul a.activo{color:#04061A;background:var(--gold)}
+@media (max-width:1100px){nav.menu ul{display:none}}
 
-/* ---------- TAGS ---------- */
-.legend{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:28px;font-size:13px;color:var(--stage-muted)}
-.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;line-height:1.4;vertical-align:middle}
-.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
-.tag.real{color:var(--real)} .tag.calc{color:var(--calc)} .tag.hip{color:var(--hip)} .tag.prev{color:var(--prev)} .tag.pend{color:var(--pend);border-style:dashed}
-.hero .tag.real{color:#8C9BFF} .hero .tag.calc{color:#3CC4B0} .hero .tag.hip{color:#E5AE47} .hero .tag.prev{color:#AE8CF6} .hero .tag.pend{color:#9198B4}
+/* ---------- Secciones y títulos ---------- */
+section{position:relative;padding:130px 0 90px}
+.num-gigante{position:absolute;right:3vw;top:40px;font-family:Lilita;font-size:clamp(140px,20vw,300px);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(160,170,255,.10);pointer-events:none;user-select:none}
+.etiqueta{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.etiqueta::before{content:"";width:34px;height:2px;background:var(--gold)}
+h2.titulo{font-family:Lilita;font-weight:400;font-size:clamp(40px,5.4vw,74px);line-height:1;margin:14px 0 24px;letter-spacing:.3px}
+h2.titulo .w{display:inline-block;opacity:0;transform:translateY(40px) rotate(4deg);filter:blur(8px);transition:all .8s cubic-bezier(.2,.8,.2,1)}
+h2.titulo.vis .w{opacity:1;transform:none;filter:none}
+h2.titulo em{font-style:normal}
+h2.titulo em .w{background:linear-gradient(90deg,var(--peri2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(17px,1.5vw,20px);color:#C9CDEB;max-width:820px}
+.lead b{color:#fff}
+.lead .gold{font-weight:800}
+h3{font-family:Lilita;font-weight:400;font-size:clamp(26px,2.6vw,36px);line-height:1.1;letter-spacing:.2px}
+.sub-titulo{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:70px 0 22px;flex-wrap:wrap}
+.sub-titulo p{color:var(--muted);font-size:15px;max-width:560px}
 
-/* ---------- SECTIONS ---------- */
-section.sec{padding-block:88px 24px;scroll-margin-top:56px}
-.stop{scroll-margin-top:72px}
-.sec-head{display:grid;grid-template-columns:auto 1fr;gap:4px 22px;align-items:end;margin-bottom:36px}
-.sec-num{font-family:var(--display);font-weight:800;font-size:clamp(64px,9vw,120px);line-height:.8;color:var(--cobalt);grid-row:span 2}
-.sec-kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.sec-head h2{font-size:clamp(30px,4.4vw,52px);font-weight:800;letter-spacing:-.01em}
-.lead{font-size:18px;color:var(--muted);max-width:68ch}
-.sub-head{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:baseline;margin:64px 0 18px;padding-top:28px;border-top:1px solid var(--line)}
-.sub-head .letter{font-family:var(--mono);font-size:13px;color:var(--coral);font-weight:500}
-.sub-head h3{font-size:clamp(22px,2.8vw,32px);font-weight:600}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;min-width:0}
-.card h4{font-size:19px;font-weight:600;margin-bottom:8px}
-.card p+p{margin-top:10px}
-.muted{color:var(--muted)}
-.small{font-size:13.5px}
-.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
-.fact{padding:12px 14px;border-radius:10px;background:var(--paper)}
-.fact .k{font-size:12px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em}
-.fact .v{font-weight:600;margin-top:2px}
+/* Aparición al bajar */
+[data-r]{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),filter .9s;filter:blur(6px)}
+[data-r="izq"]{transform:translateX(-60px)}
+[data-r="der"]{transform:translateX(60px)}
+[data-r="zoom"]{transform:scale(.88)}
+[data-r].vis{opacity:1;transform:none;filter:none}
 
-/* ---------- SIM DIAGRAM ---------- */
-.sim{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:stretch}
-@media (max-width:860px){.sim{grid-template-columns:1fr}}
-.sim-map{position:relative;background:var(--stage);border-radius:var(--r);padding:24px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:12px;color:var(--stage-fg)}
-.sim-core{grid-column:1/-1;order:2;text-align:center;padding:18px;border-radius:12px;border:1px dashed #ffffff40;font-family:var(--display);font-size:18px}
-.sim-core small{display:block;font-family:var(--mono);font-size:11px;color:var(--stage-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
-.sim-node{background:var(--stage-2);border:1px solid #ffffff1a;border-radius:12px;padding:14px;text-align:left;cursor:pointer;transition:border-color .2s,transform .2s;color:var(--stage-fg)}
-.sim-node:hover{transform:translateY(-2px);border-color:#ffffff50}
-.sim-node.on{border-color:#FF8466;box-shadow:0 0 0 1px #FF8466 inset}
-.sim-node .n{font-family:var(--mono);font-size:11px;color:#FF8466}
-.sim-node .t{font-family:var(--display);font-weight:600;font-size:16.5px;margin-top:2px}
-.sim-node .d{font-size:12.5px;color:var(--stage-muted);margin-top:2px}
-.sim-top{order:1}.sim-bot{order:3}
-.sim-panel h4{font-size:24px}
-.sim-panel .go{display:inline-block;margin-top:16px;font-weight:600;text-decoration:none}
+.tarjeta{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px;backdrop-filter:blur(6px);position:relative}
+.resumen{margin-top:44px;display:flex;gap:18px;align-items:center;padding:22px 28px;border-radius:var(--r);background:linear-gradient(100deg,rgba(242,181,68,.16),rgba(242,181,68,.02));border:1px solid rgba(242,181,68,.35);font-size:18px}
+.resumen .ico{flex:none;width:46px;height:46px;border-radius:14px;background:var(--gold);color:#04061A;display:grid;place-items:center;font-size:22px;font-weight:900}
+.resumen b{color:var(--gold2)}
 
-/* ---------- TILES (PESTEL) ---------- */
-.pestel{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-@media (max-width:900px){.pestel{grid-template-columns:repeat(3,1fr)}}
-@media (max-width:480px){.pestel{grid-template-columns:repeat(2,1fr)}}
-.ptile{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px;text-align:left;cursor:pointer;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s,border-color .2s}
-.ptile:hover{transform:translateY(-3px);border-color:var(--cobalt)}
-.ptile.on{background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
-.ptile .L{font-family:var(--display);font-weight:800;font-size:54px;line-height:1}
-.ptile .N{font-weight:600}
-.ppanel{margin-top:14px}
+/* Dato + ejemplo */
+.dato-ej{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:18px}
+@media (max-width:820px){.dato-ej{grid-template-columns:1fr}}
+.dato{background:linear-gradient(150deg,rgba(111,123,207,.20),rgba(111,123,207,.04));border:1px solid rgba(163,172,245,.28);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;justify-content:center}
+.dato .k{font-size:12px;font-weight:800;letter-spacing:2.5px;color:var(--peri2);text-transform:uppercase}
+.dato .v{font-family:Lilita;font-size:clamp(60px,7vw,104px);line-height:1;margin:8px 0 6px;background:linear-gradient(180deg,#fff,#C4CAF7);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dato p{color:#D3D7F3;font-size:17px}
+.dato small{display:block;margin-top:14px;color:var(--dim);font-size:12.5px;font-weight:600}
+.ejemplo{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px;position:relative;overflow:hidden}
+.ejemplo::before{content:"EJEMPLO";position:absolute;right:20px;top:18px;font-size:11px;font-weight:900;letter-spacing:2.5px;color:var(--gold);border:1.5px solid var(--gold);border-radius:999px;padding:3px 10px}
+.persona{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.avatar{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;font-family:Lilita;font-size:24px;color:#04061A;background:linear-gradient(135deg,var(--gold2),var(--gold));flex:none}
+.persona b{display:block;font-size:17px}
+.persona span{font-size:13px;color:var(--muted);font-weight:600}
+.ejemplo p{color:#D9DCF5;font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font-size:13px;font-weight:700;padding:7px 12px;border-radius:999px;background:var(--card2);border:1px solid var(--line);color:#D6DAF5}
+.chip b{color:var(--gold2)}
 
-/* ---------- TABS ---------- */
-.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
-.tab{border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:999px;cursor:pointer;font-size:14px}
-.tab:hover{border-color:var(--cobalt)}
-.tab.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--card)}
-.seg button{border:0;background:transparent;padding:6px 12px;border-radius:999px;cursor:pointer;font-size:13.5px;color:var(--muted)}
-.seg button.on{background:var(--cobalt);color:#fff}
+/* ---------- PORTADA ---------- */
+.portada{min-height:100vh;padding:0;display:flex;align-items:center;overflow:hidden}
+.portada .wrap{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:20px;min-height:100vh;padding-top:70px}
+@media (max-width:900px){.portada .wrap{grid-template-columns:1fr}}
+.portada .kicker{font-size:13px;font-weight:800;letter-spacing:4px;color:var(--gold)}
+.portada h1{font-family:Lilita;font-weight:400;font-size:clamp(64px,9.5vw,148px);line-height:.88;margin:18px 0 26px}
+.portada h1 .l{display:inline-block;opacity:0;transform:translateY(60px) rotateX(70deg);animation:letra 1s cubic-bezier(.2,.8,.2,1) forwards}
+.portada h1 .musik .l{background:linear-gradient(180deg,var(--gold2),var(--gold) 55%,#E08A2A);-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes letra{to{opacity:1;transform:none}}
+.portada p.intro{font-size:20px;color:#C9CDEB;max-width:520px;opacity:0;animation:sube 1s .9s forwards}
+.autores{margin-top:24px;font-weight:700;color:var(--muted);opacity:0;animation:sube 1s 1.1s forwards}
+.autores b{color:#fff}
+@keyframes sube{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.ondas{display:flex;gap:5px;align-items:center;height:54px;margin-top:30px;opacity:0;animation:sube 1s 1.3s forwards}
+.ondas i{width:6px;border-radius:4px;background:linear-gradient(180deg,var(--gold),var(--peri));animation:eq 1.2s ease-in-out infinite alternate}
+@keyframes eq{0%{height:8px}100%{height:var(--h)}}
+.escena{position:relative;height:min(78vh,720px)}
+.escena .halo{position:absolute;inset:8% 6%;border-radius:50%;background:radial-gradient(circle,rgba(111,123,207,.55),rgba(111,123,207,.12) 45%,transparent 68%);animation:late 5s ease-in-out infinite}
+.escena .aro{position:absolute;left:50%;top:50%;width:78%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(242,181,68,.35);transform:translate(-50%,-50%);animation:gira 30s linear infinite}
+.escena .aro::after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:var(--gold);top:-6px;left:50%;box-shadow:0 0 20px var(--gold)}
+.escena .aro.b{width:96%;border-color:rgba(163,172,245,.18);animation-duration:46s;animation-direction:reverse}
+@keyframes gira{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes late{50%{transform:scale(1.06);opacity:.85}}
+.visor3d{position:absolute;inset:0;z-index:2;cursor:grab;touch-action:pan-y}
+.visor3d.dragging{cursor:grabbing}
+.visor3d canvas{display:block;width:100%!important;height:100%!important}
+.visor-foto{position:absolute;left:50%;top:50%;height:70%;transform:translate(-50%,-50%);z-index:1}
+.controles{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);z-index:3;display:flex;gap:10px;align-items:center;white-space:nowrap}
+.color{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;padding:8px 14px 8px 8px;border-radius:999px;background:var(--card2);border:1px solid var(--line);transition:.25s}
+.color i{width:22px;height:22px;border-radius:50%;border:2px solid rgba(255,255,255,.4)}
+.color[aria-pressed="true"]{border-color:var(--gold);background:rgba(242,181,68,.14)}
+.visor-hint{position:absolute;left:50%;top:4%;transform:translateX(-50%);z-index:3;font-size:13px;font-weight:700;color:var(--muted);background:rgba(4,6,26,.6);border:1px solid var(--line);padding:7px 14px;border-radius:999px;white-space:nowrap;transition:opacity .5s}
+.visor-hint.used{opacity:0}
+.flotante{position:absolute;z-index:3;padding:12px 16px;border-radius:16px;background:rgba(10,15,51,.75);border:1px solid var(--line);backdrop-filter:blur(10px);font-size:13px;font-weight:700;color:var(--muted);animation:levita 6s ease-in-out infinite}
+.flotante b{display:block;font-family:Lilita;font-weight:400;font-size:30px;color:var(--gold);line-height:1}
+@keyframes levita{50%{transform:translateY(-14px)}}
+.bajar{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:3px;color:var(--muted);text-decoration:none}
+.bajar i{width:24px;height:38px;border:2px solid var(--muted);border-radius:14px;position:relative}
+.bajar i::after{content:"";position:absolute;left:50%;top:7px;width:4px;height:8px;border-radius:2px;background:var(--gold);transform:translateX(-50%);animation:rueda 1.6s infinite}
+@keyframes rueda{to{transform:translate(-50%,12px);opacity:0}}
 
-.pending{border:1.5px dashed var(--line);border-radius:var(--r);padding:22px;background:transparent}
-.pending h4{font-size:18px;margin:10px 0 6px}
-.pending ul{margin:8px 0 0;padding-left:18px;color:var(--muted)}
+/* ---------- Cinta ---------- */
+.cinta{overflow:hidden;border-block:1px solid var(--line);background:rgba(255,255,255,.02);padding:18px 0}
+.cinta div{display:flex;gap:50px;width:max-content;animation:cinta 40s linear infinite;font-family:Lilita;font-size:30px;color:rgba(236,238,255,.28);white-space:nowrap}
+.cinta span::after{content:"♪";margin-left:50px;color:var(--gold)}
+@keyframes cinta{to{transform:translateX(-50%)}}
 
-/* ---------- CHARTS ---------- */
-.chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-width:0}
-.chart-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}
-.chart-top h4{font-size:18px;font-weight:600}
-.cbox{position:relative;height:340px}
-.cbox.sm{height:260px}
-@media (max-width:600px){.cbox{height:270px}}
-.note{font-size:13.5px;color:var(--muted);margin-top:10px}
+/* ---------- INTRO ---------- */
+.ruta{display:grid;grid-template-columns:1fr 1.2fr 1fr;align-items:center;gap:0;margin-top:46px}
+@media (max-width:820px){.ruta{grid-template-columns:1fr}.ruta svg{transform:rotate(90deg);height:140px}}
+.ciudad{padding:26px;border-radius:var(--r);border:1px solid var(--line);background:var(--card)}
+.ciudad .est{font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase}
+.ciudad h3{margin:6px 0 4px}
+.ciudad p{color:var(--muted);font-size:15px}
+.ciudad.hoy .est{color:var(--peri2)}
+.ciudad.pronto{border-color:rgba(242,181,68,.45);background:rgba(242,181,68,.07)}
+.ciudad.pronto .est{color:var(--gold)}
+.ruta svg{width:100%;height:120px;overflow:visible}
+.ruta .camino{stroke-dasharray:8 10;animation:discont 1.2s linear infinite}
+@keyframes discont{to{stroke-dashoffset:-36}}
+.pasos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+@media (max-width:900px){.pasos{grid-template-columns:repeat(2,1fr)}}
+.paso{text-align:left;padding:24px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);transition:.35s;position:relative;overflow:hidden}
+.paso::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,var(--peri),var(--gold));transform:scaleX(0);transform-origin:left;transition:.4s}
+.paso:hover{transform:translateY(-6px);border-color:rgba(242,181,68,.5)}
+.paso:hover::after{transform:none}
+.paso .n{font-family:Lilita;font-size:44px;color:var(--gold);line-height:1}
+.paso b{display:block;font-size:19px;margin-top:8px}
+.paso span{font-size:14px;color:var(--muted)}
+.paso .flecha{position:absolute;right:20px;top:24px;font-size:20px;color:var(--muted);transition:.3s}
+.paso:hover .flecha{color:var(--gold);transform:translate(4px,4px)}
 
-.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
-table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:640px}
-th,td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
-th:first-child,td:first-child{text-align:left}
-th{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500}
-tr:last-child td{border-bottom:0}
-.up{color:var(--calc)} .down{color:var(--coral)}
+/* ---------- INTELIGENCIA ---------- */
+.pestanas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.pestana{padding:12px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-weight:800;font-size:14.5px;color:var(--muted);transition:.25s;display:flex;align-items:center;gap:8px}
+.pestana .l{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--card2);font-family:Lilita;font-weight:400;font-size:15px}
+.pestana:hover{color:#fff}
+.pestana[aria-selected="true"]{background:#fff;color:#04061A;border-color:#fff}
+.pestana[aria-selected="true"] .l{background:var(--gold)}
+.panel-anim{animation:panel .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes panel{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-.extremes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
-@media (max-width:760px){.extremes{grid-template-columns:repeat(2,1fr)}}
-.ext{border-radius:12px;padding:14px;background:var(--card);border:1px solid var(--line)}
-.ext .k{font-size:12px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.ext .v{font-family:var(--display);font-size:26px;font-weight:600}
-.ext.hi{border-color:var(--coral)} .ext.hi .v{color:var(--coral)}
+.marcas-cab{display:flex;gap:10px;flex-wrap:wrap}
+.interruptor{display:inline-flex;padding:5px;border-radius:999px;background:var(--card2);border:1px solid var(--line)}
+.interruptor button{padding:9px 18px;border-radius:999px;font-weight:800;font-size:14px;color:var(--muted);transition:.25s}
+.interruptor button[aria-pressed="true"]{background:var(--gold);color:#04061A}
+.marcas{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+.marca-t{height:120px;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:.35s;position:relative;border:2px solid transparent}
+.marca-t .nom{font-size:24px;line-height:1;text-align:center}
+.marca-t small{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;opacity:.8}
+.marca-t:hover{transform:translateY(-6px) scale(1.02)}
+.marca-t[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 4px rgba(242,181,68,.2),0 20px 40px -20px rgba(242,181,68,.6)}
+.marca-t.nueva{animation:pop .5s cubic-bezier(.2,.8,.2,1.4) backwards}
+@keyframes pop{from{opacity:0;transform:scale(.6)}}
+.marcas-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;align-items:stretch}
+@media (max-width:900px){.marcas-grid{grid-template-columns:1fr}}
 
-/* ---------- SURVEY PHONE ---------- */
-.survey{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
-@media (max-width:900px){.survey{grid-template-columns:1fr}}
-.phone{width:100%;max-width:380px;margin:0 auto;background:var(--stage);border-radius:38px;padding:12px;box-shadow:0 30px 60px -30px #0C0F1D80}
-.screen{background:#F4F1FA;border-radius:28px;min-height:560px;display:flex;flex-direction:column;overflow:hidden;color:#202124}
-.gf-top{height:10px;background:#673AB7}
-.gf-head{padding:16px 18px 10px;background:#fff;border-bottom:1px solid #e3e0ea}
-.gf-head .t{font-family:var(--body);font-weight:600;font-size:15px}
-.gf-head .s{font-size:12px;color:#5f6368;margin-top:2px}
-.gf-prog{height:4px;background:#e3e0ea;border-radius:4px;margin-top:10px;overflow:hidden}
-.gf-prog i{display:block;height:100%;background:#673AB7;transition:width .3s}
-.gf-body{padding:14px;flex:1}
-.gf-q{background:#fff;border-radius:10px;padding:16px;border:1px solid #e3e0ea}
-.gf-q .qt{font-size:14.5px;font-weight:500}
-.gf-q .qt i{color:#d93025;font-style:normal}
-.gf-q .qh{font-size:12px;color:#5f6368;margin-top:3px}
-.gf-opts{display:grid;gap:9px;margin-top:12px}
-.gf-opt{display:flex;gap:10px;align-items:center;font-size:13.5px;cursor:pointer;border:0;background:none;text-align:left;padding:2px 0;color:#202124}
-.gf-opt .o{width:17px;height:17px;border:2px solid #5f6368;border-radius:50%;flex:none}
-.gf-opt.sq .o{border-radius:3px}
-.gf-opt.sel .o{border-color:#673AB7;background:radial-gradient(#673AB7 45%,transparent 50%)}
-.gf-opt.sq.sel .o{background:#673AB7}
-.gf-grid{display:grid;gap:4px;margin-top:10px;font-size:11.5px}
-.gf-grid .gr{display:grid;grid-template-columns:1fr repeat(5,22px);gap:2px;align-items:center}
-.gf-grid.wide .gr{grid-template-columns:1fr repeat(4,30px)}
-.gf-grid .gh{color:#5f6368;text-align:center;font-size:10px}
-.gf-dot{width:14px;height:14px;border:2px solid #5f6368;border-radius:50%;margin:auto;cursor:pointer;background:none;padding:0}
-.gf-dot.sel{border-color:#673AB7;background:radial-gradient(#673AB7 40%,transparent 46%)}
-.gf-scale{display:flex;justify-content:space-between;align-items:end;margin-top:14px;font-size:11.5px;color:#5f6368;gap:4px}
-.gf-scale .c{display:grid;gap:4px;justify-items:center}
-.gf-input{margin-top:14px;border:0;border-bottom:1px solid #9aa0a6;background:transparent;font:inherit;font-size:14px;padding:6px 0;width:60%;color:#202124}
-.gf-nav{display:flex;justify-content:space-between;padding:12px 14px 18px}
-.gf-btn{background:#673AB7;color:#fff;border:0;border-radius:6px;padding:8px 16px;font-size:13px;cursor:pointer}
-.gf-btn.ghost{background:transparent;color:#673AB7}
-.gf-btn[disabled]{opacity:.35;cursor:default}
-.qlist{counter-reset:q;display:grid;gap:6px;margin:14px 0 0;padding:0;list-style:none}
-.qlist li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;cursor:pointer;font-size:14px}
-.qlist li:hover{background:var(--card)}
-.qlist li.on{background:var(--card);box-shadow:0 0 0 1px var(--cobalt) inset}
-.qlist li .i{font-family:var(--mono);color:var(--muted);font-size:12px}
-.qlist li .ty{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.persona-map{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.pm{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 12px;font-size:13.5px}
-.pm b{font-family:var(--mono);font-weight:500;color:var(--cobalt);margin-left:6px;font-size:12px}
+.porter{display:grid;gap:12px}
+.fuerza{display:grid;grid-template-columns:240px 1fr 120px;gap:20px;align-items:center;padding:18px 22px;border-radius:18px;border:1px solid var(--line);background:var(--card);text-align:left;transition:.3s;width:100%}
+@media (max-width:820px){.fuerza{grid-template-columns:1fr}}
+.fuerza:hover,.fuerza[aria-expanded="true"]{border-color:rgba(242,181,68,.5);background:rgba(242,181,68,.05)}
+.fuerza b{font-size:16px}
+.medidor{height:12px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}
+.medidor i{display:block;height:100%;width:0;border-radius:999px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.nivel{font-family:Lilita;font-size:22px;text-align:right}
+.fuerza .mas{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .5s,opacity .5s;opacity:0;color:#D3D7F3;font-size:16px}
+.fuerza[aria-expanded="true"] .mas{max-height:200px;opacity:1}
+.fuerza .mas span{display:inline-block;font-size:11px;font-weight:900;letter-spacing:2px;color:var(--gold);margin-right:8px}
 
-/* ---------- SCENARIOS ---------- */
-.scen-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
-@media (max-width:600px){.scen-tabs{grid-template-columns:1fr}}
-.scen{border:1px solid var(--line);background:var(--card);border-radius:var(--r);padding:16px;text-align:left;cursor:pointer;transition:border-color .2s}
-.scen .k{font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
-.scen .v{font-family:var(--display);font-size:30px;font-weight:600;margin-top:4px}
-.scen .g{font-size:13.5px;color:var(--muted)}
-.scen.on{border-color:var(--sc);box-shadow:0 0 0 1px var(--sc) inset}
-.scen.on .v{color:var(--sc)}
-.scen-detail{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
-@media (max-width:760px){.scen-detail{grid-template-columns:1fr}}
-.scen-detail ul{margin:8px 0 0;padding-left:18px}
-.scen-detail li+li{margin-top:6px}
+/* ---------- REGISTRO ---------- */
+.contadores{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:900px){.contadores{grid-template-columns:repeat(2,1fr)}}
+.contador{padding:26px;border-radius:var(--r);border:1px solid var(--line);background:var(--card);overflow:hidden;position:relative}
+.contador::before{content:"";position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(242,181,68,.25),transparent 70%)}
+.contador .v{font-family:Lilita;font-size:clamp(44px,4.5vw,64px);line-height:1;color:#fff}
+.contador .v.oro{color:var(--gold)}
+.contador span{display:block;color:var(--muted);font-weight:700;font-size:14px;margin-top:8px}
+.grafico-caja{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;align-items:stretch}
+@media (max-width:980px){.grafico-caja{grid-template-columns:1fr}}
+.lienzo{position:relative;height:400px}
+.lienzo.bajo{height:330px}
+.anio-info h3{font-size:38px}
+.anio-info .frase{color:#D3D7F3;margin:8px 0 18px;font-size:17px}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mini div{padding:14px;border-radius:14px;background:var(--card2)}
+.mini b{display:block;font-family:Lilita;font-weight:400;font-size:28px;line-height:1.05}
+.mini span{font-size:12.5px;color:var(--muted);font-weight:700}
+.mini .mal b{color:var(--coral)}
+.mini .bien b{color:#7FE0B5}
+.leyenda{display:flex;gap:18px;flex-wrap:wrap;font-size:13.5px;font-weight:700;color:var(--muted)}
+.leyenda i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:7px;vertical-align:-1px}
 
-/* ---------- SIMULATOR ---------- */
-.simu{display:grid;grid-template-columns:360px 1fr;gap:20px;align-items:start}
-@media (max-width:900px){.simu{grid-template-columns:1fr}}
-.presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.preset{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer}
-.preset:hover{border-color:var(--coral);color:var(--coral)}
-.ctrl{display:grid;gap:6px;padding:14px 0;border-bottom:1px solid var(--line)}
-.ctrl:last-child{border-bottom:0}
-.ctrl label{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:500;align-items:center;flex-wrap:wrap}
-.ctrl output{font-family:var(--mono);font-size:14px;color:var(--cobalt);font-weight:500}
-.ctrl .h{font-size:12.5px;color:var(--muted)}
-input[type=range]{width:100%;accent-color:var(--cobalt)}
-.res{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media (max-width:600px){.res{grid-template-columns:1fr 1fr}}
-.r{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
-.r .k{font-size:12.5px;color:var(--muted)}
-.r .v{font-family:var(--display);font-size:24px;font-weight:600;margin-top:2px}
-.r .d{font-family:var(--mono);font-size:12px;margin-top:2px}
-.verdict{margin-top:14px;padding:16px 18px;border-radius:12px;background:var(--cobalt-soft);font-size:15px}
-.verdict.bad{background:var(--coral-soft)}
-.bars-cmp{margin-top:14px;display:grid;gap:8px}
-.bc{display:grid;grid-template-columns:120px 1fr 110px;gap:10px;align-items:center;font-size:13.5px}
-.bc .track{height:14px;background:var(--paper);border-radius:7px;overflow:hidden}
-.bc .fill{height:100%;border-radius:7px;transition:width .35s}
-.bc .val{text-align:right;font-family:var(--mono);font-size:12.5px}
+/* ---------- BUYER PERSONA ---------- */
+.ficha{display:grid;grid-template-columns:360px 1fr;gap:22px}
+@media (max-width:980px){.ficha{grid-template-columns:1fr}}
+.lucia{border-radius:28px;padding:30px;background:linear-gradient(160deg,#1C2470,#0E1440 70%);border:1px solid rgba(163,172,245,.3);position:relative;overflow:hidden}
+.lucia::after{content:"♪";position:absolute;right:-10px;bottom:-60px;font-size:260px;color:rgba(242,181,68,.08);font-family:Lilita}
+.lucia .foto{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;font-size:76px;background:radial-gradient(circle at 35% 30%,#FFE3A6,var(--gold) 60%,#C98A1E);box-shadow:0 0 0 8px rgba(242,181,68,.15),0 0 0 16px rgba(242,181,68,.06)}
+.lucia h3{font-size:46px;margin-top:22px}
+.lucia .edad{font-weight:800;color:var(--gold)}
+.lucia ul{list-style:none;margin-top:18px;display:grid;gap:10px}
+.lucia li{display:flex;gap:10px;align-items:center;font-weight:600;color:#D6DAF5}
+.lucia li i{font-style:normal;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.08);display:grid;place-items:center}
+.cuad{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:620px){.cuad{grid-template-columns:1fr}}
+.cuad .tarjeta h4{font-size:12.5px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase;color:var(--peri2);margin-bottom:10px}
+.cuad .tarjeta ul{list-style:none;display:grid;gap:7px}
+.cuad .tarjeta li{padding-left:22px;position:relative;color:#D6DAF5;font-size:15.5px}
+.cuad .tarjeta li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.dia{margin-top:22px}
+.linea-dia{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+@media (max-width:900px){.linea-dia{grid-template-columns:1fr 1fr}}
+.momento{padding:20px;border-radius:18px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.momento:hover{transform:translateY(-5px);border-color:rgba(242,181,68,.5)}
+.momento .h{font-family:Lilita;font-size:28px;color:var(--gold)}
+.momento .e{font-size:28px;float:right}
+.momento p{font-size:15px;color:#D6DAF5;margin:6px 0 12px}
+.momento .pct{font-size:13px;font-weight:700;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.momento .pct b{color:var(--gold2)}
 
-/* ---------- FINDINGS ---------- */
-.find{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-@media (max-width:860px){.find{grid-template-columns:1fr}}
-.find .card{border-top:4px solid var(--fc)}
-.find h4{display:flex;align-items:center;gap:8px}
-.find ul{margin:6px 0 0;padding-left:18px}
-.find li+li{margin-top:8px}
+/* ---------- ENCUESTA ---------- */
+.objetivos{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.objetivos span{padding:10px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-weight:700;font-size:14.5px}
+.objetivos span::before{content:"✓";color:var(--gold);font-weight:900;margin-right:8px}
+.zona-encuesta{display:grid;grid-template-columns:auto 1fr;gap:50px;align-items:center;margin-top:50px}
+@media (max-width:900px){.zona-encuesta{grid-template-columns:1fr;justify-items:center}}
+.movil{width:340px;height:690px;border-radius:52px;padding:14px;background:linear-gradient(145deg,#2A2F55,#0B0E25);box-shadow:0 0 0 2px #3A4070,0 40px 80px -30px rgba(111,123,207,.7),inset 0 0 0 2px #000;position:relative}
+.movil::before{content:"";position:absolute;top:24px;left:50%;transform:translateX(-50%);width:100px;height:26px;border-radius:20px;background:#000;z-index:3}
+.pantalla{width:100%;height:100%;border-radius:40px;overflow:hidden;background:#F4F6FF;color:#232F5F;position:relative;display:flex;flex-direction:column}
+.enc-cab{background:linear-gradient(135deg,#232F5F,#4A56B8);color:#fff;padding:60px 22px 18px}
+.enc-cab small{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--gold)}
+.enc-cab b{display:block;font-size:17px;color:#fff;margin-top:2px}
+.enc-barra{height:6px;border-radius:9px;background:rgba(255,255,255,.2);margin-top:12px;overflow:hidden}
+.enc-barra i{display:block;height:100%;width:0;background:var(--gold);transition:width .5s}
+.enc-cuerpo{flex:1;padding:20px 18px;overflow:auto;display:flex;flex-direction:column}
+.enc-cuerpo .pregunta{font-weight:800;font-size:17px;line-height:1.3;margin-bottom:6px;color:#232F5F}
+.enc-cuerpo .tipo{font-size:11.5px;font-weight:700;color:#6F7BCF;margin-bottom:12px}
+.opcion{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:11px 13px;border-radius:14px;background:#fff;border:2px solid #E1E6F8;margin-bottom:8px;font-size:14.5px;font-weight:600;color:#232F5F;transition:.2s}
+.opcion i{width:18px;height:18px;border-radius:50%;border:2px solid #AEB4CC;flex:none;transition:.2s}
+.opcion.multi i{border-radius:5px}
+.opcion[aria-pressed="true"]{border-color:#4A56B8;background:#EEF0FF}
+.opcion[aria-pressed="true"] i{border-color:#4A56B8;background:#4A56B8;box-shadow:inset 0 0 0 3px #fff}
+.mayoria{margin-top:auto;font-size:12.5px;font-weight:700;color:#3F7E8F;background:#E6F3F1;border-radius:12px;padding:10px 12px;opacity:0;transform:translateY(8px);transition:.4s}
+.mayoria.si{opacity:1;transform:none}
+.enc-pie{padding:12px 18px 26px;display:flex;gap:10px}
+.enc-pie button{flex:1;padding:13px;border-radius:14px;font-weight:800;font-size:15px}
+.enc-pie .atras{flex:none;width:52px;background:#E1E6F8;color:#232F5F}
+.enc-pie .sig{background:#232F5F;color:#fff;transition:.2s}
+.enc-pie .sig:disabled{opacity:.35;cursor:not-allowed}
+.gracias-enc{text-align:center;margin:auto 0}
+.gracias-enc .emo{font-size:60px}
+.gracias-enc h4{font-family:Lilita;font-weight:400;font-size:30px;margin:8px 0}
+.gracias-enc p{font-size:14.5px;color:#4b5585}
+.codigo{display:inline-block;margin-top:14px;padding:12px 18px;border-radius:14px;border:2.5px dashed #EF5F56;font-weight:900;letter-spacing:2px;color:#EF5F56;font-size:18px;background:#fff}
+.lado-enc{display:grid;gap:18px;width:100%}
+.qr-caja{display:flex;gap:24px;align-items:center}
+.qr-caja img{width:170px;height:170px;border-radius:16px;background:#fff;padding:8px;flex:none}
+.qr-caja h3{font-size:30px}
+.qr-caja p{color:var(--muted);font-size:15px;margin-top:6px}
+.boton{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:12px 20px;border-radius:999px;background:var(--gold);color:#04061A;font-weight:800;font-size:14.5px;text-decoration:none;transition:.25s}
+.boton:hover{transform:translateY(-3px);box-shadow:0 12px 30px -10px var(--gold)}
+.mailing-caja{display:flex;gap:22px;align-items:center}
+.mailing-caja img{width:150px;border-radius:12px;transform:rotate(-4deg);box-shadow:0 20px 40px -20px #000;transition:.4s}
+.mailing-caja:hover img{transform:rotate(0) scale(1.05)}
+.mailing-caja p{color:#D3D7F3;font-size:15.5px}
+.resultados{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:900px){.resultados{grid-template-columns:1fr}}
+.res h4{font-size:17px;font-weight:800;margin-bottom:4px}
+.res .nota{font-size:12px;font-weight:700;color:var(--dim);margin-bottom:14px}
+.barras{display:grid;gap:9px}
+.barra-f{display:grid;grid-template-columns:150px 1fr 48px;gap:12px;align-items:center;font-size:14px;font-weight:600;color:#D3D7F3}
+.barra-f .t{height:14px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden}
+.barra-f .t i{display:block;height:100%;width:0;border-radius:999px;background:var(--peri);transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+.barra-f.hl .t i{background:linear-gradient(90deg,var(--gold),#FFCF6E)}
+.barra-f.hl{color:#fff}
+.barra-f .v{font-weight:800;text-align:right}
+.res .ej{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);font-size:15px;color:#D3D7F3}
+.res .ej::before{content:"Ejemplo: ";font-weight:900;color:var(--gold)}
+.claves{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+@media (max-width:900px){.claves{grid-template-columns:1fr 1fr}}
+.clave{padding:22px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);transition:.35s}
+.clave:hover{transform:translateY(-6px) rotate(-.6deg);border-color:rgba(242,181,68,.5)}
+.clave .v{font-family:Lilita;font-size:54px;line-height:1;color:var(--gold)}
+.clave b{display:block;margin:6px 0 6px;font-size:16px}
+.clave p{font-size:14.5px;color:var(--muted)}
+.clave .a{display:inline-block;margin-top:12px;font-size:13px;font-weight:800;color:var(--peri2)}
+.simulados{display:inline-block;font-size:11.5px;font-weight:900;letter-spacing:2px;padding:5px 12px;border-radius:999px;background:rgba(239,95,86,.15);color:#FF9C95;border:1px solid rgba(239,95,86,.4)}
 
-.bib{display:grid;gap:12px;margin:0;padding:0;list-style:none}
-.bib li{padding-left:2.2em;text-indent:-2.2em;font-size:15px}
-.bib li .tag{text-indent:0}
+/* ---------- DAFO ---------- */
+.dafo{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;margin-top:40px}
+@media (max-width:820px){.dafo{grid-template-columns:1fr}}
+.cuadrante{padding:30px;border-radius:26px;border:1px solid var(--line);background:var(--card);text-align:left;transition:.4s;position:relative;overflow:hidden;min-height:250px}
+.cuadrante .letra{position:absolute;right:20px;top:4px;font-family:Lilita;font-size:150px;line-height:1;opacity:.12;transition:.5s}
+.cuadrante:hover .letra{opacity:.3;transform:scale(1.1) rotate(-6deg)}
+.cuadrante .tipo{font-size:12px;font-weight:900;letter-spacing:2.5px;text-transform:uppercase}
+.cuadrante h3{font-size:38px;margin:4px 0 16px}
+.cuadrante ul{list-style:none;display:grid;gap:9px}
+.cuadrante li{font-size:15.5px;color:#D6DAF5;padding-left:24px;position:relative;opacity:.0;transform:translateX(-14px);transition:.5s}
+.cuadrante.vis li{opacity:1;transform:none}
+.cuadrante li::before{content:"";position:absolute;left:0;top:8px;width:10px;height:10px;border-radius:3px;background:var(--c)}
+.cuadrante:hover{transform:translateY(-6px);border-color:var(--c)}
+.cuadrante .tipo,.cuadrante .letra{color:var(--c)}
+.dafo-centro{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,#1C2470,#0A0F33);border:2px solid var(--gold);display:grid;place-items:center;text-align:center;font-weight:900;font-size:14px;z-index:2;box-shadow:0 0 60px rgba(242,181,68,.35)}
+@media (max-width:820px){.dafo-centro{display:none}}
+.ejes{display:flex;justify-content:space-between;margin-top:14px;font-size:12.5px;font-weight:800;letter-spacing:2px;color:var(--dim);text-transform:uppercase}
 
-footer{margin-top:80px;background:var(--stage);color:var(--stage-muted);padding-block:28px;font-size:13px}
+/* ---------- DECISIONES ---------- */
+.indice-dec{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:36px;position:sticky;top:74px;z-index:10;padding:10px;border-radius:20px;background:rgba(4,6,26,.75);backdrop-filter:blur(12px);border:1px solid var(--line)}
+@media (max-width:980px){.indice-dec{grid-template-columns:repeat(3,1fr);position:static}}
+.indice-dec a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;text-decoration:none;font-weight:800;font-size:13.5px;color:var(--muted);transition:.25s}
+.indice-dec a b{font-family:Lilita;font-weight:400;font-size:22px;color:var(--gold)}
+.indice-dec a:hover,.indice-dec a.activo{background:var(--card2);color:#fff}
+.decision{margin-top:80px;scroll-margin-top:170px}
+.dec-cab{display:flex;gap:22px;align-items:flex-start;margin-bottom:26px}
+.dec-cab .n{font-family:Lilita;font-size:90px;line-height:.8;background:linear-gradient(180deg,var(--gold2),var(--gold) 60%,#B87818);-webkit-background-clip:text;background-clip:text;color:transparent;flex:none}
+.dec-cab h3{font-size:clamp(30px,3.4vw,46px)}
+.dec-cab p{color:#C9CDEB;max-width:780px;margin-top:6px}
+.el-dato{display:inline-flex;gap:10px;align-items:center;margin-top:12px;padding:8px 14px;border-radius:12px;background:rgba(111,123,207,.15);border:1px solid rgba(163,172,245,.3);font-size:14px;font-weight:700;color:#D6DAF5}
+.el-dato::before{content:"EL DATO";font-size:10.5px;font-weight:900;letter-spacing:2px;color:#04061A;background:var(--peri2);padding:3px 8px;border-radius:6px}
 
-.hud{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--stage);color:var(--stage-fg);border-radius:999px;padding:8px 14px;font-family:var(--mono);font-size:12.5px;display:flex;gap:10px;align-items:center;z-index:55;box-shadow:0 10px 30px -10px #0008}
-.hud[hidden]{display:none}
-.hud button{background:#ffffff18;border:0;color:var(--stage-fg);border-radius:999px;width:28px;height:28px;cursor:pointer}
+.meses{display:grid;grid-template-columns:repeat(12,1fr);gap:8px;align-items:end;height:190px;padding:0 4px}
+@media (max-width:700px){.meses{gap:3px}}
+.mes{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:100%;border-radius:12px;padding-bottom:4px;transition:.25s}
+.mes i{width:100%;max-width:56px;border-radius:10px 10px 4px 4px;background:linear-gradient(180deg,var(--peri),rgba(111,123,207,.25));transition:height 1.2s cubic-bezier(.2,.8,.2,1),background .3s;height:0}
+.mes.flojo i{background:linear-gradient(180deg,#8C93B8,rgba(140,147,184,.2))}
+.mes.alto i{background:linear-gradient(180deg,var(--gold),rgba(242,181,68,.25))}
+.mes span{font-size:13px;font-weight:800;color:var(--muted)}
+.mes:hover span,.mes[aria-pressed="true"] span{color:#fff}
+.mes[aria-pressed="true"] i{box-shadow:0 0 0 3px #fff,0 0 30px rgba(255,255,255,.35)}
+.promo{display:grid;grid-template-columns:1fr 1.25fr;gap:18px;margin-top:20px}
+@media (max-width:900px){.promo{grid-template-columns:1fr}}
+.promo .tarjeta .k{font-size:12px;font-weight:900;letter-spacing:2.5px;color:var(--gold);text-transform:uppercase}
+.promo .tarjeta h4{font-family:Lilita;font-weight:400;font-size:38px;line-height:1.05;margin:6px 0 10px}
+.promo .tarjeta p{color:#D3D7F3}
+.promo .visual{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;min-height:260px;position:relative}
+.promo .visual img{width:100%;height:100%;object-fit:cover}
+.promo .visual .vacio{text-align:center;padding:30px;color:var(--muted)}
+.promo .visual .vacio div{font-size:70px}
+.promo .visual .vacio b{display:block;font-family:Lilita;font-weight:400;font-size:30px;color:#fff;margin:8px 0}
+.leg-meses{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;font-weight:700;color:var(--muted);margin-top:12px}
+.leg-meses i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
 
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-}
+.app-zona{display:grid;grid-template-columns:auto 1fr;gap:50px;align-items:center}
+@media (max-width:980px){.app-zona{grid-template-columns:1fr;justify-items:center}}
+.movil.app{width:300px;height:620px;padding:12px}
+.movil.app .pantalla{background:#000}
+.carrusel{display:flex;height:100%;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.carrusel img{width:100%;height:100%;object-fit:cover;flex:none}
+.puntos-car{display:flex;gap:8px;justify-content:center;margin-top:18px}
+.puntos-car button{width:10px;height:10px;border-radius:999px;background:var(--line);transition:.3s}
+.puntos-car button[aria-pressed="true"]{width:30px;background:var(--gold)}
+.simulador h4{font-family:Lilita;font-weight:400;font-size:30px}
+.slider-fila{display:flex;align-items:center;gap:16px;margin:18px 0 10px}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--gold) var(--p,40%),rgba(255,255,255,.1) var(--p,40%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:5px solid var(--gold);cursor:pointer;box-shadow:0 0 20px rgba(242,181,68,.6)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:5px solid var(--gold);cursor:pointer}
+.slider-fila output{font-family:Lilita;font-size:30px;min-width:90px;text-align:right}
+.extras{display:flex;flex-wrap:wrap;gap:8px}
+.extra{padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-weight:700;font-size:13.5px;color:var(--muted);transition:.25s}
+.extra[aria-pressed="true"]{background:rgba(242,181,68,.15);border-color:var(--gold);color:#fff}
+.total-notas{display:flex;align-items:baseline;gap:12px;margin:22px 0 16px}
+.total-notas b{font-family:Lilita;font-weight:400;font-size:76px;line-height:1;color:var(--gold)}
+.total-notas span{font-weight:800;color:var(--muted)}
+.escalera{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:620px){.escalera{grid-template-columns:1fr 1fr}}
+.premio{padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--card);text-align:center;transition:.4s;opacity:.45;filter:grayscale(1)}
+.premio div{font-size:30px}
+.premio b{display:block;font-size:13.5px;margin-top:4px;line-height:1.25}
+.premio span{font-size:12px;font-weight:800;color:var(--gold)}
+.premio.ok{opacity:1;filter:none;border-color:var(--gold);background:rgba(242,181,68,.12);transform:translateY(-4px)}
 
-/* ---------- PORTADA 360 (estilo del Canva) ---------- */
-@font-face{font-family:"Lilita One";src:url(assets/fonts/LilitaOne-Regular.ttf) format("truetype");font-display:swap}
-@font-face{font-family:"Montserrat";src:url(assets/fonts/Montserrat-VF.ttf) format("truetype");font-weight:100 900;font-display:swap}
-.portada{position:relative;overflow:hidden;background:linear-gradient(180deg,#D7E2F8 0%,#B9C2EC 55%,#8F9AD6 100%);color:#232F5F;scroll-margin-top:56px}
-.portada .wrap{position:relative;min-height:min(86vh,780px);display:grid;grid-template-rows:auto 1fr auto;padding-block:28px 22px}
-.p-marco{position:absolute;left:6%;right:6%;top:9%;bottom:7%;background:#ffffff22;border-radius:6px;pointer-events:none}
-.p-tit{position:relative;z-index:1;pointer-events:none;user-select:none}
-.p-jordan{font-family:"Lilita One","Segoe UI",system-ui,sans-serif;font-size:clamp(68px,15.5vw,190px);line-height:.92;letter-spacing:.01em;background:linear-gradient(180deg,#2A2F68 0%,#4E5AA8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin:0}
-.p-pods{font-family:"Montserrat","Segoe UI",system-ui,sans-serif;font-weight:300;font-size:clamp(64px,14vw,176px);line-height:.9;color:#6576A8;opacity:.85;margin:0 0 0 18%;letter-spacing:.01em}
-.visor{position:absolute;top:0;bottom:0;left:26%;right:0;z-index:2;cursor:grab;touch-action:pan-y}
-@media (max-width:900px){.visor{left:0;top:16%;bottom:24%}}
-.visor.dragging{cursor:grabbing}
-.visor canvas{display:block;width:100%!important;height:100%!important}
-.visor-foto{position:absolute;right:4%;bottom:8%;height:72%;z-index:2}
-.p-sombra{position:absolute;left:50%;bottom:9%;width:46%;height:60px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(35,47,95,.35),rgba(35,47,95,0) 70%);z-index:1;pointer-events:none}
-.p-pie{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;pointer-events:none}
-.p-pie>*{pointer-events:auto}
-.p-hint{display:inline-flex;align-items:center;gap:10px;background:#232F5F;color:#fff;font-family:"Montserrat",system-ui,sans-serif;font-weight:600;font-size:14px;padding:10px 16px;border-radius:999px;box-shadow:0 12px 26px -14px #232F5F;transition:opacity .4s}
-.p-hint .ico{display:inline-block;animation:giro 2.6s ease-in-out infinite}
-.p-hint.used{opacity:.75}
-@keyframes giro{0%,100%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
-.p-btns{display:flex;gap:8px}
-.p-btn{font-family:"Montserrat",system-ui,sans-serif;font-weight:600;font-size:13.5px;border:1.5px solid #232F5F;color:#232F5F;background:#ffffffaa;border-radius:999px;padding:9px 15px;cursor:pointer;text-decoration:none}
-.p-btn:hover{background:#fff}
-.p-colores{display:inline-flex;gap:4px;background:#ffffffaa;border:1.5px solid #232F5F;border-radius:999px;padding:3px}
-.p-sw{display:inline-flex;align-items:center;gap:6px;border:0;background:transparent;border-radius:999px;padding:6px 11px;font-family:"Montserrat",system-ui,sans-serif;font-weight:600;font-size:13px;color:#232F5F;cursor:pointer}
-.p-sw i{width:14px;height:14px;border-radius:50%;border:1.5px solid #fff;box-shadow:0 0 0 1px #232F5F55}
-.p-sw[aria-pressed="true"]{background:#232F5F;color:#fff}
-.p-firma{width:100%;text-align:center;font-family:"Montserrat",system-ui,sans-serif;font-weight:700;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#F2F4FF;margin-top:6px}
-@media (max-width:700px){.p-pods{margin-left:8%}.portada .wrap{min-height:640px}.p-sombra{width:80%}}
-@media (prefers-reduced-motion: reduce){.p-hint .ico{animation:none}}
+.redes-zona{display:grid;grid-template-columns:1fr auto;gap:50px;align-items:center}
+@media (max-width:980px){.redes-zona{grid-template-columns:1fr;justify-items:center}}
+.ig-img{width:340px;filter:drop-shadow(0 40px 60px rgba(111,123,207,.45));animation:levita 7s ease-in-out infinite}
+.tres{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+@media (max-width:620px){.tres{grid-template-columns:1fr}}
+.tres .tarjeta{padding:20px}
+.tres .tarjeta div{font-size:32px}
+.tres .tarjeta b{display:block;font-size:17px;margin:6px 0 4px}
+.tres .tarjeta p{font-size:14.5px;color:var(--muted)}
+
+.lola{display:grid;grid-template-columns:1.1fr 1fr;gap:18px}
+@media (max-width:900px){.lola{grid-template-columns:1fr}}
+.lola-nombre{border-radius:28px;padding:36px;background:radial-gradient(circle at 80% 20%,rgba(163,172,245,.45),transparent 50%),linear-gradient(150deg,#3A2A7A,#151A55 60%,#0A0F33);border:1px solid rgba(163,172,245,.35);position:relative;overflow:hidden;min-height:320px;display:flex;flex-direction:column;justify-content:flex-end}
+.lola-nombre .ola{position:absolute;right:26px;top:26px;display:flex;gap:4px;align-items:center;height:50px}
+.lola-nombre .ola i{width:5px;border-radius:3px;background:var(--gold);animation:eq 1s ease-in-out infinite alternate}
+.lola-nombre small{font-size:12.5px;font-weight:900;letter-spacing:3px;color:var(--gold)}
+.lola-nombre h4{font-family:Lilita;font-weight:400;font-size:clamp(60px,7vw,100px);line-height:.9;margin-top:8px}
+.lola-nombre p{color:#D3D7F3;margin-top:10px}
+.razones{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.razones span{padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:14.5px}
+.razones span::before{content:"★ ";color:var(--gold)}
+
+.difer-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}
+@media (max-width:700px){.difer-tabs{grid-template-columns:1fr}}
+.difer-tab{padding:18px;border-radius:18px;border:1px solid var(--line);background:var(--card);text-align:left;transition:.3s}
+.difer-tab div{font-size:28px}
+.difer-tab b{display:block;font-size:16.5px;margin-top:6px}
+.difer-tab span{font-size:13px;color:var(--muted)}
+.difer-tab[aria-selected="true"]{border-color:var(--gold);background:rgba(242,181,68,.1)}
+.difer-panel{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:stretch}
+@media (max-width:900px){.difer-panel{grid-template-columns:1fr}}
+.difer-img{border-radius:var(--r);background:radial-gradient(circle at 50% 55%,rgba(163,172,245,.35),transparent 65%),var(--card);border:1px solid var(--line);display:grid;place-items:center;min-height:360px;padding:20px;overflow:hidden}
+.difer-img img{max-height:340px;width:auto;filter:drop-shadow(0 30px 30px rgba(0,0,0,.5));transition:transform .6s}
+.difer-img:hover img{transform:scale(1.06) rotate(-2deg)}
+.difer-img.oro{background:radial-gradient(circle at 50% 55%,rgba(242,181,68,.35),transparent 62%),var(--card)}
+.tienda-ilu{text-align:center}
+.tienda-ilu .e{font-size:110px;line-height:1;animation:levita 4s ease-in-out infinite}
+.tienda-ilu b{display:block;font-family:Lilita;font-weight:400;font-size:34px;margin-top:10px}
+.tienda-ilu span{color:var(--muted);font-weight:700}
+
+.calc{display:grid;grid-template-columns:1.15fr 1fr;gap:18px}
+@media (max-width:900px){.calc{grid-template-columns:1fr}}
+.calc .total{font-family:Lilita;font-size:clamp(58px,7vw,96px);line-height:1;color:var(--gold);margin:10px 0 4px}
+.calc .linea{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line);font-weight:700;color:#D3D7F3}
+.calc .linea b{font-family:Lilita;font-weight:400;font-size:24px}
+.provs{display:grid;gap:12px}
+.prov{display:flex;gap:16px;align-items:center;padding:18px;border-radius:18px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.prov:hover{border-color:rgba(242,181,68,.5);transform:translateX(6px)}
+.prov .pin{width:48px;height:48px;border-radius:14px;background:rgba(242,181,68,.15);display:grid;place-items:center;font-size:22px;flex:none}
+.prov b{display:block}
+.prov span{font-size:13.5px;color:var(--muted)}
+.criterios{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+
+/* ---------- CONCLUSIÓN ---------- */
+.ad-cab{display:grid;grid-template-columns:1fr 60px 1fr;gap:14px;margin-top:40px;font-family:Lilita;font-size:28px;padding:0 22px}
+.ad-cab .d{color:var(--gold)}
+.ad-cab .a{color:var(--dim)}
+.ad{display:grid;gap:10px;margin-top:12px}
+.ad-fila{display:grid;grid-template-columns:1fr 60px 1fr;gap:14px;align-items:center;padding:18px 22px;border-radius:18px;background:var(--card);border:1px solid var(--line);transition:.3s}
+.ad-fila:hover{border-color:rgba(242,181,68,.5);background:rgba(242,181,68,.05)}
+.ad-fila .antes{color:var(--muted);font-size:15.5px}
+.ad-fila .flecha{width:44px;height:44px;border-radius:50%;background:var(--gold);color:#04061A;display:grid;place-items:center;font-weight:900;justify-self:center;transform:scale(0) rotate(-90deg);transition:.6s cubic-bezier(.2,.8,.2,1.4) .3s}
+.ad-fila.vis .flecha{transform:none}
+.ad-fila .despues{font-size:16px;color:#E6E8FF}
+.ad-fila .despues b{color:var(--gold2)}
+@media (max-width:820px){.ad-cab{display:none}.ad-fila{grid-template-columns:1fr}.ad-fila .flecha{transform:rotate(90deg)!important}}
+
+/* ---------- FINAL ---------- */
+.final{min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.final .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:30px;align-items:center}
+@media (max-width:900px){.final .wrap{grid-template-columns:1fr}}
+.eslogan{font-family:Lilita;font-weight:400;font-size:clamp(48px,5.6vw,90px);line-height:.95}
+.eslogan span{display:block}
+.eslogan .hueco{color:transparent;-webkit-text-stroke:2px #fff}
+.eslogan .oro{background:linear-gradient(90deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent}
+.final .escena{height:min(70vh,620px)}
+.gracias{display:flex;gap:20px;align-items:center;margin-top:36px;flex-wrap:wrap}
+.gracias .t{padding:22px 26px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+.gracias .t b{display:block;font-family:Lilita;font-weight:400;font-size:34px;line-height:1}
+.gracias .t span{font-size:14px;font-weight:700;color:var(--peri2)}
+.gracias .qr{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:var(--r);background:var(--card);border:1px solid var(--line)}
+.gracias .qr img{width:104px;height:104px;border-radius:10px}
+.gracias .qr small{font-weight:800;font-size:13px;max-width:120px;line-height:1.35}
+footer{border-top:1px solid var(--line);padding:30px 0 40px;color:var(--dim);font-size:13.5px}
+footer details summary{cursor:pointer;font-weight:800;color:var(--muted);list-style:none;display:inline-flex;gap:8px;align-items:center}
+footer details summary::before{content:"＋";color:var(--gold)}
+footer details[open] summary::before{content:"－"}
+footer ol{margin:14px 0 0 20px;display:grid;gap:4px;columns:2}
+footer ol a{color:var(--muted);word-break:break-all}
+footer .pie{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:20px}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}[data-r],h2.titulo .w,.portada h1 .l,.portada p.intro,.autores,.ondas{opacity:1!important;transform:none!important;filter:none!important}}
 </style>
-<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 </head>
 <body>
-<nav class="nav" aria-label="Apartados">
-  <div class="wrap">
-    <a class="brand" href="#portada">JORDÁN<span>MUSIK</span></a>
-    <div class="links" id="links">
-      <a href="#s1"><b>1</b>SIM</a>
-      <a href="#s2"><b>2</b>Macroentorno</a>
-      <a href="#s3"><b>3</b>Microentorno</a>
-      <a href="#s4"><b>4</b>Encuesta</a>
-      <a href="#s5"><b>5</b>Análisis</a>
-      <a href="#s6"><b>6</b>Fuentes</a>
-      <a href="#s7"><b>7</b>Conclusión</a>
-    </div>
-    <div class="navbtns">
-      <button class="pill-btn" id="presentBtn" type="button">▶ Presentar</button>
-    </div>
-  </div>
-  <div class="progress" id="progress"></div>
+<div class="fondo" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="rejilla" aria-hidden="true"></div>
+<div class="foco" id="foco" aria-hidden="true"></div>
+<div class="barra-progreso" id="progreso"></div>
+
+<nav class="menu" id="menu">
+ <div class="wrap">
+  <a class="marca" href="#portada"><img src="assets/escudo_pj.png" alt="">JORDÁN<span>MUSIK</span></a>
+  <ul>
+   <li><a href="#intro">Introducción</a></li>
+   <li><a href="#inteligencia">Entorno</a></li>
+   <li><a href="#registro">Ventas</a></li>
+   <li><a href="#persona">Lucía</a></li>
+   <li><a href="#investigacion">Encuesta</a></li>
+   <li><a href="#dafo">DAFO</a></li>
+   <li><a href="#decisiones">Decisiones</a></li>
+   <li><a href="#conclusion">Conclusión</a></li>
+  </ul>
+ </div>
 </nav>
 
-<!-- ================= HERO ================= -->
-<section class="portada stop" id="portada" aria-label="JORDÁNPODS en 360 grados">
-  <div class="p-marco"></div>
-  <div class="wrap">
-    <div class="p-tit">
-      <h1 class="p-jordan">JORDAN</h1>
-      <p class="p-pods">PODS</p>
-    </div>
-    <div></div>
-    <div class="p-pie">
-      <span class="p-hint" id="visor-hint"><span class="ico">↔</span> Arrastra para girarlos en 360° · al soltar vuelven a su sitio</span>
-      <span class="p-btns"><span class="p-colores" role="group" aria-label="Color de los cascos"><button class="p-sw" data-color="negro" type="button" aria-pressed="true" title="Negro"><i style="background:#19191c"></i>Negro</button><button class="p-sw" data-color="azul" type="button" aria-pressed="false" title="Azul marino"><i style="background:#2b2f63"></i>Azul</button></span><a class="p-btn" href="#inicio">Ver el proyecto ↓</a></span>
-      <div class="p-firma">Trabajo de investigación · Brayan Aramayo y Sonia Lázaro</div>
-    </div>
+<!-- ===================== PORTADA ===================== -->
+<header class="portada" id="portada" data-visor>
+ <div class="wrap">
+  <div>
+   <div class="kicker">SISTEMA DE INFORMACIÓN DE MARKETING</div>
+   <h1 id="h1"><span class="jordan">JORDÁN</span><br><span class="musik">MUSIK</span></h1>
+   <p class="intro">Hemos estudiado JORDÁNMUSIK <b>por dentro y por fuera</b> para descubrir cómo puede vender más. Gira los JORDÁNPODS y acompáñanos.</p>
+   <p class="autores">Por <b>Sonia Lázaro</b> y <b>Brayan Aramayo</b> · Investigación Comercial</p>
+   <div class="ondas" id="ondas" aria-hidden="true"></div>
   </div>
-  <div class="p-sombra"></div>
-  <div class="visor" id="visor3d" role="img" aria-label="Modelo 3D de los auriculares JORDÁNPODS. Arrastra para girarlo."></div>
-  <img class="visor-foto" id="visor-foto" src="assets/jordanpods.png" alt="Auriculares JORDÁNPODS">
-</section>
-
-<header class="hero stop" id="inicio">
-  <div class="wrap">
-    <div class="eyebrow">Investigación Comercial · Sistema de Información de Marketing</div>
-    <h1>JORDÁN<em>MUSIK</em></h1>
-    <p class="sub">Decidir mejor escuchando a los datos.</p>
-    <p class="lede">Cada barra es un mes real de ventas de los JORDÁNPODS, de enero de 2022 a diciembre de 2024. Pasa el ratón por encima para ver las unidades.</p>
-    <div class="eq" id="eq" role="img" aria-label="Ventas mensuales de JORDÁNPODS 2022-2024"></div>
-    <div class="eq-axis"><span>2022</span><span>2023</span><span>2024</span></div>
-    <div class="kpis num">
-      <div class="kpi"><div class="v" id="k1">19.338</div><div class="l">unidades vendidas (2022-2024)</div></div>
-      <div class="kpi"><div class="v" id="k2">1,53 M€</div><div class="l">ingresos acumulados</div></div>
-      <div class="kpi"><div class="v" id="k3">55,5 %</div><div class="l">margen bruto sobre ingresos</div></div>
-      <div class="kpi"><div class="v" id="k4">+44,5 %</div><div class="l">unidades 2024 frente a 2022</div></div>
-    </div>
-    <div class="legend">
-      <span>Cómo leer esta web:</span>
-      <span class="tag real">Dato real</span>
-      <span class="tag calc">Cálculo</span>
-      <span class="tag hip">Hipótesis</span>
-      <span class="tag prev">Previsión</span>
-      <span class="tag pend">Pendiente</span>
-    </div>
+  <div class="escena">
+   <div class="halo"></div><div class="aro"></div><div class="aro b"></div>
+   <img class="visor-foto" src="assets/web/pods.webp" alt="Auriculares JORDÁNPODS">
+   <div class="visor3d" role="img" aria-label="Modelo 3D de los JORDÁNPODS. Arrastra para girarlo."></div>
+   <span class="visor-hint">↔ Arrastra para girarlos · al soltar vuelven solos</span>
+   <div class="flotante" style="left:2%;top:22%"><b>+44,5 %</b>de ventas en 3 años</div>
+   <div class="flotante" style="right:0;top:58%;animation-delay:-3s"><b>7.675</b>vendidos en 2024</div>
+   <div class="controles">
+    <button class="color" data-color="negro" aria-pressed="true"><i style="background:#18181b"></i>Negro</button>
+    <button class="color" data-color="azul" aria-pressed="false"><i style="background:#23264d"></i>Azul</button>
+   </div>
   </div>
+ </div>
+ <a class="bajar" href="#intro"><i></i>BAJA</a>
 </header>
 
-<main>
-<!-- ================= 1 ================= -->
-<section class="sec stop" id="s1">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">1</div>
-      <div class="sec-kicker">Introducción</div>
-      <h2>Una marca que crece necesita un sistema para decidir</h2>
-    </div>
-    <div class="grid2">
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><h4>La empresa</h4><span class="tag real">Dato real</span></div>
-        <p>JORDÁNMUSIK es una marca de auriculares con sede en Cartagena (Región de Murcia). Lleva cuatro años en el mercado, vende solo en España y su producto estrella son los JORDÁNPODS, unos auriculares inalámbricos.</p>
-        <div class="facts num">
-          <div class="fact"><div class="k">Sede</div><div class="v">Cartagena</div></div>
-          <div class="fact"><div class="k">CEO</div><div class="v">Pablo Jordán</div></div>
-          <div class="fact"><div class="k">Precio medio 2024</div><div class="v">79,23 €</div></div>
-          <div class="fact"><div class="k">Canales</div><div class="v">Tienda, online y marketplace</div></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><h4>Por qué necesita un SIM</h4><span class="tag calc">Cálculo</span></div>
-        <p>Las ventas han crecido un 44,5 % en dos años, pero el crecimiento trae decisiones más arriesgadas: cuánto stock comprar para noviembre, si subir el precio o cómo evitar otro mes como noviembre de 2023, cuando las devoluciones se dispararon al 12 %.</p>
-        <p class="muted">Hasta ahora el CEO decidía con los datos de ventas. El SIM añade lo que ocurre fuera (mercado, competencia, consumidor) y herramientas para anticiparse.</p>
-      </div>
-    </div>
+<div class="cinta" aria-hidden="true"><div id="cinta"></div></div>
 
-    <div class="sub-head"><h3>¿Qué es un SIM?</h3><span class="muted small">Pulsa cada subsistema</span></div>
-    <div class="sim">
-      <div class="sim-map" id="simMap">
-        <button class="sim-node sim-top" data-k="0" type="button"><div class="n">01</div><div class="t">Datos internos</div><div class="d">Ventas, costes, devoluciones</div></button>
-        <button class="sim-node sim-top" data-k="1" type="button"><div class="n">02</div><div class="t">Inteligencia</div><div class="d">Macro y microentorno</div></button>
-        <div class="sim-core"><small>Centro del sistema</small>Decisiones del CEO</div>
-        <button class="sim-node sim-bot" data-k="2" type="button"><div class="n">03</div><div class="t">Investigación comercial</div><div class="d">Encuesta al consumidor</div></button>
-        <button class="sim-node sim-bot" data-k="3" type="button"><div class="n">04</div><div class="t">Análisis</div><div class="d">Previsiones y simulaciones</div></button>
-      </div>
-      <div class="card sim-panel" id="simPanel" aria-live="polite"></div>
-    </div>
+<!-- ===================== INTRODUCCIÓN ===================== -->
+<section id="intro">
+ <span class="num-gigante">01</span>
+ <div class="wrap">
+  <span class="etiqueta">Introducción</span>
+  <h2 class="titulo" data-split>Una empresa con <em>ganas de crecer</em></h2>
+  <p class="lead" data-r>JORDÁNMUSIK vende auriculares en Cartagena y su producto estrella son los <b>JORDÁNPODS</b>. Ahora prepara algo grande: <span class="gold">una segunda tienda en Granada</span>. Para que ese paso salga bien, hemos creado un <b>Sistema de Información de Marketing</b> que analiza el entorno, las ventas y a los clientes, y que termina en decisiones concretas.</p>
+
+  <div class="ruta" data-r>
+   <div class="ciudad hoy"><span class="est">● Hoy</span><h3>Cartagena</h3><p>C.C. Espacio Mediterráneo · tienda física, web y marketplace</p></div>
+   <svg viewBox="0 0 400 120" aria-hidden="true">
+    <path class="camino" d="M10 90 Q200 -30 390 90" fill="none" stroke="#F2B544" stroke-width="3" stroke-linecap="round"/>
+    <circle r="8" fill="#F2B544"><animateMotion dur="3.2s" repeatCount="indefinite" path="M10 90 Q200 -30 390 90"/></circle>
+    <text x="200" y="112" text-anchor="middle" fill="#9CA3CC" font-size="15" font-weight="700" font-family="Mont">≈ 280 km</text>
+   </svg>
+   <div class="ciudad pronto"><span class="est">★ Próximamente</span><h3>Granada</h3><p>Nevada Shopping · la nueva tienda</p></div>
   </div>
+
+  <div class="pasos">
+   <a class="paso" href="#inteligencia" data-r style="transition-delay:.05s;text-decoration:none"><span class="flecha">↘</span><div class="n">01</div><b>El entorno</b><span>Sistema de inteligencia: lo que pasa fuera de la empresa.</span></a>
+   <a class="paso" href="#registro" data-r style="transition-delay:.15s;text-decoration:none"><span class="flecha">↘</span><div class="n">02</div><b>Las ventas</b><span>Sistema de registro: lo que dicen los datos del Excel.</span></a>
+   <a class="paso" href="#investigacion" data-r style="transition-delay:.25s;text-decoration:none"><span class="flecha">↘</span><div class="n">03</div><b>Los clientes</b><span>Investigación comercial: quién compra y por qué.</span></a>
+   <a class="paso" href="#decisiones" data-r style="transition-delay:.35s;text-decoration:none"><span class="flecha">↘</span><div class="n">04</div><b>Las decisiones</b><span>Sistema de análisis: qué hacer con todo esto.</span></a>
+  </div>
+ </div>
 </section>
 
-<!-- ================= 2 ================= -->
-<section class="sec stop" id="s2">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">2</div>
-      <div class="sec-kicker">Macroentorno · Sistema de inteligencia</div>
-      <h2>Las fuerzas que JORDÁNMUSIK no controla</h2>
-    </div>
-    <p class="lead">Análisis PESTEL con datos de España y de la Región de Murcia. Pulsa cada letra para ver el factor.</p>
-    <div class="pestel" id="pestel" style="margin-top:24px"></div>
-    <div class="ppanel" id="ppanel"></div>
+<!-- ===================== INTELIGENCIA ===================== -->
+<section id="inteligencia">
+ <span class="num-gigante">02</span>
+ <div class="wrap">
+  <span class="etiqueta">Sistema de inteligencia</span>
+  <h2 class="titulo" data-split>Lo que pasa <em>ahí fuera</em></h2>
+  <p class="lead" data-r>Ninguna empresa vende en una burbuja. La economía crece y la <b>venta online sube un 15 % al año</b>, pero los precios también suben y la gente mira más cada euro. Además, el cliente de hoy se informa en redes, lee reseñas y valora lo sostenible. En Cartagena y en Granada la competencia es fuerte, así que <span class="gold">ser uno más no basta</span>.</p>
+
+  <div class="sub-titulo"><h3 data-r>Análisis PESTEL</h3><p data-r>Pulsa cada factor: a la izquierda, el dato; a la derecha, un ejemplo de cómo afecta a JORDÁNMUSIK.</p></div>
+  <div class="pestanas" role="tablist" id="pestel-tabs" data-r></div>
+  <div id="pestel-panel" data-r></div>
+
+  <div class="sub-titulo"><h3 data-r>¿Contra quién competimos?</h3>
+   <div class="marcas-cab" data-r><div class="interruptor" id="ciudad-sw"><button aria-pressed="true" data-c="cartagena">Cartagena</button><button aria-pressed="false" data-c="granada">Granada</button></div></div>
   </div>
+  <div class="marcas-grid">
+   <div class="marcas" id="marcas" data-r></div>
+   <div class="ejemplo" id="marca-ej" data-r="der"></div>
+  </div>
+
+  <div class="sub-titulo"><h3 data-r>Las 5 fuerzas de Porter</h3><p data-r>Cuanto más llena la barra, más presión para la empresa. Pulsa cada fuerza para ver un ejemplo.</p></div>
+  <div class="porter" id="porter"></div>
+
+  <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> el mercado está lleno, y para ganar hay que diferenciarse.</p></div>
+ </div>
 </section>
 
-<!-- ================= 3 ================= -->
-<section class="sec stop" id="s3">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">3</div>
-      <div class="sec-kicker">Microentorno</div>
-      <h2>Quién rodea a los JORDÁNPODS</h2>
-    </div>
-    <div class="tabs" id="microTabs" role="tablist"></div>
-    <div id="microPanel"></div>
+<!-- ===================== REGISTRO ===================== -->
+<section id="registro">
+ <span class="num-gigante">03</span>
+ <div class="wrap">
+  <span class="etiqueta">Sistema de registro</span>
+  <h2 class="titulo" data-split>Lo que dicen <em>las ventas</em></h2>
+  <p class="lead" data-r>Hemos analizado tres años de ventas de JORDÁNMUSIK y los números hablan solos: la empresa crece <b>cerca de un 20 % cada año</b>. Pero lo más interesante es el patrón que se repite: ventas tranquilas hasta octubre y una explosión en <span class="gold">noviembre y diciembre</span>. Y hay más: la tienda física ya vende casi lo mismo que la web. ¿La conclusión? Abrir en Granada no es un riesgo, <b>es el siguiente paso lógico</b>.</p>
+
+  <div class="contadores" style="margin-top:44px">
+   <div class="contador" data-r style="transition-delay:0s"><div class="v" data-cuenta="5311">0</div><span>auriculares vendidos en 2022</span></div>
+   <div class="contador" data-r style="transition-delay:.1s"><div class="v" data-cuenta="7675">0</div><span>auriculares vendidos en 2024</span></div>
+   <div class="contador" data-r style="transition-delay:.2s"><div class="v oro" data-cuenta="44.5" data-dec="1" data-pre="+" data-suf=" %">0</div><span>de crecimiento en tres años</span></div>
+   <div class="contador" data-r style="transition-delay:.3s"><div class="v" data-cuenta="777">0</div><span>unidades en noviembre de 2024, el récord</span></div>
   </div>
+
+  <div class="sub-titulo"><h3 data-r>Ventas mes a mes</h3>
+   <div class="interruptor" id="anio-sw" data-r><button aria-pressed="false" data-a="todos">Los 3 años</button><button aria-pressed="false" data-a="0">2022</button><button aria-pressed="false" data-a="1">2023</button><button aria-pressed="true" data-a="2">2024</button></div>
+  </div>
+  <div class="grafico-caja">
+   <div class="tarjeta" data-r="izq"><div class="lienzo"><canvas id="g-ventas" aria-label="Gráfico de ventas mensuales"></canvas></div></div>
+   <div class="tarjeta anio-info" id="anio-info" data-r="der"></div>
+  </div>
+
+  <div class="sub-titulo"><h3 data-r>¿Por dónde se vende?</h3><p data-r>Online, tienda física y marketplace, mes a mes de 2022 a 2024.</p></div>
+  <div class="tarjeta" data-r>
+   <div class="leyenda" style="margin-bottom:12px"><span><i style="background:#6F7BCF"></i>Online · 43 %</span><span><i style="background:#F2B544"></i>Tienda física · 42 %</span><span><i style="background:#3FB8A8"></i>Marketplace · 15 %</span></div>
+   <div class="lienzo bajo"><canvas id="g-canales" aria-label="Gráfico de ventas por canal"></canvas></div>
+  </div>
+  <div class="dato-ej" style="margin-top:18px">
+   <div class="dato" data-r="izq"><span class="k">Marzo de 2024</span><div class="v">160 vs 320</div><p>La web cayó a <b>160 ventas</b> mientras la tienda física subía a <b>320</b>, probablemente por un problema puntual de la web.</p></div>
+   <div class="ejemplo" data-r="der"><div class="persona"><span class="avatar">🛒</span><div><b>Un cliente cualquiera</b><span>Marzo de 2024</span></div></div><p>Entra en la web para comprar unos JORDÁNPODS y no puede terminar el pedido. En lugar de irse a la competencia, se acerca a la tienda de Espacio Mediterráneo y los compra allí. <b>Tener tienda física salvó el mes.</b> Por eso una segunda tienda en Granada también protege a la empresa.</p></div>
+  </div>
+
+  <div class="sub-titulo"><h3 data-r>Devoluciones</h3><p data-r>Normalmente se devuelve alrededor del 2 %. Hay un mes que se sale del gráfico.</p></div>
+  <div class="grafico-caja">
+   <div class="tarjeta" data-r="izq"><div class="lienzo bajo"><canvas id="g-devol" aria-label="Gráfico de devoluciones"></canvas></div></div>
+   <div class="ejemplo" data-r="der"><div class="persona"><span class="avatar">🎁</span><div><b>Noviembre de 2023</b><span>12 % de devoluciones · satisfacción 3,41 de 5</span></div></div><p><b>77 clientes</b> devolvieron sus JORDÁNPODS en un solo mes. Todo apunta a un lote defectuoso justo en la época de más ventas. Imagina 77 regalos de Navidad que vuelven a la tienda: la lección es clara, <span class="gold"><b>en temporada alta la calidad no se puede fallar</b></span>.</p></div>
+  </div>
+
+  <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> JORDÁNMUSIK no solo vende, crece. Y ahora sabemos cuándo y dónde.</p></div>
+ </div>
 </section>
 
-<!-- ================= 4 ================= -->
-<section class="sec stop" id="s4">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">4</div>
-      <div class="sec-kicker">Investigación comercial</div>
-      <h2>Preguntar al consumidor antes de decidir</h2>
-    </div>
-    <div class="survey">
-      <div>
-        <div class="grid2">
-          <div class="card">
-            <h4>Ficha técnica</h4>
-            <div class="facts">
-              <div class="fact"><div class="k">Objetivo</div><div class="v">Conocer preferencias y construir el buyer persona</div></div>
-              <div class="fact"><div class="k">Público</div><div class="v">Personas de 14 años o más que usan auriculares, en España</div></div>
-              <div class="fact"><div class="k">Método</div><div class="v">Cuestionario online en Google Forms</div></div>
-              <div class="fact"><div class="k">Preguntas</div><div class="v">15 cerradas, cuantitativas</div></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="row" style="justify-content:space-between"><h4>Tamaño de muestra</h4><span class="tag calc">Cálculo</span></div>
-            <p class="mono num" style="font-size:15px">n = Z² · p · q / e²<br>n = 1,96² · 0,5 · 0,5 / 0,05² ≈ <b>385</b></p>
-            <p class="muted small">Población grande, nivel de confianza del 95 % y margen de error del 5 %. Es el tamaño que haría falta si el formulario se publicara.</p>
-            <p class="small" style="margin-top:10px"><span class="tag pend">Pendiente</span> Sin resultados: el formulario está diseñado pero no publicado.</p>
-          </div>
-        </div>
-        <div class="sub-head" style="margin-top:28px"><h3>Las 15 preguntas</h3><span class="muted small">Pulsa una para verla en el móvil</span></div>
-        <ol class="qlist" id="qlist"></ol>
-        <div class="sub-head" style="margin-top:28px"><h3>De la encuesta al buyer persona</h3></div>
-        <div class="persona-map" id="pmap"></div>
-      </div>
-      <div class="phone" aria-label="Vista previa del formulario">
-        <div class="screen">
-          <div class="gf-top"></div>
-          <div class="gf-head">
-            <div class="t">Estudio sobre hábitos y preferencias en auriculares</div>
-            <div class="s" id="gfSec">Sección 1 de 5</div>
-            <div class="gf-prog"><i id="gfProg"></i></div>
-          </div>
-          <div class="gf-body"><div class="gf-q" id="gfQ"></div></div>
-          <div class="gf-nav">
-            <button class="gf-btn ghost" id="gfPrev" type="button">Atrás</button>
-            <button class="gf-btn" id="gfNext" type="button">Siguiente</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ===================== BUYER PERSONA ===================== -->
+<section id="persona">
+ <span class="num-gigante">04</span>
+ <div class="wrap">
+  <span class="etiqueta">Buyer persona</span>
+  <h2 class="titulo" data-split>Esta es <em>nuestra clienta</em></h2>
+  <p class="lead" data-r>Te presentamos a <b>Lucía</b>. Es joven, vive pegada a su móvil, va a clase con los cascos puestos y, antes de comprar, mira TikTok y lee reseñas. Busca buena batería, buen sonido y una marca que cuide el planeta. Si JORDÁNPODS no aparece donde ella mira, <span class="gold">simplemente no existe para ella</span>.</p>
 
-<!-- ================= 5 ================= -->
-<section class="sec stop" id="s5">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">5</div>
-      <div class="sec-kicker">Sistema de análisis</div>
-      <h2>Lo que dicen 36 meses de ventas</h2>
-    </div>
-    <p class="lead">Base de datos interna de JORDÁNMUSIK: 36 meses (enero de 2022 a diciembre de 2024) con unidades, precio, coste, canal, devoluciones y satisfacción.</p>
-
-    <!-- A -->
-    <div class="sub-head stop" id="s5a"><span class="letter">5.A</span><h3>Datos internos</h3><span class="tag real">Dato real</span></div>
-    <div class="chart-card">
-      <div class="chart-top">
-        <h4 id="mainTitle">Evolución mensual</h4>
-        <div class="row">
-          <div class="seg" id="metricSeg">
-            <button data-m="u" class="on" type="button">Unidades</button>
-            <button data-m="ing" type="button">Ingresos</button>
-            <button data-m="mb" type="button">Margen</button>
-          </div>
-          <div class="seg" id="viewSeg">
-            <button data-v="line" class="on" type="button">Línea temporal</button>
-            <button data-v="cmp" type="button">Comparar años</button>
-          </div>
-        </div>
-      </div>
-      <div class="cbox"><canvas id="chMain" aria-label="Gráfico de evolución mensual"></canvas></div>
-      <p class="note" id="mainNote"></p>
-    </div>
-    <div class="extremes num" id="extremes"></div>
-
-    <div class="tbl-wrap" style="margin-top:20px">
-      <table id="yearTable" class="num"></table>
-    </div>
-
-    <div class="grid2" style="margin-top:20px">
-      <div class="chart-card">
-        <div class="chart-top"><h4>Estacionalidad</h4><span class="tag calc">Cálculo</span></div>
-        <div class="cbox sm"><canvas id="chSeason"></canvas></div>
-        <p class="note">Desviación de cada mes respecto a un mes medio de su año (media 2022-2024). <b>Noviembre vende un 19 % más</b> y diciembre un 12 % más; julio es el mes más flojo.</p>
-      </div>
-      <div class="chart-card">
-        <div class="chart-top"><h4>Calidad: devoluciones y satisfacción</h4><span class="tag real">Dato real</span></div>
-        <div class="cbox sm"><canvas id="chQuality"></canvas></div>
-        <p class="note">En <b>noviembre de 2023</b> las devoluciones subieron al 11,98 % (77 unidades) y la satisfacción cayó a 3,41 sobre 5, justo en el mes de más ventas. La satisfacción no volvió a superar 4 hasta febrero de 2024.</p>
-      </div>
-    </div>
-    <p class="note">La base de datos solo recoge un producto (JORDÁNPODS), así que el análisis de «mejores productos» se hace por periodos y canales.</p>
-
-    <!-- B -->
-    <div class="sub-head stop" id="s5b"><span class="letter">5.B</span><h3>Previsión de ventas 2025</h3><span class="tag prev">Previsión</span></div>
-    <div class="scen-tabs" id="scenTabs"></div>
-    <div class="chart-card">
-      <div class="chart-top"><h4>2024 real y 2025 previsto, por meses</h4><span class="tag prev">Previsión</span></div>
-      <div class="cbox"><canvas id="chForecast"></canvas></div>
-      <p class="note" id="scenMethod"></p>
-    </div>
-    <div class="scen-detail" id="scenDetail"></div>
-
-    <!-- C -->
-    <div class="sub-head stop" id="s5c"><span class="letter">5.C</span><h3>Simulador de decisiones</h3><span class="tag hip">Hipótesis</span></div>
-    <p class="muted" style="max-width:72ch;margin-bottom:16px">Punto de partida real: el mes medio de 2024 (<span class="num" id="baseTxt"></span>). Los resultados son estimaciones. La reacción de las ventas al precio (elasticidad) y el efecto de la publicidad son hipótesis que se pueden mover.</p>
-    <div class="presets" id="presets">
-      <button class="preset" data-p="up" type="button">Subir precio 10 %</button>
-      <button class="preset" data-p="down" type="button">Bajar precio 10 %</button>
-      <button class="preset" data-p="cost" type="button">Costes +15 %</button>
-      <button class="preset" data-p="peak" type="button">Pico tipo noviembre (+19 %)</button>
-      <button class="preset" data-p="ads" type="button">Campaña de 3.000 €</button>
-      <button class="preset" data-p="reset" type="button">Reiniciar</button>
-    </div>
-    <div class="simu">
-      <div class="card">
-        <div class="ctrl"><label for="sPrice">Cambio de precio <output id="oPrice"></output></label><input type="range" id="sPrice" min="-25" max="25" step="1" value="0"></div>
-        <div class="ctrl"><label for="sCost">Cambio de coste unitario <output id="oCost"></output></label><input type="range" id="sCost" min="-10" max="30" step="1" value="0"></div>
-        <div class="ctrl"><label for="sElas">Elasticidad precio <span class="tag hip">Hipótesis</span> <output id="oElas"></output></label><input type="range" id="sElas" min="-3" max="0" step="0.1" value="-1.5"><span class="h">Con −1,5, si el precio sube un 10 %, las ventas bajan un 15 %. Se podrá ajustar con la pregunta 12 de la encuesta.</span></div>
-        <div class="ctrl"><label for="sPeak">Pico de demanda <output id="oPeak"></output></label><input type="range" id="sPeak" min="0" max="50" step="1" value="0"></div>
-        <div class="ctrl"><label for="sAds">Inversión en publicidad al mes <output id="oAds"></output></label><input type="range" id="sAds" min="0" max="10000" step="250" value="0"></div>
-        <div class="ctrl"><label for="sLift">Ventas extra que traería la campaña <span class="tag hip">Hipótesis</span> <output id="oLift"></output></label><input type="range" id="sLift" min="0" max="40" step="1" value="0"></div>
-      </div>
-      <div>
-        <div class="res num" id="res"></div>
-        <div class="bars-cmp" id="barsCmp"></div>
-        <div class="verdict" id="verdict"></div>
-      </div>
-    </div>
-
-    <!-- D -->
-    <div class="sub-head stop" id="s5d"><span class="letter">5.D</span><h3>Anticipación de cambios</h3></div>
-    <div class="grid3">
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><h4>Económicos</h4><span class="tag pend">Pendiente</span></div>
-        <p class="muted">Se completará con los indicadores de vuestro documento (inflación, consumo, confianza del consumidor) y con qué umbral debería activar una decisión.</p>
-      </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><h4>Políticos y legales</h4><span class="tag real">Dato real</span></div>
-        <p><b>Cargador común (USB-C).</b> La Directiva (UE) 2022/2380 obliga a que los auriculares vendidos en la UE se carguen por USB-C desde el 28 de diciembre de 2024.</p>
-        <p><b>Baterías.</b> El Reglamento (UE) 2023/1542 exige, con excepciones, que las baterías portátiles se puedan extraer y sustituir a partir de 2027. Hay que revisar si afecta al diseño de los JORDÁNPODS.</p>
-      </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><h4>Tecnológicos</h4><span class="tag real">Dato real</span></div>
-        <p><b>Bluetooth LE Audio y Auracast.</b> Es el nuevo estándar de audio Bluetooth: menor consumo y emisión a varios auriculares a la vez. Los próximos modelos de la competencia lo incorporarán; es un punto a vigilar para la siguiente versión de los JORDÁNPODS.</p>
-      </div>
-    </div>
-
-    <!-- E -->
-    <div class="sub-head stop" id="s5e"><span class="letter">5.E</span><h3>Packaging</h3></div>
-    <div class="grid2">
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><h4>Marco obligatorio</h4><span class="tag real">Dato real</span></div>
-        <p>El Reglamento (UE) 2025/40 de envases y residuos de envases endurece las exigencias de reciclabilidad y reduce el espacio vacío permitido. Se aplica desde agosto de 2026 y afecta directamente a la caja de los JORDÁNPODS.</p>
-      </div>
-      <div class="pending">
-        <span class="tag pend">Pendiente</span>
-        <h4>Propuesta conectada con la encuesta</h4>
-        <p class="muted">Se diseñará con las respuestas a las preguntas 11 (importancia de la sostenibilidad) y 13 (importancia de un envase sostenible): materiales, tamaño, información del envase y experiencia de apertura.</p>
-      </div>
-    </div>
-
-    <!-- F -->
-    <div class="sub-head stop" id="s5f"><span class="letter">5.F</span><h3>Conclusiones del análisis</h3><span class="tag calc">Cálculo</span></div>
-    <div class="find">
-      <div class="card" style="--fc:var(--calc)">
-        <h4>Oportunidades</h4>
-        <ul>
-          <li>Crecimiento sostenido: <b class="num">+19,6 %</b> en 2023 y <b class="num">+20,8 %</b> en 2024.</li>
-          <li>Noviembre y diciembre concentran el <b class="num">19,3 %</b> de las ventas de 2024. Ahí se juega el año.</li>
-          <li>El canal online es el primero (<b class="num">43 %</b> de las unidades en 2024) y es donde más ha crecido el pico de noviembre.</li>
-        </ul>
-      </div>
-      <div class="card" style="--fc:var(--coral)">
-        <h4>Problemas</h4>
-        <ul>
-          <li>Crisis de calidad en noviembre de 2023: devoluciones al <b class="num">11,98 %</b> y satisfacción en <b class="num">3,41</b>.</li>
-          <li>El coste unitario sube un <b class="num">2,2 %</b> en 2024 con el precio estable, y el margen baja del 56,1 % al 54,9 %.</li>
-          <li>Las incidencias posventa pasan de 57 a 85 al año (<b class="num">+49 %</b>).</li>
-        </ul>
-      </div>
-      <div class="card" style="--fc:var(--cobalt)">
-        <h4>Mejoras</h4>
-        <ul>
-          <li>Control de calidad por lotes antes de cada temporada alta.</li>
-          <li>Compras de stock planificadas con el índice estacional, no con la media.</li>
-          <li>Revisar el precio con la pregunta 12 de la encuesta antes de subirlo para compensar costes.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= 6 ================= -->
-<section class="sec stop" id="s6">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">6</div>
-      <div class="sec-kicker">Bibliografía · APA 7</div>
-      <h2>Fuentes</h2>
-    </div>
-    <ul class="bib">
-      <li>Bluetooth SIG. (s. f.). <i>LE Audio</i>. <a href="https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/le-audio/" target="_blank" rel="noopener">https://www.bluetooth.com/learn-about-bluetooth/feature-enhancements/le-audio/</a></li>
-      <li>Directiva (UE) 2022/2380 del Parlamento Europeo y del Consejo, de 23 de noviembre de 2022, por la que se modifica la Directiva 2014/53/UE relativa a la armonización de las legislaciones de los Estados miembros sobre la comercialización de equipos radioeléctricos. <i>Diario Oficial de la Unión Europea</i>, L 315. <a href="https://eur-lex.europa.eu/eli/dir/2022/2380/oj" target="_blank" rel="noopener">https://eur-lex.europa.eu/eli/dir/2022/2380/oj</a></li>
-      <li>JORDÁNMUSIK. (2025). <i>Base de datos de ventas mensuales de JORDÁNPODS 2022-2024</i> [Conjunto de datos interno no publicado].</li>
-      <li>Kotler, P., y Armstrong, G. (2018). <i>Principios de marketing</i> (17.ª ed.). Pearson.</li>
-      <li>Reglamento (UE) 2023/1542 del Parlamento Europeo y del Consejo, de 12 de julio de 2023, relativo a las pilas y baterías y sus residuos. <i>Diario Oficial de la Unión Europea</i>, L 191. <a href="https://eur-lex.europa.eu/eli/reg/2023/1542/oj" target="_blank" rel="noopener">https://eur-lex.europa.eu/eli/reg/2023/1542/oj</a></li>
-      <li>Reglamento (UE) 2025/40 del Parlamento Europeo y del Consejo, de 19 de diciembre de 2024, relativo a los envases y residuos de envases. <i>Diario Oficial de la Unión Europea</i>. <a href="https://eur-lex.europa.eu/eli/reg/2025/40/oj" target="_blank" rel="noopener">https://eur-lex.europa.eu/eli/reg/2025/40/oj</a></li>
-      <li><span class="tag pend">Pendiente</span> Fuentes del macro y microentorno de vuestro documento.</li>
+  <div class="ficha" style="margin-top:44px">
+   <div class="lucia" data-r="izq">
+    <div class="foto">👩🏻</div>
+    <h3>Lucía Martín</h3>
+    <div class="edad">27 años · Cartagena</div>
+    <ul>
+     <li><i>🎓</i>Estudia y trabaja</li>
+     <li><i>🚋</i>Va en tranvía a todas partes</li>
+     <li><i>🎧</i>Usa auriculares todos los días</li>
+     <li><i>💶</i>Pagaría entre 60 y 100 €</li>
     </ul>
+   </div>
+   <div class="cuad">
+    <div class="tarjeta" data-r style="transition-delay:.05s"><h4>Qué busca</h4><ul><li>Buen sonido</li><li>Batería que dure</li><li>Comodidad</li><li>Una caja sostenible</li></ul></div>
+    <div class="tarjeta" data-r style="transition-delay:.15s"><h4>Dónde se informa</h4><ul><li>Reseñas de otros compradores</li><li>TikTok e Instagram</li><li>Vídeos de YouTube</li><li>Consejos de sus amigos</li></ul></div>
+    <div class="tarjeta" data-r style="transition-delay:.25s"><h4>Qué le motiva</h4><ul><li>Las ofertas del Black Friday</li><li>Regalar en Navidad</li><li>Las marcas que cuidan el planeta</li></ul></div>
+    <div class="tarjeta" data-r style="transition-delay:.35s"><h4>Qué le frustra</h4><ul><li>Que la batería dure poco</li><li>No encontrar almohadillas de repuesto</li><li>Los precios cada vez más altos</li></ul></div>
+   </div>
   </div>
+
+  <div class="sub-titulo"><h3 data-r>Un día con Lucía</h3><p data-r>Cada momento de su día está respaldado por un dato de nuestra encuesta.</p></div>
+  <div class="linea-dia">
+   <div class="momento" data-r style="transition-delay:0s"><span class="e">🚋</span><div class="h">08:00</div><p>Va en tranvía a la universidad escuchando su lista de Spotify.</p><div class="pct"><b>71 %</b> usa auriculares en el transporte</div></div>
+   <div class="momento" data-r style="transition-delay:.1s"><span class="e">📚</span><div class="h">13:00</div><p>Estudia en la biblioteca con los cascos para concentrarse.</p><div class="pct"><b>54 %</b> los usa estudiando</div></div>
+   <div class="momento" data-r style="transition-delay:.2s"><span class="e">🏋️</span><div class="h">19:00</div><p>Entrena en el gimnasio. Ese día se queda sin batería a mitad.</p><div class="pct"><b>31 %</b> cambia de cascos por la batería</div></div>
+   <div class="momento" data-r style="transition-delay:.3s"><span class="e">📱</span><div class="h">22:30</div><p>En el sofá, mira reseñas en TikTok de unos cascos nuevos.</p><div class="pct"><b>63 %</b> lee reseñas antes de comprar</div></div>
+  </div>
+ </div>
 </section>
 
-<!-- ================= 7 ================= -->
-<section class="sec stop" id="s7">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-num">7</div>
-      <div class="sec-kicker">Conclusión</div>
-      <h2>Qué gana JORDÁNMUSIK con su SIM</h2>
-    </div>
-    <div class="grid3">
-      <div class="card"><h4>Saber dónde está</h4><p class="muted">Los datos internos muestran una empresa que crece un 20 % al año, con un pico claro en noviembre y un margen que empieza a estrecharse.</p></div>
-      <div class="card"><h4>Saber qué hacer</h4><p class="muted">Las previsiones y el simulador convierten esos datos en decisiones concretas: cuánto stock comprar, qué precio aguanta el margen y cuánto debe vender una campaña para pagarse.</p></div>
-      <div class="card"><h4>Anticiparse</h4><p class="muted">La vigilancia del entorno y la encuesta al consumidor permiten adelantarse a cambios legales, tecnológicos y de gusto antes de que afecten a las ventas.</p></div>
-    </div>
-    <div class="pending" style="margin-top:16px"><span class="tag pend">Pendiente</span><p class="muted" style="margin-top:8px">La conclusión final se completará cuando estén el macro y microentorno y la propuesta de packaging.</p></div>
+<!-- ===================== INVESTIGACIÓN ===================== -->
+<section id="investigacion">
+ <span class="num-gigante">05</span>
+ <div class="wrap">
+  <span class="etiqueta">Investigación comercial</span>
+  <h2 class="titulo" data-split>Preguntamos a quien <em>de verdad sabe</em></h2>
+  <p class="lead" data-r>El Excel nos decía cuánto se vende, pero no <b>quién compra ni por qué</b>. Así que hicimos lo más lógico: preguntar. Enviamos una encuesta por email, y quien la responde recibe <span class="gold">un 5 % de descuento</span>. Así más gente se anima a contestar y, de paso, vuelve a comprar.</p>
+  <div class="objetivos" data-r>
+   <span>Conocer a nuestro cliente</span><span>Saber si nos conocen en Granada</span><span>Ver si el precio es justo</span><span>Descubrir sus problemas con los cascos</span><span>Entender el Black Friday y la Navidad</span><span>Saber dónde se informa</span><span>Ver si le importa lo ecológico</span>
   </div>
+
+  <div class="zona-encuesta">
+   <div data-r="izq">
+    <div class="movil"><div class="pantalla" id="encuesta">
+     <div class="enc-cab"><small>ENCUESTA JORDÁNMUSIK</small><b id="enc-sec">Sobre ti</b><div class="enc-barra"><i id="enc-prog"></i></div></div>
+     <div class="enc-cuerpo" id="enc-cuerpo"></div>
+     <div class="enc-pie" id="enc-pie"><button class="atras" id="enc-atras" aria-label="Pregunta anterior">‹</button><button class="sig" id="enc-sig" disabled>Siguiente</button></div>
+    </div></div>
+   </div>
+   <div class="lado-enc">
+    <div class="tarjeta" data-r="der">
+     <span class="etiqueta" style="font-size:11.5px">Pruébala aquí</span>
+     <h3 style="margin-top:10px">Responde en el móvil de la izquierda</h3>
+     <p style="color:var(--muted);margin-top:8px;font-size:15.5px">Es una versión de demostración: al elegir una respuesta verás <b>qué contestó la mayoría</b>. Al final te damos tu código de descuento (de mentira 😉).</p>
+    </div>
+    <div class="tarjeta qr-caja" data-r="der" style="transition-delay:.1s">
+     <img src="assets/web/qr_encuesta.png" alt="Código QR de la encuesta real">
+     <div><h3>O la de verdad</h3><p>Escanea el QR con tu móvil y responde la encuesta real de Google Forms.</p><a class="boton" href="https://docs.google.com/forms/d/1mr1N76hZ5D7ZC1jmeuyX5SBgyrPf6RX1eweX3_EuZoU/viewform" target="_blank" rel="noopener">Abrir encuesta ↗</a></div>
+    </div>
+    <div class="tarjeta mailing-caja" data-r="der" style="transition-delay:.2s">
+     <img src="assets/web/mailing.webp" alt="Email de la encuesta con un 5 % de descuento">
+     <div><span class="etiqueta" style="font-size:11.5px">El mailing</span><p style="margin-top:10px">Así llega la encuesta al correo de los clientes: un clic en la imagen y están dentro. Responderla es voluntario y sus datos <b>nunca se comparten</b>.</p></div>
+    </div>
+   </div>
+  </div>
+
+  <div class="sub-titulo"><h3 data-r>Lo que nos respondieron</h3><span class="simulados" data-r>DATOS SIMULADOS · 385 RESPUESTAS</span></div>
+  <div class="resultados">
+   <div class="tarjeta res" data-r><h4>¿Qué edad tienes?</h4><div class="nota">Una sola respuesta</div><div class="barras" data-barras='[["Menos de 18",6],["18-24",31,1],["25-34",34,1],["35-44",15],["45-54",9],["55 o más",5]]'></div><p class="ej">el 65 % tiene entre 18 y 34 años. Es justo el perfil de Lucía: la buyer persona queda confirmada.</p></div>
+   <div class="tarjeta res" data-r style="transition-delay:.1s"><h4>¿Cuándo sueles comprarlos?</h4><div class="nota">Varias respuestas posibles</div><div class="barras" data-barras='[["Black Friday",46,1],["Cuando los necesito",44],["Regalo de Navidad",38,1],["Rebajas",27]]'></div><p class="ej">casi la mitad espera al Black Friday para comprar. Por eso noviembre es siempre el mejor mes del Excel.</p></div>
+   <div class="tarjeta res" data-r><h4>¿Qué miras antes de comprar?</h4><div class="nota">Varias respuestas posibles</div><div class="barras" data-barras='[["Reseñas",63,1],["TikTok",41,1],["YouTube",37],["Instagram",34],["Amigos o familia",33]]'></div><p class="ej">antes de pasar por caja, 6 de cada 10 leen lo que opinan otros compradores. Una buena reseña vende más que un anuncio.</p></div>
+   <div class="tarjeta res" data-r style="transition-delay:.1s"><h4>¿Conoces los JORDÁNPODS?</h4><div class="nota">Una sola respuesta</div><div class="barras" data-barras='[["Sí, los tengo",10],["Los conozco",27],["Me suenan",24],["No los conozco",39,1]]'></div><p class="ej">de cada 10 personas, casi 4 no han oído hablar de nosotros. El producto gusta; lo que falta es que se conozca.</p></div>
+  </div>
+  <div class="claves">
+   <div class="clave" data-r><div class="v">15 %</div><b>ya vive en Granada</b><p>Hay clientes allí antes de abrir la tienda.</p><span class="a">→ Apertura en Granada</span></div>
+   <div class="clave" data-r style="transition-delay:.08s"><div class="v">47 %</div><b>pagaría 60 € o más</b><p>Los 79 € están en el límite: mejor no subir el precio.</p><span class="a">→ Promociones</span></div>
+   <div class="clave" data-r style="transition-delay:.16s"><div class="v">52 %</div><b>prefiere la tienda física</b><p>Probar antes de comprar sigue importando.</p><span class="a">→ Probar en tienda</span></div>
+   <div class="clave" data-r><div class="v">31 %</div><b>cambia por la batería</b><p>Es el motivo número uno para cambiar de cascos.</p><span class="a">→ Cambio de batería en la app</span></div>
+   <div class="clave" data-r style="transition-delay:.08s"><div class="v">71 %</div><b>quiere caja reciclada</b><p>Le da un 4 o un 5 sobre 5 al cartón reciclado.</p><span class="a">→ Packaging sostenible</span></div>
+   <div class="clave" data-r style="transition-delay:.16s"><div class="v">75 %</div><b>pagaría más si es sostenible</b><p>Lo ecológico es un argumento de venta.</p><span class="a">→ Diferenciación</span></div>
+  </div>
+
+  <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> el producto gusta, pero falta que más gente lo conozca.</p></div>
+ </div>
 </section>
-</main>
 
-<footer><div class="wrap">JORDÁNMUSIK · Proyecto de Investigación Comercial · 1.º Marketing y Publicidad</div></footer>
+<!-- ===================== DAFO ===================== -->
+<section id="dafo">
+ <span class="num-gigante">06</span>
+ <div class="wrap">
+  <span class="etiqueta">Sistema de análisis · DAFO</span>
+  <h2 class="titulo" data-split>Dónde estamos <em>de verdad</em></h2>
+  <p class="lead" data-r>Hemos puesto en un solo cuadro todo lo que sabemos. JORDÁNMUSIK tiene <b>un producto que crece y una tienda que funciona</b>, pero también puntos débiles que vigilar. Y fuera hay oportunidades claras: <span class="gold">Granada, las redes y la sostenibilidad</span>.</p>
+  <div class="ejes" data-r><span>← Lo que nos frena</span><span>Lo que nos impulsa →</span></div>
+  <div class="dafo" id="dafo-grid">
+   <div class="cuadrante" style="--c:#EF5F56" data-r="izq"><span class="letra">D</span><span class="tipo">Interno · negativo</span><h3>Debilidades</h3><ul><li>Marca joven y poco conocida frente a las grandes.</li><li>Depende casi solo de los JORDÁNPODS.</li><li>Control de calidad mejorable en temporada alta.</li><li>Costes de fabricación que suben.</li><li>Poca información sobre quién compra.</li></ul></div>
+   <div class="cuadrante" style="--c:#7FE0B5" data-r="der"><span class="letra">F</span><span class="tipo">Interno · positivo</span><h3>Fortalezas</h3><ul><li>Empresa que vende más cada año.</li><li>Precio competitivo y estable.</li><li>Tres formas de comprar: tienda, web y marketplace.</li><li>Tienda consolidada con trato cercano.</li><li>Clientes satisfechos que confían en el producto.</li></ul></div>
+   <div class="cuadrante" style="--c:#FF9C6B" data-r="izq"><span class="letra">A</span><span class="tipo">Externo · negativo</span><h3>Amenazas</h3><ul><li>Subida de precios: se gasta menos en caprichos.</li><li>Grandes cadenas y marcas muy conocidas.</li><li>Clientes exigentes que cambian de marca.</li><li>Normas más estrictas: cargadores, baterías, envases.</li><li>Webs extranjeras más baratas.</li></ul></div>
+   <div class="cuadrante" style="--c:#F2B544" data-r="der"><span class="letra">O</span><span class="tipo">Externo · positivo</span><h3>Oportunidades</h3><ul><li>Expansión a Granada.</li><li>Fechas clave: Black Friday y Navidad.</li><li>La compra online no para de crecer.</li><li>Redes sociales e influencers.</li><li>Clientes que valoran lo sostenible.</li></ul></div>
+   <div class="dafo-centro">JORDÁN<br>MUSIK</div>
+  </div>
+  <div class="ejes"><span>↑ Dentro de la empresa</span><span>↓ Fuera de la empresa</span></div>
+ </div>
+</section>
 
-<div class="hud" id="hud" hidden>
-  <button type="button" id="hudPrev" aria-label="Anterior">‹</button>
-  <span id="hudPos">1 / 1</span>
-  <button type="button" id="hudNext" aria-label="Siguiente">›</button>
-  <button type="button" id="hudExit" aria-label="Salir del modo presentación">✕</button>
-</div>
+<!-- ===================== DECISIONES ===================== -->
+<section id="decisiones">
+ <span class="num-gigante">07</span>
+ <div class="wrap">
+  <span class="etiqueta">Sistema de análisis · Decisiones</span>
+  <h2 class="titulo" data-split>Nuestra <em>propuesta</em></h2>
+  <p class="lead" data-r>Con todos los datos encima de la mesa, proponemos <b>seis decisiones</b>. No son ideas al azar: <span class="gold">cada una nace de un dato concreto</span>.</p>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+  <div class="indice-dec" id="indice-dec">
+   <a href="#d1"><b>1</b>Promociones</a><a href="#d2"><b>2</b>App</a><a href="#d3"><b>3</b>Redes</a><a href="#d4"><b>4</b>Influencer</a><a href="#d5"><b>5</b>Diferenciación</a><a href="#d6"><b>6</b>Proveedores</a>
+  </div>
+
+  <!-- 1 Promociones -->
+  <div class="decision" id="d1">
+   <div class="dec-cab" data-r><span class="n">1</span><div><h3>Promociones durante todo el año</h3><p>Si las ventas bajan en verano y se disparan en noviembre, las ofertas no pueden ser siempre iguales: cada mes tiene la suya. Pulsa un mes.</p><span class="el-dato">Noviembre y diciembre suman casi 1 de cada 5 ventas del año</span></div></div>
+   <div class="tarjeta" data-r>
+    <div class="meses" id="meses"></div>
+    <div class="leg-meses"><span><i style="background:#F2B544"></i>Mes fuerte</span><span><i style="background:#6F7BCF"></i>Mes normal</span><span><i style="background:#8C93B8"></i>Mes flojo</span><span>Altura = ventas medias de 2022 a 2024</span></div>
+   </div>
+   <div class="promo" id="promo"></div>
+  </div>
+
+  <!-- 2 App -->
+  <div class="decision" id="d2">
+   <div class="dec-cab" data-r><span class="n">2</span><div><h3>App JORDÁNMUSIK y el Club de Notas</h3><p>Una app propia para ver productos, recibir ofertas y sumar <b>Notas</b>, los puntos del club, igual que las Coronas de Burger King: se ganan comprando y participando y se cambian por premios.</p><span class="el-dato">Hasta ahora, el cliente compraba y no había forma de que volviera</span></div></div>
+   <div class="app-zona">
+    <div data-r="izq">
+     <div class="movil app"><div class="pantalla"><div class="carrusel" id="carrusel"><img src="assets/web/app1.webp" alt="App: inicio"><img src="assets/web/app2.webp" alt="App: producto"><img src="assets/web/app3.webp" alt="App: mis Notas"><img src="assets/web/app4.webp" alt="App: premios"></div></div></div>
+     <div class="puntos-car" id="puntos-car"></div>
+    </div>
+    <div class="tarjeta simulador" data-r="der">
+     <span class="etiqueta" style="font-size:11.5px">Pruébalo</span>
+     <h4 style="margin-top:8px">¿Cuántas Notas ganarías?</h4>
+     <p style="color:var(--muted);font-size:15px;margin-top:4px">1 € gastado = 1 Nota. Mueve la barra y marca lo que harías.</p>
+     <div class="slider-fila"><input type="range" id="gasto" min="0" max="250" step="1" value="79" aria-label="Euros gastados"><output id="gasto-v">79 €</output></div>
+     <div class="extras" id="extras">
+      <button class="extra" data-n="20" aria-pressed="true">📲 Registrarme +20</button>
+      <button class="extra" data-n="10" aria-pressed="true">⭐ Dejar reseña +10</button>
+      <button class="extra" data-n="15" aria-pressed="true">📝 Responder encuesta +15</button>
+      <button class="extra" data-x="2" aria-pressed="false">🖤 Comprar en Black Friday x2</button>
+     </div>
+     <div class="total-notas"><b id="notas">124</b><span>Notas</span></div>
+     <div class="escalera" id="escalera">
+      <div class="premio" data-p="40"><div>🎧</div><b>Almohadillas</b><span>40 Notas</span></div>
+      <div class="premio" data-p="60"><div>👜</div><b>Funda</b><span>60 Notas</span></div>
+      <div class="premio" data-p="100"><div>🏷️</div><b>Cupón de 10 €</b><span>100 Notas</span></div>
+      <div class="premio" data-p="150"><div>🔋</div><b>Cambio de batería</b><span>150 Notas</span></div>
+     </div>
+     <p style="margin-top:16px;font-size:14.5px;color:#D3D7F3"><b class="gold">Ejemplo:</b> Lucía se registra, compra sus JORDÁNPODS por 79 €, deja una reseña y responde la encuesta: <b>124 Notas</b>. Ya tiene un cupón de 10 € para volver.</p>
+    </div>
+   </div>
+  </div>
+
+  <!-- 3 Redes -->
+  <div class="decision" id="d3">
+   <div class="dec-cab" data-r><span class="n">3</span><div><h3>Redes sociales: Instagram, TikTok y Facebook</h3><p>Si nuestros clientes se informan en redes, nosotros tenemos que estar allí. La web es el canal que más vende, y las redes son la puerta que lleva hasta ella.</p><span class="el-dato">El 63 % lee reseñas y el 41 % mira TikTok antes de comprar</span></div></div>
+   <div class="redes-zona">
+    <div>
+     <div class="tres">
+      <div class="tarjeta" data-r><div>📣</div><b>Publicidad</b><p>Productos, ofertas y novedades donde nuestro cliente ya está mirando.</p></div>
+      <div class="tarjeta" data-r style="transition-delay:.1s"><div>🎁</div><b>Sorteos</b><p>Concursos para ganar seguidores y que se hable de la marca.</p></div>
+      <div class="tarjeta" data-r style="transition-delay:.2s"><div>💬</div><b>Información</b><p>Reseñas, tutoriales y respuestas: generar confianza.</p></div>
+     </div>
+     <div class="ejemplo" data-r style="margin-top:16px"><div class="persona"><span class="avatar">📱</span><div><b>Un sorteo en Instagram</b><span>@jordanmusik</span></div></div><p>Sorteamos unos JORDÁNPODS. Para participar hay que <b>seguir la cuenta y etiquetar a dos amigos</b>. Cada persona que participa trae a dos más que quizá nunca habían oído hablar de nosotros. Así, ese 39 % que no nos conoce empieza a bajar.</p></div>
+    </div>
+    <div data-r="der"><img class="ig-img" src="assets/web/instagram.webp" alt="Perfil de Instagram @jordanmusik"></div>
+   </div>
+  </div>
+
+  <!-- 4 Influencer -->
+  <div class="decision" id="d4">
+   <div class="dec-cab" data-r><span class="n">4</span><div><h3>Colaboración con influencers</h3><p>Una cara conocida para presentar la marca a un público nuevo, justo en la ciudad donde abrimos.</p><span class="el-dato">El 65 % de nuestros clientes tiene entre 18 y 34 años</span></div></div>
+   <div class="lola">
+    <div class="lola-nombre" data-r="izq"><div class="ola" id="ola-lola"></div><small>NUESTRA PROPUESTA</small><h4>Lola<br>Índigo</h4><p>Artista con mucho alcance entre el público joven y, además, <b>de Granada</b>.</p></div>
+    <div>
+     <div class="ejemplo" data-r="der"><div class="persona"><span class="avatar">🎤</span><div><b>El día de la apertura</b><span>Nevada Shopping · Granada</span></div></div><p>Lola sube un story con sus JORDÁNPODS el día que abre la tienda nueva. Miles de jóvenes de Granada descubren la marca ese mismo día y saben exactamente dónde comprarla.</p></div>
+     <div class="razones" data-r="der"><span>Llega al público joven</span><span>Da a conocer la marca</span><span>Promociona la tienda de Granada</span><span>Asocia la marca a una artista</span></div>
+    </div>
+   </div>
+  </div>
+
+  <!-- 5 Diferenciación -->
+  <div class="decision" id="d5">
+   <div class="dec-cab" data-r><span class="n">5</span><div><h3>Diferenciación: originalidad, calidad y exclusividad</h3><p>Con tanta competencia, el cliente necesita una razón para elegirnos. Proponemos tres.</p><span class="el-dato">12 % de devoluciones en noviembre de 2023 · al 71 % le importa la caja reciclada</span></div></div>
+   <div class="difer-tabs" role="tablist" id="difer-tabs" data-r></div>
+   <div class="difer-panel" id="difer-panel"></div>
+  </div>
+
+  <!-- 6 Proveedores -->
+  <div class="decision" id="d6">
+   <div class="dec-cab" data-r><span class="n">6</span><div><h3>Mejores proveedores</h3><p>En 2024 el coste por unidad subió sin cambiar el precio y el margen bajó al más bajo de los tres años. Negociar con proveedores es ganar más sin vender más.</p><span class="el-dato">Margen de 2024: 54,9 %, el más bajo de los tres años</span></div></div>
+   <div class="calc">
+    <div class="tarjeta" data-r="izq">
+     <span class="etiqueta" style="font-size:11.5px">Calculadora de ahorro</span>
+     <p style="color:var(--muted);font-size:15px;margin-top:10px">¿Hasta dónde bajamos el coste de cada JORDÁNPODS? Hoy cuesta <b>35,89 €</b>; nuestro objetivo es <b>33 €</b>.</p>
+     <div class="slider-fila"><input type="range" id="coste" min="30" max="35.89" step="0.01" value="33" aria-label="Coste por unidad"><output id="coste-v">33,00 €</output></div>
+     <div class="interruptor" id="periodo"><button aria-pressed="true" data-u="702">Un diciembre (702 uds.)</button><button aria-pressed="false" data-u="7675">Un año (7.675 uds.)</button></div>
+     <div class="total" id="ahorro">2.028,78 €</div>
+     <div style="font-weight:800;color:var(--muted)">de ahorro estimado</div>
+     <div class="linea"><span>Ahorro por unidad</span><b id="ahorro-u">2,89 €</b></div>
+     <div class="linea" style="border:0"><span>Unidades</span><b id="ahorro-n">702</b></div>
+    </div>
+    <div data-r="der">
+     <div class="provs">
+      <div class="prov"><span class="pin">📍</span><div><b>Depau Sistemas</b><span>Cartagena · Mayorista de informática y audio</span></div></div>
+      <div class="prov"><span class="pin">📍</span><div><b>Informática Megasur</b><span>Escúzar, Granada · Distribuidor de tecnología</span></div></div>
+      <div class="prov"><span class="pin">📍</span><div><b>COOLAccesorios</b><span>Murcia · Auriculares, cargadores y accesorios</span></div></div>
+     </div>
+     <div class="criterios"><span class="chip">Precio</span><span class="chip">Calidad</span><span class="chip">Garantías</span><span class="chip">Plazos de entrega</span><span class="chip">Stock disponible</span><span class="chip"><b>Más de un proveedor</b></span></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ===================== CONCLUSIÓN ===================== -->
+<section id="conclusion">
+ <span class="num-gigante">08</span>
+ <div class="wrap">
+  <span class="etiqueta">Conclusión</span>
+  <h2 class="titulo" data-split>Antes y <em>después</em></h2>
+  <p class="lead" data-r>Antes, JORDÁNMUSIK decidía por intuición. Ahora sabe <b>cuándo vende, quién le compra y qué tiene que mejorar</b>. Ese es el poder de un Sistema de Información de Marketing: <span class="gold">convertir números en decisiones</span>.</p>
+  <div class="ad-cab"><span class="a">Antes</span><span></span><span class="d">Después</span></div>
+  <div class="ad" id="ad"></div>
+ </div>
+</section>
+
+<!-- ===================== FINAL ===================== -->
+<section class="final" id="final" data-visor>
+ <div class="wrap">
+  <div>
+   <span class="etiqueta">Despedida</span>
+   <p class="eslogan" data-r style="margin-top:20px"><span>Decidir sin datos</span><span class="hueco">es escuchar</span><span class="oro">sin auriculares.</span></p>
+   <div class="gracias" data-r>
+    <div class="t"><b>¡Gracias por escucharnos!</b><span>Sonia Lázaro y Brayan Aramayo</span></div>
+    <div class="qr"><img src="final/qr_web.png" alt="QR de esta web"><small>Escanea y llévate la web en el móvil</small></div>
+   </div>
+  </div>
+  <div class="escena">
+   <div class="halo"></div><div class="aro"></div><div class="aro b"></div>
+   <img class="visor-foto" src="assets/web/pods.webp" alt="Auriculares JORDÁNPODS">
+   <div class="visor3d" role="img" aria-label="Modelo 3D de los JORDÁNPODS. Arrastra para girarlo."></div>
+   <span class="visor-hint">↔ Gíralos una última vez</span>
+   <div class="controles">
+    <button class="color" data-color="negro" aria-pressed="true"><i style="background:#18181b"></i>Negro</button>
+    <button class="color" data-color="azul" aria-pressed="false"><i style="background:#23264d"></i>Azul</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <details>
+   <summary>Bibliografía</summary>
+   <ol>
+    <li><a href="https://www.ine.es" target="_blank" rel="noopener">https://www.ine.es</a></li>
+    <li><a href="https://pablojordanprofe.github.io/1010/ut2.html#mapa" target="_blank" rel="noopener">https://pablojordanprofe.github.io/1010/ut2.html#mapa</a></li>
+    <li><a href="https://www.bde.es/wbe/es/" target="_blank" rel="noopener">https://www.bde.es/wbe/es/</a></li>
+    <li><a href="https://www.ecb.europa.eu/ecb/all-about-us/html/index.es.html" target="_blank" rel="noopener">https://www.ecb.europa.eu/ecb/all-about-us/html/index.es.html</a></li>
+    <li><a href="https://www.cnmc.es" target="_blank" rel="noopener">https://www.cnmc.es</a></li>
+    <li><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555" target="_blank" rel="noopener">https://www.boe.es/buscar/act.php?id=BOE-A-2007-20555</a></li>
+    <li><a href="https://www.boe.es/buscar/act.php?id=BOE-A-2016-4444" target="_blank" rel="noopener">https://www.boe.es/buscar/act.php?id=BOE-A-2016-4444</a></li>
+    <li><a href="https://alicanteplaza.es/alicanteplaza/espana/espana-supera-por-primera-vez-los-10-millones-de-habitantes-mayores-de-65-anos-el-207-de-la-poblacion" target="_blank" rel="noopener">https://alicanteplaza.es/…/espana-supera-por-primera-vez-los-10-millones-de-habitantes-mayores-de-65-anos</a></li>
+    <li><a href="https://www.alimarket.es/electro/noticia_amp/423617/el-objetivo-de-recogida-separada-de-raee-para-espana-asciende-a-615-000-t-en-2026" target="_blank" rel="noopener">https://www.alimarket.es/electro/noticia_amp/423617/…</a></li>
+    <li><a href="https://www.ine.es/dyngs/Prensa/TICH2025.pdf" target="_blank" rel="noopener">https://www.ine.es/dyngs/Prensa/TICH2025.pdf</a></li>
+    <li><a href="https://www.marketingdirecto.com/marketing-general/el-precio-sigue-mandando-en-la-decision-de-compra-frente-a-la-sostenibilidad" target="_blank" rel="noopener">https://www.marketingdirecto.com/…/el-precio-sigue-mandando-en-la-decision-de-compra</a></li>
+    <li><a href="https://rtvc.es/redes-sociales-influyen-compras-usuarios/" target="_blank" rel="noopener">https://rtvc.es/redes-sociales-influyen-compras-usuarios/</a></li>
+    <li><a href="https://www.lamoncloa.gob.es/serviciosdeprensa/notasprensa/educacion-fp-deportes/Paginas/2026/290926-informe-panorama-educacion.aspx" target="_blank" rel="noopener">https://www.lamoncloa.gob.es/…/290926-informe-panorama-educacion.aspx</a></li>
+    <li><a href="https://taxdown.es/informacion-impuestos/plastico" target="_blank" rel="noopener">https://taxdown.es/informacion-impuestos/plastico</a></li>
+    <li>Herramientas de IA: Claude, ChatGPT y Gemini</li>
+   </ol>
+  </details>
+  <div class="pie"><span>JORDÁNMUSIK · Sistema de Información de Marketing · Investigación Comercial, 1.º CFGS Marketing y Publicidad</span><span>Los resultados de la encuesta son datos simulados.</span></div>
+ </div>
+</footer>
+
+<script src="vendor/chart.umd.js"></script>
 <script>
-(function(){
-"use strict";
-// [mes, unidades, precio, coste, ingresos, margen, uds tienda, uds online, uds marketplace, devoluciones, % devol, satisfacción, incidencias]
-const D=[["2022-01",429,79.26,35.13,34002.49,18932.25,172,193,64,9,2.1,4.27,5],["2022-02",418,79.78,34.96,33348.8,18734.36,160,198,60,8,1.91,4.19,5],["2022-03",435,77.76,34.04,33826.93,19019.26,170,178,87,9,2.07,4.0,5],["2022-04",454,77.68,34.99,35266.51,19382.53,185,209,60,11,2.42,4.09,5],["2022-05",420,79.52,35.03,33399.22,18686.57,174,188,58,10,2.38,4.24,4],["2022-06",421,79.3,36.23,33384.03,18130.52,173,186,62,11,2.61,4.09,4],["2022-07",436,79.25,34.9,34553.21,19335.14,178,194,64,11,2.52,4.19,4],["2022-08",421,79.35,35.15,33404.85,18606.37,172,174,75,10,2.38,4.22,5],["2022-09",420,78.32,34.98,32894.39,18201.68,167,185,68,10,2.38,4.09,4],["2022-10",442,79.23,34.42,35020.66,19808.94,180,198,64,10,2.26,4.17,5],["2022-11",507,79.29,35.57,40201.59,22166.88,208,235,64,12,2.37,3.92,6],["2022-12",508,78.29,35.38,39769.11,21798.12,217,220,71,13,2.56,4.1,5],["2023-01",534,80.87,35.4,43182.32,24281.11,225,229,80,13,2.43,4.17,6],["2023-02",480,79.47,34.55,38147.44,21565.69,192,208,80,10,2.08,4.09,5],["2023-03",486,77.81,35.7,37815.03,20464.15,205,221,60,11,2.26,4.33,5],["2023-04",515,79.66,34.3,41023.13,23359.11,214,229,72,12,2.33,4.08,6],["2023-05",505,78.03,35.29,39402.79,21579.61,209,218,78,10,1.98,4.16,6],["2023-06",539,79.79,36.1,43005.24,23549.91,230,241,68,11,2.04,4.21,6],["2023-07",483,80.16,34.5,38716.6,22050.81,208,213,62,10,2.07,4.32,6],["2023-08",472,78.18,34.72,36900.64,20514.29,202,215,55,8,1.69,4.08,5],["2023-09",569,79.96,35.05,45499.16,25555.81,234,245,90,11,1.93,4.29,6],["2023-10",528,79.41,34.75,41929.95,23582.87,220,230,78,10,1.89,4.2,5],["2023-11",643,79.82,34.22,51325.58,29319.12,271,280,92,77,11.98,3.41,7],["2023-12",598,80.9,35.03,48376.28,27425.78,255,251,92,36,6.02,3.53,7],["2024-01",623,78.75,35.27,49064.12,27091.63,257,278,88,8,1.28,3.5,7],["2024-02",641,78.25,36.04,50155.86,27056.27,265,286,90,8,1.25,4.13,7],["2024-03",602,78.11,35.34,47022.51,25747.66,320,160,122,10,1.66,4.18,6],["2024-04",646,78.18,36.57,50506.99,26879.56,259,284,103,10,1.55,4.14,7],["2024-05",615,78.92,35.41,48537.58,26761.43,258,260,97,10,1.63,4.17,7],["2024-06",622,79.34,35.64,49350.2,27182.76,264,273,85,14,2.25,4.2,7],["2024-07",580,79.28,36.21,45980.48,24980.56,237,256,87,10,1.72,4.27,7],["2024-08",648,79.83,35.18,51728.01,28928.41,270,281,97,12,1.85,4.04,7],["2024-09",626,79.01,35.91,49462.14,26980.15,256,279,91,12,1.92,4.3,7],["2024-10",593,80.45,36.45,47708.95,26091.98,235,269,89,12,2.02,3.96,7],["2024-11",777,78.74,35.0,61177.36,33985.27,315,371,91,14,1.8,4.1,8],["2024-12",702,81.72,35.89,57367.56,32171.15,291,318,93,15,2.14,4.15,8]];
-const MES=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
-const MESL=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-const YEARS=[2022,2023,2024];
-const nf0=new Intl.NumberFormat("es-ES",{maximumFractionDigits:0,useGrouping:"always"});
-const nf1=new Intl.NumberFormat("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1});
-const nf2=new Intl.NumberFormat("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2,useGrouping:"always"});
-const eur0=v=>nf0.format(Math.round(v))+" €";
-const eur2=v=>nf2.format(v)+" €";
-const pct1=v=>(v>0?"+":"")+nf1.format(v)+" %";
-const lab=r=>{const [y,m]=r[0].split("-");return MES[+m-1]+" "+y.slice(2)};
-const $=s=>document.querySelector(s);
+/* =========================================================
+   DATOS DEL EXCEL (36 meses, enero 2022 – diciembre 2024)
+   ========================================================= */
+const U=[429,418,435,454,420,421,436,421,420,442,507,508,534,480,486,515,505,539,483,472,569,528,643,598,623,641,602,646,615,622,580,648,626,593,777,702];
+const PH=[172,160,170,185,174,173,178,172,167,180,208,217,225,192,205,214,209,230,208,202,234,220,271,255,257,265,320,259,258,264,237,270,256,235,315,291];
+const ON=[193,198,178,209,188,186,194,174,185,198,235,220,229,208,221,229,218,241,213,215,245,230,280,251,278,286,160,284,260,273,256,281,279,269,371,318];
+const MK=[64,60,87,60,58,62,64,75,68,64,64,71,80,80,60,72,78,68,62,55,90,78,92,92,88,90,122,103,97,85,87,97,91,89,91,93];
+const DEV=[2.1,1.91,2.07,2.42,2.38,2.61,2.52,2.38,2.38,2.26,2.37,2.56,2.43,2.08,2.26,2.33,1.98,2.04,2.07,1.69,1.93,1.89,11.98,6.02,1.28,1.25,1.66,1.55,1.63,2.25,1.72,1.85,1.92,2.02,1.8,2.14];
+const MESES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const MESES_L=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const ETQ36=[];[2022,2023,2024].forEach(a=>MESES.forEach(m=>ETQ36.push(m+' '+String(a).slice(2))));
+const fmt=(n,d=0)=>{const [e,f]=Math.abs(n).toFixed(d).split('.');return (n<0?'−':'')+e.replace(/\B(?=(\d{3})+(?!\d))/g,'.')+(f?','+f:'')};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
-/* ---------- Aggregates ---------- */
-const byYear={};
-YEARS.forEach(y=>{
-  const rs=D.filter(r=>r[0].startsWith(y));
-  const s=i=>rs.reduce((a,r)=>a+r[i],0);
-  const u=s(1),ing=s(4),mb=s(5);
-  byYear[y]={rows:rs,u,ing,mb,ct:ing-mb,ph:s(6),on:s(7),mk:s(8),dev:s(9),inc:s(12),sat:rs.reduce((a,r)=>a+r[11],0)/rs.length};
+/* ---------- Efectos generales ---------- */
+// Letras del título de portada
+$('#h1').querySelectorAll('span').forEach((sp,j)=>{const t=sp.textContent;sp.innerHTML=[...t].map((c,i)=>`<span class="l" style="animation-delay:${.15+j*.35+i*.06}s">${c}</span>`).join('')});
+// Ecualizador
+$('#ondas').innerHTML=Array.from({length:28},(_,i)=>`<i style="--h:${14+Math.abs(Math.sin(i*1.7))*40}px;animation-delay:${-i*.13}s"></i>`).join('');
+$('#ola-lola').innerHTML=Array.from({length:14},(_,i)=>`<i style="--h:${10+Math.abs(Math.sin(i*1.3))*36}px;animation-delay:${-i*.11}s"></i>`).join('');
+// Cinta
+const pal=['PESTEL','PORTER','VENTAS','BUYER PERSONA','ENCUESTA','DAFO','DECISIONES','JORDÁNPODS'];
+$('#cinta').innerHTML=[...pal,...pal].map(p=>`<span>${p}</span>`).join('');
+// Títulos palabra a palabra
+$$('[data-split]').forEach(h=>{
+  const walk=(node)=>[...node.childNodes].forEach(n=>{
+    if(n.nodeType===3){const frag=document.createDocumentFragment();n.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){frag.append(w);return}const s=document.createElement('span');s.className='w';s.textContent=w;frag.append(s)});n.replaceWith(frag)}
+    else walk(n)});
+  walk(h);h.querySelectorAll('.w').forEach((w,i)=>w.style.transitionDelay=(i*.08)+'s');
 });
-// seasonal index: unidades del mes / media mensual de su año, promedio de los 3 años
-const SI=MES.map((_,m)=>YEARS.reduce((a,y)=>a+byYear[y].rows[m][1]/(byYear[y].u/12),0)/3);
+// Foco que sigue al ratón, barra de progreso y menú
+const foco=$('#foco');
+addEventListener('pointermove',e=>{foco.style.left=e.clientX+'px';foco.style.top=e.clientY+'px'},{passive:true});
+const menu=$('#menu'),prog=$('#progreso');
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';menu.classList.toggle('solida',h.scrollTop>40)},{passive:true});
+// Menú activo
+const enlaces=$$('nav.menu ul a');
+const obsMenu=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){enlaces.forEach(a=>a.classList.toggle('activo',a.getAttribute('href')==='#'+e.target.id))}}),{rootMargin:'-45% 0px -50% 0px'});
+$$('section[id]').forEach(s=>obsMenu.observe(s));
+const decA=$$('#indice-dec a');
+const obsDec=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)decA.forEach(a=>a.classList.toggle('activo',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -55% 0px'});
+$$('.decision').forEach(d=>obsDec.observe(d));
 
-/* ---------- Hero equalizer ---------- */
-(function(){
-  const eq=$("#eq"); const max=Math.max(...D.map(r=>r[1]));
-  D.forEach((r,i)=>{
-    const b=document.createElement("div");
-    b.className="bar"+(r[1]===max?" max":"");
-    b.style.height=(r[1]/max*100)+"%";
-    b.style.animationDelay=(i*25)+"ms";
-    b.tabIndex=0;
-    const [y,m]=r[0].split("-");
-    b.innerHTML='<span class="tip">'+MESL[+m-1]+" "+y+" · "+nf0.format(r[1])+" uds</span>";
-    b.setAttribute("aria-label",MESL[+m-1]+" "+y+": "+r[1]+" unidades");
-    eq.appendChild(b);
-  });
-  const tu=YEARS.reduce((a,y)=>a+byYear[y].u,0), ti=YEARS.reduce((a,y)=>a+byYear[y].ing,0), tm=YEARS.reduce((a,y)=>a+byYear[y].mb,0);
-  $("#k1").textContent=nf0.format(tu);
-  $("#k2").textContent=nf2.format(ti/1e6)+" M€";
-  $("#k3").textContent=nf1.format(tm/ti*100)+" %";
-  $("#k4").textContent=pct1((byYear[2024].u/byYear[2022].u-1)*100);
-})();
+// Aparición al bajar + acciones al ser visible
+const alVer=new Map();
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('vis');const f=alVer.get(e.target);if(f){f();alVer.delete(e.target)}obs.unobserve(e.target)}),{threshold:.15});
+function observar(el,f){if(f)alVer.set(el,f);obs.observe(el)}
+$$('[data-r],[data-split],.cuadrante,.ad-fila').forEach(el=>observar(el));
 
-/* ---------- SIM diagram ---------- */
-const SIMS=[
-  {t:"Sistema de datos internos",d:"Recoge la información que la empresa ya genera: pedidos, ventas, precios, costes, devoluciones y satisfacción.",a:"En JORDÁNMUSIK es la base de datos de 36 meses de los JORDÁNPODS. Gracias a ella sabemos que noviembre es el mes clave y que en noviembre de 2023 hubo un problema de calidad.",h:"#s5a",l:"Ver los datos internos"},
-  {t:"Sistema de inteligencia de marketing",d:"Vigila de forma continua lo que pasa fuera de la empresa: economía, leyes, tecnología, competencia y tendencias.",a:"Para JORDÁNMUSIK significa seguir el PESTEL y la competencia en auriculares inalámbricos, y detectar a tiempo cambios como la obligación del USB-C.",h:"#s2",l:"Ver el macroentorno"},
-  {t:"Sistema de investigación comercial",d:"Diseña estudios concretos para responder preguntas que los datos internos no contestan.",a:"La encuesta de 15 preguntas busca saber cuánto pagarían los clientes, qué valoran y quién es el buyer persona de los JORDÁNPODS.",h:"#s4",l:"Ver la encuesta"},
-  {t:"Sistema de análisis",d:"Convierte los datos en conclusiones y decisiones con estadística, previsiones y modelos.",a:"Incluye la previsión de 2025 en tres escenarios y un simulador para probar subidas de precio, de costes, picos de demanda y campañas.",h:"#s5b",l:"Ver previsiones y simulador"}
+// Contadores
+$$('[data-cuenta]').forEach(el=>observar(el,()=>{
+  const fin=+el.dataset.cuenta,dec=+(el.dataset.dec||0),pre=el.dataset.pre||'',suf=el.dataset.suf||'',t0=performance.now(),dur=1800;
+  const paso=t=>{const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,4);el.textContent=pre+fmt(fin*e,dec)+suf;if(p<1)requestAnimationFrame(paso)};requestAnimationFrame(paso);
+}));
+
+/* =========================================================
+   PESTEL: dato + ejemplo
+   ========================================================= */
+const PESTEL=[
+ {l:'P',n:'Político y legal',k:'Ley de Consumidores · BOE',v:'14 días',d:'para devolver una compra online sin dar explicaciones, y <b>3 años de garantía</b>.',f:'Fuente: BOE (RDL 1/2007 y RD 188/2016)',
+  q:'Laura',qs:'Clienta de la web',e:'Laura compra unos JORDÁNPODS en la web y le llegan el 3 de marzo. El día 10 decide que no le gustan y los devuelve: <b>hay que devolverle el dinero</b>. Y si en 2028 se estropean sin haberlos golpeado, siguen en garantía.',
+  c:['Marcado <b>CE</b> obligatorio en todo lo que lleva Bluetooth','Un proveedor sin CE, aunque sea barato, <b>no nos sirve</b>']},
+ {l:'E',n:'Económico',k:'Inflación · INE',v:'4,9 %',d:'suben los precios: todo es más caro y <b>los clientes miran más cada euro</b>.',f:'Fuente: INE, Banco de España, BCE y CNMC',
+  q:'Marta',qs:'Quiere cascos nuevos',e:'Marta necesita unos auriculares, pero con todo más caro decide esperar al Black Friday y compara precios en tres tiendas antes de comprar. <b>Si no tenemos una buena oferta ese día, se va con otra marca.</b>',
+  c:['La economía crece un <b>2,7 %</b>','La venta online sube un <b>15 %</b> al año','Tipos de interés al <b>2,50 %</b>']},
+ {l:'S',n:'Sociocultural',k:'Redes sociales · IAB Spain',v:'44 %',d:'de los que usan redes dice que <b>le influyen en lo que compra</b>; el 50 % las consulta antes de comprar.',f:'Fuente: INE, CSIC, Ministerio de Educación e IAB Spain',
+  q:'Lucía',qs:'Va a la universidad en tranvía',e:'Antes de comprarse unos auriculares, Lucía ve en TikTok la reseña de un influencer y compara la batería en internet. <b>Si JORDÁNPODS no aparece en redes, ni siquiera lo tendrá en cuenta.</b>',
+  c:['El <b>20,7 %</b> tiene 65 años o más','Spotify es la app más usada en España']},
+ {l:'T',n:'Tecnológico',k:'Internet · INE',v:'96,3 %',d:'de los españoles de 16 a 74 años usa internet, y el <b>59,6 %</b> ha comprado online en los últimos tres meses.',f:'Fuente: INE, Promusicae y BOE',
+  q:'Javi',qs:'Ha perdido su cargador',e:'Javi pierde el cargador de sus cascos y usa el del móvil sin problema. Desde diciembre de 2024 <b>todos los auriculares se cargan por USB-C</b>, y la caja de los JORDÁNPODS tiene que indicar si incluye cargador.',
+  c:['USB-C obligatorio desde el <b>28/12/2024</b>','La tienda online llega a toda España']},
+ {l:'E',n:'Ecológico',k:'Consumidor sostenible · Deloitte',v:'75 %',d:'de los españoles <b>pagaría más</b> por un producto que, además de funcionar bien, sea sostenible.',f:'Fuente: Agencia Tributaria, Alimarket y Deloitte',
+  q:'Lucía',qs:'Le importa el planeta',e:'Lucía duda entre dos cascos casi iguales. Al final elige los que vienen en <b>caja de cartón reciclado</b> y que puede llevar a reciclar a la tienda cuando se rompan. Lo sostenible le hace decidirse.',
+  c:['El plástico no reciclado paga <b>0,45 € por kilo</b>','Objetivo: recoger <b>615.000 t</b> de residuos electrónicos']}
 ];
-function setSim(k){
-  document.querySelectorAll(".sim-node").forEach(n=>n.classList.toggle("on",+n.dataset.k===k));
-  const s=SIMS[k];
-  $("#simPanel").innerHTML='<div class="sec-kicker">Subsistema '+(k+1)+' de 4</div><h4 style="margin:6px 0 10px">'+s.t+'</h4><p>'+s.d+'</p><p class="muted" style="margin-top:12px"><b style="color:var(--ink)">Aplicado a JORDÁNMUSIK:</b> '+s.a+'</p><a class="go" href="'+s.h+'">'+s.l+' →</a>';
+function pintaPestel(i){
+  const p=PESTEL[i];
+  $$('#pestel-tabs .pestana').forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+  const panel=$('#pestel-panel');
+  panel.innerHTML=`<div class="dato-ej panel-anim"><div class="dato"><span class="k">${p.k}</span><div class="v">${p.v}</div><p>${p.d}</p><div class="chips">${p.c.map(c=>`<span class="chip">${c}</span>`).join('')}</div><small>${p.f}</small></div>
+  <div class="ejemplo"><div class="persona"><span class="avatar">${p.q[0]}</span><div><b>${p.q}</b><span>${p.qs}</span></div></div><p>${p.e}</p></div></div>`;
 }
-document.querySelectorAll(".sim-node").forEach(n=>n.addEventListener("click",()=>setSim(+n.dataset.k)));
-setSim(0);
+$('#pestel-tabs').innerHTML=PESTEL.map((p,i)=>`<button class="pestana" role="tab" aria-selected="false"><span class="l">${p.l}</span>${p.n}</button>`).join('');
+$$('#pestel-tabs .pestana').forEach((b,i)=>b.addEventListener('click',()=>pintaPestel(i)));
+pintaPestel(0);
 
-/* ---------- PESTEL ---------- */
-const PEST=[["P","Político"],["E","Económico"],["S","Sociocultural"],["T","Tecnológico"],["E","Ecológico"],["L","Legal"]];
-(function(){
-  const box=$("#pestel");
-  PEST.forEach((p,i)=>{
-    const b=document.createElement("button");b.type="button";b.className="ptile";
-    b.innerHTML='<span class="L">'+p[0]+'</span><span><span class="N">'+p[1]+'</span><br><span class="tag pend" style="margin-top:6px">Pendiente</span></span>';
-    b.addEventListener("click",()=>{box.querySelectorAll(".ptile").forEach(x=>x.classList.remove("on"));b.classList.add("on");
-      $("#ppanel").innerHTML='<div class="pending"><span class="tag pend">Pendiente</span><h4>Factor '+p[1].toLowerCase()+'</h4><p class="muted">Aquí irá el contenido de vuestro documento de investigación, con este formato:</p><ul><li>Dato concreto de España o de la Región de Murcia, con su fuente.</li><li>Cómo afecta a JORDÁNMUSIK.</li><li>Si es una oportunidad o una amenaza.</li></ul></div>';});
-    box.appendChild(b);
-    if(i===0) b.click();
-  });
-})();
-
-/* ---------- Microentorno ---------- */
-const MICRO=["Clientes","Competencia","Proveedores","Canales","Mercado"];
-let chChannels=null;
-function setMicro(k){
-  document.querySelectorAll("#microTabs .tab").forEach((t,i)=>{t.classList.toggle("on",i===k);t.setAttribute("aria-selected",i===k)});
-  const p=$("#microPanel");
-  if(chChannels){chChannels.destroy();chChannels=null}
-  if(MICRO[k]==="Canales"){
-    const y24=byYear[2024];
-    p.innerHTML='<div class="grid2"><div class="chart-card"><div class="chart-top"><h4>Unidades por canal (% del año)</h4><span class="tag real">Dato real</span></div><div class="cbox sm"><canvas id="chChannels"></canvas></div></div><div class="card"><h4>Cómo vende JORDÁNMUSIK</h4><p>En 2024: <b class="num">'+nf1.format(y24.on/y24.u*100)+' %</b> online, <b class="num">'+nf1.format(y24.ph/y24.u*100)+' %</b> en tienda física y <b class="num">'+nf1.format(y24.mk/y24.u*100)+' %</b> en marketplace.</p><p class="muted">El reparto es muy estable en los tres años. La única excepción es <b>marzo de 2024</b>: la tienda física subió al 53 % y el online bajó al 27 %. Conviene averiguar qué pasó (¿una incidencia en la web? ¿una acción en tienda?).</p><p class="muted">En el pico de noviembre de 2024 el online llegó al 48 %, su máximo.</p><p style="margin-top:14px"><span class="tag pend">Pendiente</span> <span class="muted small">Intermediarios concretos (tiendas, marketplaces) de vuestro documento.</span></p></div></div>';
-    drawChannels();
-  } else {
-    p.innerHTML='<div class="pending"><span class="tag pend">Pendiente</span><h4>'+MICRO[k]+'</h4><p class="muted">Contenido de vuestro documento de investigación.'+(MICRO[k]==="Competencia"?" Formato previsto: tabla comparativa de auriculares inalámbricos parecidos a los JORDÁNPODS (marca, modelo, precio, batería, cancelación de ruido, canal y estrategia), con un gráfico de posicionamiento precio-prestaciones.":"")+(MICRO[k]==="Clientes"?" Se completará con el buyer persona que salga de la encuesta.":"")+'</p></div>';
-  }
+/* ---------- Competencia ---------- */
+const MARCAS={
+ mm:{n:'MediaMarkt',t:'Gran superficie',bg:'#DF0000',fg:'#fff',ff:'900',
+   e:'Un cliente entra y encuentra <b>decenas de modelos y precios en el mismo pasillo</b>. Para que elija JORDÁNPODS tenemos que darle algo que allí no encuentra: probarlos con calma y un trato cercano.',d:'Está en Cartagena y en Granada'},
+ rm:{n:'Rossellimac',t:'Distribuidor Apple',bg:'#F5F5F7',fg:'#1d1d1f',ff:'700',
+   e:'Quien entra en Rossellimac suele ir a por unos AirPods. Competimos con <b>un precio mucho más bajo</b> y un diseño propio para quien no quiere pagar la marca.',d:'Está en Cartagena y en Granada'},
+ ph:{n:'Phone House',t:'Telefonía',bg:'#E4002B',fg:'#fff',ff:'800',
+   e:'Vende auriculares junto al móvil: el cliente se los lleva <b>«de paso»</b> al comprar su teléfono. Por eso necesitamos que nos conozca antes de entrar en el centro comercial.',d:'Competidor en Granada'},
+ tt:{n:'Tiendas de telefonía',t:'Accesorios',bg:'#2B3170',fg:'#fff',ff:'800',
+   e:'En el mismo centro comercial hay varias tiendas de móviles y accesorios con auriculares baratos. <b>Si solo competimos por precio, perdemos</b>: hay que competir por calidad.',d:'Competidores en Cartagena'},
+ ap:{n:'AirPods',t:'Producto sustitutivo · Apple',bg:'#fff',fg:'#111',ff:'600',
+   e:'Es la marca que más usan nuestros encuestados. Quien ya tiene un iPhone los mira primero. <b>Nuestra ventaja: precio y diseño diferente.</b>',d:'El 24 % de los encuestados usa AirPods'},
+ sg:{n:'SAMSUNG',t:'Producto sustitutivo',bg:'#1428A0',fg:'#fff',ff:'900',
+   e:'Muchos clientes de Android eligen los de su móvil. Son la segunda marca más usada entre los que respondieron.',d:'El 15 % usa Samsung'},
+ xi:{n:'Xiaomi',t:'Producto sustitutivo',bg:'#FF6900',fg:'#fff',ff:'800',
+   e:'Auriculares muy baratos que compiten por precio. Para el cliente que solo mira el precio, son la alternativa.',d:'El 14 % usa Xiaomi'},
+ jb:{n:'JBL',t:'Producto sustitutivo',bg:'#FF3300',fg:'#fff',ff:'900',
+   e:'Marca de sonido muy conocida entre los jóvenes y el deporte. Compite directamente con nuestros cascos de diadema.',d:'El 11 % usa JBL'}
+};
+const CIUDAD={cartagena:['mm','rm','tt','ap','sg','xi','jb'],granada:['mm','rm','ph','ap','sg','xi','jb']};
+let marcaSel='mm';
+function pintaMarcas(c){
+  $('#marcas').innerHTML=CIUDAD[c].map((k,i)=>{const m=MARCAS[k];return `<button class="marca-t nueva" data-k="${k}" aria-pressed="${k===marcaSel}" style="background:${m.bg};color:${m.fg};animation-delay:${i*.05}s"><span class="nom" style="font-weight:${m.ff}">${m.n}</span><small>${m.t}</small></button>`}).join('');
+  $$('#marcas .marca-t').forEach(b=>b.addEventListener('click',()=>{marcaSel=b.dataset.k;$$('#marcas .marca-t').forEach(x=>x.setAttribute('aria-pressed',x===b));pintaMarcaEj()}));
+  if(!CIUDAD[c].includes(marcaSel)){marcaSel=CIUDAD[c][0]}
+  pintaMarcaEj();
 }
-(function(){
-  const t=$("#microTabs");
-  MICRO.forEach((m,i)=>{const b=document.createElement("button");b.type="button";b.className="tab";b.textContent=m;b.setAttribute("role","tab");b.addEventListener("click",()=>setMicro(i));t.appendChild(b)});
-})();
+function pintaMarcaEj(){const m=MARCAS[marcaSel];$('#marca-ej').innerHTML=`<div class="panel-anim"><div class="persona"><span class="avatar" style="background:${m.bg};color:${m.fg};font-family:Mont;font-weight:900;font-size:18px">${m.n[0]}</span><div><b>${m.n}</b><span>${m.d}</span></div></div><p>${m.e}</p></div>`}
+$$('#ciudad-sw button').forEach(b=>b.addEventListener('click',()=>{$$('#ciudad-sw button').forEach(x=>x.setAttribute('aria-pressed',x===b));pintaMarcas(b.dataset.c)}));
+pintaMarcas('cartagena');
 
-/* ---------- Survey ---------- */
-const Q=[
- {s:1,t:"¿Qué edad tienes?",ty:"single",o:["Menos de 14 años","14-17","18-24","25-34","35-44","45-54","55 o más"],p:"Demografía"},
- {s:2,t:"Género",ty:"single",o:["Mujer","Hombre","Otro","Prefiero no decirlo"],p:"Demografía"},
- {s:2,t:"¿Cuál es tu ocupación principal?",ty:"single",o:["Estudiante","Estudio y trabajo","Trabajo por cuenta ajena","Autónomo/a","Desempleado/a","Jubilado/a"],p:"Demografía"},
- {s:2,t:"¿Dónde vives?",ty:"single",o:["Cartagena","Resto de la Región de Murcia","Otra comunidad autónoma"],p:"Demografía"},
- {s:2,t:"¿Con qué frecuencia usas auriculares?",ty:"single",o:["Todos los días","Varias veces por semana","Una vez por semana o menos","Nunca o casi nunca"],p:"Uso"},
- {s:3,t:"¿En qué situaciones los usas?",ty:"multi",h:"Puedes marcar varias opciones.",o:["Transporte o desplazamientos","Deporte","Estudio o trabajo","Llamadas","Videojuegos","En casa","Viajes"],p:"Uso"},
- {s:3,t:"¿Qué tipo de auriculares usas principalmente?",ty:"single",o:["Intrauditivos inalámbricos con estuche","Intrauditivos con cable","De diadema inalámbricos","De diadema con cable","Deportivos con gancho"],p:"Uso"},
- {s:3,t:"¿Cuánto costaron tus auriculares actuales?",ty:"single",o:["Menos de 20 €","20-49 €","50-99 €","100-149 €","150 € o más","No lo sé o fueron un regalo"],p:"Precio"},
- {s:3,t:"¿Cada cuánto cambias de auriculares?",ty:"single",o:["Menos de 6 meses","6-12 meses","1-2 años","Más de 2 años"],p:"Compra"},
- {s:3,t:"¿Por qué motivos has cambiado de auriculares?",ty:"multi",h:"Puedes marcar varias opciones.",o:["Se rompieron","La batería duraba poco","Eran incómodos","Fallos de conexión","Los perdí","Quería mejores prestaciones","Por diseño","Nunca los he cambiado"],p:"Frenos"},
- {s:4,t:"Valora la importancia de cada aspecto al comprar auriculares",ty:"grid",h:"1 = nada importante · 5 = muy importante",rows:["Calidad de sonido","Batería","Comodidad","Cancelación de ruido","Diseño","Precio","Marca","Resistencia al agua","Garantía","Sostenibilidad"],cols:["1","2","3","4","5"],p:"Motivaciones"},
- {s:4,t:"¿Cuál es el precio máximo que pagarías por unos auriculares inalámbricos? (en €)",ty:"number",p:"Precio"},
- {s:4,t:"¿Qué importancia tiene para ti que el envase sea sostenible?",ty:"scale",lo:"Nada importante",hi:"Muy importante",p:"Valores"},
- {s:4,t:"¿Qué relación tienes con estas marcas?",ty:"grid",rows:["Apple","Samsung","Sony","JBL","Xiaomi","Soundcore","Bose","JORDÁNMUSIK"],cols:["No la conozco","La conozco","La he usado","La uso ahora"],p:"Marcas"},
- {s:5,t:"¿Qué probabilidad hay de que compraras unos JORDÁNPODS?",ty:"scale",lo:"Seguro que no",hi:"Seguro que sí",h:"JORDÁNPODS son los auriculares inalámbricos de JORDÁNMUSIK, una marca de Cartagena (Murcia).",p:"Potencial"}
+/* ---------- Porter ---------- */
+const PORTER=[
+ ['Rivalidad entre competidores','ALTA',90,'#EF5F56','En el mismo centro comercial hay varias tiendas que venden auriculares, y en Granada también están MediaMarkt, Rossellimac y Phone House.'],
+ ['Amenaza de nuevos competidores','MEDIA',55,'#F2B544','Abrir una tienda en un centro comercial cuesta mucho dinero: no aparece una tienda nueva cada mes, pero sí nuevas marcas online.'],
+ ['Amenaza de productos sustitutivos','ALTA',88,'#EF5F56','Si no le convencemos, el cliente se lleva unos AirPods, unos con cable más baratos o los de su marca de móvil.'],
+ ['Poder de los clientes','ALTO',84,'#EF5F56','Con el móvil en la mano, el cliente compara nuestro precio con el de internet en segundos, incluso dentro de la tienda.'],
+ ['Poder de los proveedores','MEDIO',52,'#F2B544','Si el proveedor sube el coste, nuestro margen baja. Es justo lo que pasó en 2024. Con dos tiendas habrá que asegurar stock para ambas.']
 ];
-const TYN={single:"Opción única",multi:"Casillas",grid:"Cuadrícula",number:"Número",scale:"Escala 1-5"};
-const ans={}; let qi=0;
-function renderQ(){
-  const q=Q[qi]; const a=ans[qi]||(ans[qi]=q.ty==="multi"?[]:q.ty==="grid"?{}:null);
-  $("#gfSec").textContent="Sección "+q.s+" de 5 · Pregunta "+(qi+1)+" de 15";
-  $("#gfProg").style.width=((qi+1)/15*100)+"%";
-  let h='<div class="qt">'+(qi+1)+". "+q.t+' <i>*</i></div>'+(q.h?'<div class="qh">'+q.h+"</div>":"");
-  if(q.ty==="single"||q.ty==="multi"){
-    h+='<div class="gf-opts">'+q.o.map((o,i)=>{const sel=q.ty==="multi"?a.includes(i):a===i;return '<button type="button" class="gf-opt'+(q.ty==="multi"?" sq":"")+(sel?" sel":"")+'" data-i="'+i+'"><span class="o"></span>'+o+"</button>"}).join("")+"</div>";
-  } else if(q.ty==="grid"){
-    const wide=q.cols.length===4;
-    h+='<div class="gf-grid'+(wide?" wide":"")+'"><div class="gr"><span></span>'+q.cols.map(c=>'<span class="gh">'+c+"</span>").join("")+"</div>"+q.rows.map((r,ri)=>'<div class="gr"><span>'+r+"</span>"+q.cols.map((c,ci)=>'<button type="button" class="gf-dot'+(a[ri]===ci?" sel":"")+'" data-r="'+ri+'" data-c="'+ci+'" aria-label="'+r+": "+c+'"></button>').join("")+"</div>").join("")+"</div>";
-  } else if(q.ty==="number"){
-    h+='<input class="gf-input" id="gfNum" type="number" min="0" max="500" placeholder="Tu respuesta" value="'+(a??"")+'">';
-  } else {
-    h+='<div class="gf-scale"><span>'+q.lo+"</span>"+[1,2,3,4,5].map(v=>'<span class="c">'+v+'<button type="button" class="gf-dot'+(a===v?" sel":"")+'" data-v="'+v+'" aria-label="'+v+'"></button></span>').join("")+"<span>"+q.hi+"</span></div>";
-  }
-  $("#gfQ").innerHTML=h;
-  $("#gfPrev").disabled=qi===0;
-  $("#gfNext").textContent=qi===14?"Enviar":"Siguiente";
-  $("#gfNext").disabled=qi===14;
-  document.querySelectorAll("#qlist li").forEach((li,i)=>li.classList.toggle("on",i===qi));
-  $("#gfQ").querySelectorAll(".gf-opt").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.i;if(q.ty==="multi"){const k=a.indexOf(i);k<0?a.push(i):a.splice(k,1)}else ans[qi]=i;renderQ()}));
-  $("#gfQ").querySelectorAll(".gf-dot[data-r]").forEach(b=>b.addEventListener("click",()=>{a[+b.dataset.r]=+b.dataset.c;renderQ()}));
-  $("#gfQ").querySelectorAll(".gf-dot[data-v]").forEach(b=>b.addEventListener("click",()=>{ans[qi]=+b.dataset.v;renderQ()}));
-  const n=$("#gfNum"); if(n) n.addEventListener("input",()=>{ans[qi]=n.value});
-}
-(function(){
-  const ol=$("#qlist");
-  Q.forEach((q,i)=>{const li=document.createElement("li");li.tabIndex=0;li.innerHTML='<span class="i">'+String(i+1).padStart(2,"0")+"</span><span>"+q.t+'</span><span class="ty">'+TYN[q.ty]+"</span>";li.addEventListener("click",()=>{qi=i;renderQ()});li.addEventListener("keydown",e=>{if(e.key==="Enter"){qi=i;renderQ()}});ol.appendChild(li)});
-  $("#gfPrev").addEventListener("click",()=>{if(qi>0){qi--;renderQ()}});
-  $("#gfNext").addEventListener("click",()=>{if(qi<14){qi++;renderQ()}});
-  const groups={};Q.forEach((q,i)=>{(groups[q.p]=groups[q.p]||[]).push(i+1)});
-  $("#pmap").innerHTML=Object.entries(groups).map(([k,v])=>'<span class="pm">'+k+"<b>P"+v.join(", P")+"</b></span>").join("");
-  renderQ();
-})();
+$('#porter').innerHTML=PORTER.map((p,i)=>`<button class="fuerza" data-r style="transition-delay:${i*.07}s" aria-expanded="false"><b>${i+1}. ${p[0]}</b><div class="medidor"><i data-w="${p[2]}" style="background:linear-gradient(90deg,${p[3]}88,${p[3]})"></i></div><span class="nivel" style="color:${p[3]}">${p[1]}</span><div class="mas"><span>EJEMPLO</span>${p[4]}</div></button>`).join('');
+$$('#porter .fuerza').forEach(f=>{observar(f,()=>{const i=f.querySelector('.medidor i');setTimeout(()=>i.style.width=i.dataset.w+'%',200)});f.addEventListener('click',()=>f.setAttribute('aria-expanded',f.getAttribute('aria-expanded')!=='true'))});
 
-/* ---------- Theme colors for charts ---------- */
-const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-function C(){return{ink:css("--ink"),muted:css("--muted"),line:css("--line"),cobalt:css("--cobalt"),coral:css("--coral"),calc:css("--calc"),hip:css("--hip"),prev:css("--prev"),card:css("--card"),soft:css("--cobalt-soft")}}
-function alpha(hex,a){const h=hex.replace("#","");const n=parseInt(h.length===3?h.split("").map(c=>c+c).join(""):h,16);return "rgba("+(n>>16&255)+","+(n>>8&255)+","+(n&255)+","+a+")"}
-function baseOpts(c){
-  return{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},
-    plugins:{legend:{labels:{color:c.muted,boxWidth:12,boxHeight:12,font:{family:"IBM Plex Sans"}}},tooltip:{backgroundColor:c.ink,titleColor:c.card,bodyColor:c.card,padding:10,titleFont:{family:"IBM Plex Mono"},bodyFont:{family:"IBM Plex Sans"}}},
-    scales:{x:{ticks:{color:c.muted,font:{family:"IBM Plex Mono",size:11}},grid:{display:false},border:{color:c.line}},y:{ticks:{color:c.muted,font:{family:"IBM Plex Mono",size:11}},grid:{color:c.line},border:{display:false}}}};
-}
-if(window.Chart){Chart.defaults.font.family="IBM Plex Sans";}
+/* =========================================================
+   GRÁFICOS (Chart.js)
+   ========================================================= */
+Chart.defaults.color='#9CA3CC';Chart.defaults.font.family='Mont';Chart.defaults.font.weight='600';Chart.defaults.borderColor='rgba(160,170,255,.08)';
+const tooltip={backgroundColor:'rgba(10,15,51,.95)',borderColor:'rgba(242,181,68,.5)',borderWidth:1,padding:12,titleFont:{weight:'800',size:13},bodyFont:{size:13},cornerRadius:12,displayColors:true,boxPadding:4};
+function degradado(ctx,c1,c2){const g=ctx.createLinearGradient(0,0,0,ctx.canvas.height||400);g.addColorStop(0,c1);g.addColorStop(1,c2);return g}
 
-/* ---------- 5A main chart ---------- */
-let metric="u",view="line",chMain=null;
-const MI={u:{i:1,n:"Unidades",f:v=>nf0.format(v)+" uds"},ing:{i:4,n:"Ingresos",f:eur0},mb:{i:5,n:"Margen bruto",f:eur0}};
-function drawMain(){
-  if(!window.Chart)return; const c=C(); const m=MI[metric];
-  if(chMain)chMain.destroy();
-  const o=baseOpts(c);
-  o.plugins.tooltip.callbacks={label:x=>" "+(x.dataset.label?x.dataset.label+": ":"")+m.f(x.parsed.y)};
-  o.scales.y.ticks.callback=v=>metric==="u"?nf0.format(v):nf0.format(v/1000)+" k€";
-  let cfg;
-  if(view==="line"){
-    const vals=D.map(r=>r[m.i]); const mx=Math.max(...vals), mn=Math.min(...vals);
-    const cols=D.map(r=>{const v=r[m.i];return v===mx?c.coral:v===mn?c.hip:alpha(c.cobalt,r[0].startsWith("2022")?.45:r[0].startsWith("2023")?.7:1)});
-    o.plugins.legend.display=false;
-    cfg={type:"bar",data:{labels:D.map(lab),datasets:[{label:m.n,data:vals,backgroundColor:cols,borderRadius:4,maxBarThickness:22}]},options:o};
-    const iM=vals.indexOf(mx),im=vals.indexOf(mn);
-    $("#mainNote").innerHTML="Máximo: <b>"+lab(D[iM])+"</b> ("+m.f(mx)+"). Mínimo: <b>"+lab(D[im])+"</b> ("+m.f(mn)+"). Las barras más oscuras son los años más recientes.";
-  } else {
-    const ds=YEARS.map((y,k)=>({label:String(y),data:byYear[y].rows.map(r=>r[m.i]),borderColor:[alpha(c.cobalt,.4),alpha(c.cobalt,.7),c.coral][k],backgroundColor:[alpha(c.cobalt,.4),alpha(c.cobalt,.7),c.coral][k],borderWidth:k===2?3:2,pointRadius:k===2?3:0,tension:.3}));
-    cfg={type:"line",data:{labels:MES,datasets:ds},options:o};
-    $("#mainNote").innerHTML="Los tres años tienen la misma forma: estables de enero a octubre y un salto en noviembre y diciembre. Cada año arranca por encima del anterior.";
-  }
-  $("#mainTitle").textContent=m.n+(view==="line"?" por mes":" · comparación por años");
-  chMain=new Chart($("#chMain"),cfg);
-}
-document.querySelectorAll("#metricSeg button").forEach(b=>b.addEventListener("click",()=>{metric=b.dataset.m;document.querySelectorAll("#metricSeg button").forEach(x=>x.classList.toggle("on",x===b));drawMain()}));
-document.querySelectorAll("#viewSeg button").forEach(b=>b.addEventListener("click",()=>{view=b.dataset.v;document.querySelectorAll("#viewSeg button").forEach(x=>x.classList.toggle("on",x===b));drawMain()}));
-
-/* extremes + table */
-(function(){
-  const u=D.map(r=>r[1]); const mx=Math.max(...u), mn=Math.min(...u);
-  const rmx=D[u.indexOf(mx)], rmn=D[u.indexOf(mn)];
-  const best=SI.indexOf(Math.max(...SI)), worst=SI.indexOf(Math.min(...SI));
-  $("#extremes").innerHTML=
-    '<div class="ext hi"><div class="k">Mes récord</div><div class="v">'+nf0.format(mx)+' uds</div><div class="small muted">'+MESL[+rmx[0].slice(5)-1]+" "+rmx[0].slice(0,4)+"</div></div>"+
-    '<div class="ext"><div class="k">Mes más bajo</div><div class="v">'+nf0.format(mn)+' uds</div><div class="small muted">'+MESL[+rmn[0].slice(5)-1]+" "+rmn[0].slice(0,4)+"</div></div>"+
-    '<div class="ext"><div class="k">Mejor mes del año</div><div class="v">'+MES[best]+'</div><div class="small muted">'+pct1((SI[best]-1)*100)+" sobre un mes medio</div></div>"+
-    '<div class="ext"><div class="k">Peor mes del año</div><div class="v">'+MES[worst]+'</div><div class="small muted">'+pct1((SI[worst]-1)*100)+" bajo un mes medio</div></div>";
-  let h="<thead><tr><th>Año</th><th>Unidades</th><th>Crec.</th><th>Ingresos</th><th>Margen bruto</th><th>Margen %</th><th>Precio medio</th><th>Coste medio</th><th>Devol.</th></tr></thead><tbody>";
-  YEARS.forEach((y,k)=>{const b=byYear[y];const g=k?(b.u/byYear[YEARS[k-1]].u-1)*100:null;
-    h+="<tr><td><b>"+y+"</b></td><td>"+nf0.format(b.u)+"</td><td class=\""+(g===null?"":"up")+"\">"+(g===null?"—":pct1(g))+"</td><td>"+eur0(b.ing)+"</td><td>"+eur0(b.mb)+"</td><td>"+nf1.format(b.mb/b.ing*100)+" %</td><td>"+eur2(b.ing/b.u)+"</td><td>"+eur2(b.ct/b.u)+"</td><td>"+nf0.format(b.dev)+"</td></tr>"});
-  $("#yearTable").innerHTML=h+"</tbody>";
-})();
-
-let chSeason=null,chQuality=null,chForecast=null;
-function drawSeason(){
-  if(!window.Chart)return;const c=C();if(chSeason)chSeason.destroy();
-  const o=baseOpts(c);o.plugins.legend.display=false;o.scales.y.ticks.callback=v=>v+" %";
-  o.plugins.tooltip.callbacks={label:x=>" "+pct1(x.parsed.y)+" frente a un mes medio"};
-  const v=SI.map(s=>+((s-1)*100).toFixed(1));
-  chSeason=new Chart($("#chSeason"),{type:"bar",data:{labels:MES,datasets:[{data:v,backgroundColor:v.map(x=>x>5?c.coral:x<0?alpha(c.cobalt,.55):c.cobalt),borderRadius:4}]},options:o});
-}
-function drawQuality(){
-  if(!window.Chart)return;const c=C();if(chQuality)chQuality.destroy();
-  const o=baseOpts(c);
-  o.scales.y.ticks.callback=v=>v+" %";o.scales.y.title={display:true,text:"Devoluciones",color:c.muted};
-  o.scales.y2={position:"right",min:3,max:4.6,ticks:{color:c.muted,font:{family:"IBM Plex Mono",size:11}},grid:{display:false},border:{display:false},title:{display:true,text:"Satisfacción",color:c.muted}};
-  o.plugins.tooltip.callbacks={label:x=>x.datasetIndex===0?" Devoluciones: "+nf2.format(x.parsed.y)+" %":" Satisfacción: "+nf2.format(x.parsed.y)+" / 5"};
-  chQuality=new Chart($("#chQuality"),{data:{labels:D.map(lab),datasets:[
-    {type:"bar",label:"% devoluciones",data:D.map(r=>r[10]),backgroundColor:D.map(r=>r[10]>5?c.coral:alpha(c.cobalt,.35)),borderRadius:3,yAxisID:"y"},
-    {type:"line",label:"Satisfacción (1-5)",data:D.map(r=>r[11]),borderColor:c.calc,backgroundColor:c.calc,pointRadius:0,borderWidth:2,tension:.3,yAxisID:"y2"}]},options:o});
-}
-function drawChannels(){
-  if(!window.Chart||!$("#chChannels"))return;const c=C();
-  const o=baseOpts(c);o.scales.x.stacked=true;o.scales.y.stacked=true;o.scales.y.max=100;o.scales.y.ticks.callback=v=>v+" %";
-  o.plugins.tooltip.callbacks={label:x=>" "+x.dataset.label+": "+nf1.format(x.parsed.y)+" %"};
-  const mk=(k,lbl,col)=>({label:lbl,data:YEARS.map(y=>byYear[y][k]/byYear[y].u*100),backgroundColor:col,borderRadius:2});
-  chChannels=new Chart($("#chChannels"),{type:"bar",data:{labels:YEARS.map(String),datasets:[mk("on","Online",c.cobalt),mk("ph","Tienda física",alpha(c.cobalt,.45)),mk("mk","Marketplace",c.coral)]},options:o});
-}
-
-/* ---------- 5B forecast ---------- */
-// Realista: tendencia lineal sobre las ventas desestacionalizadas (mínimos cuadrados) y vuelta a aplicar la estacionalidad.
-const ds=D.map((r,i)=>r[1]/SI[i%12]); const n=ds.length; const xm=(n-1)/2, ym=ds.reduce((a,b)=>a+b,0)/n;
-let sxy=0,sxx=0; ds.forEach((y,i)=>{sxy+=(i-xm)*(y-ym);sxx+=(i-xm)*(i-xm)}); const slope=sxy/sxx, icpt=ym-slope*xm;
-const realM=MES.map((_,m)=>(icpt+slope*(36+m))*SI[m]);
-const realT=realM.reduce((a,b)=>a+b,0);
-const u24=byYear[2024].u, u22=byYear[2022].u;
-const cagr=Math.pow(u24/u22,1/2)-1;
-const siSum=SI.reduce((a,b)=>a+b,0);
-const spread=T=>SI.map(s=>T*s/siSum);
-const p24=byYear[2024].ing/u24, m24=byYear[2024].mb/u24;
-const SC=[
- {k:"Pesimista",col:"--coral",T:u24*0.95,data:null,
-  m:"Hipótesis: las ventas caen un 5 % respecto a 2024 y se reparten según la estacionalidad histórica.",
-  causas:["Competencia de marcas de bajo precio en marketplaces.","Un nuevo problema de calidad en temporada alta, como en noviembre de 2023.","Consumo más débil en electrónica."],
-  dec:["Control de calidad por lotes antes de octubre.","Reducir compras de stock y evitar exceso de inventario.","Promociones selectivas en el canal con más margen, sin una bajada general de precio."]},
- {k:"Realista",col:"--cobalt",T:realT,
-  m:"Método: tendencia lineal de las ventas desestacionalizadas de 2022-2024, proyectada a 2025 y multiplicada por el índice estacional de cada mes.",
-  causas:["Se mantiene la tendencia de los últimos tres años.","No hay cambios bruscos de precio ni de competencia.","El pico de noviembre y diciembre se repite."],
-  dec:["Planificar compras mes a mes con el índice estacional.","Mantener el precio y vigilar el coste unitario.","Revisar cada mes la venta real frente a la prevista y corregir."]},
- {k:"Optimista",col:"--calc",T:u24*(1+cagr),
-  m:"Hipótesis: se mantiene el crecimiento medio anual de 2022-2024 ("+pct1(cagr*100)+").",
-  causas:["Un Black Friday y una Navidad más fuertes que en 2024.","La encuesta confirma que el precio está por debajo de lo que el cliente pagaría.","Más peso del canal online."],
-  dec:["Asegurar stock extra para el último trimestre y negociar el coste por volumen.","Reforzar la posventa para no repetir lo de noviembre de 2023.","Invertir en publicidad online en octubre y noviembre."]}
+const ANIOS=[
+ {a:'2022',mc:'',f:'Año estable: el punto de partida.',u:'5.311',i:'419.072 €',m:'55,6 %',dv:'2,33 %',s:'4,13',ej:'Las ventas apenas se movían de enero a octubre (entre 418 y 454 al mes). <b>Diciembre fue el mejor mes</b>: el final de año ya empezaba a mandar.'},
+ {a:'2023',mc:'bien',f:'Crece un 19,6 % y la tienda física es lo que más sube (+23,6 %).',u:'6.352',i:'505.324 €',m:'56,1 %',dv:'11,98 % en nov.',s:'3,41 en nov.',mal:1,ej:'Es el año del mejor margen, pero también del susto: <b>un lote defectuoso en noviembre</b> disparó las devoluciones justo en el mes de más ventas.'},
+ {a:'2024',mc:'mal',f:'Año récord en ventas y en calidad.',u:'7.675',i:'608.062 €',m:'54,9 %',dv:'1,76 %',s:'4,15',bien:1,ej:'Noviembre bate el récord con <b>777 unidades</b>, frente a las 580 de julio: por cada 3 cascos que se venden en julio, en noviembre se venden 4. Ojo: el coste sube y el margen es el más bajo.'}
 ];
-SC[0].data=spread(SC[0].T); SC[1].data=realM; SC[2].data=spread(SC[2].T);
-let sc=1;
-function drawForecast(){
-  if(!window.Chart)return;const c=C();if(chForecast)chForecast.destroy();
-  const o=baseOpts(c);o.scales.y.ticks.callback=v=>nf0.format(v);
-  o.plugins.tooltip.callbacks={label:x=>" "+x.dataset.label+": "+nf0.format(Math.round(x.parsed.y))+" uds"};
-  const dsets=[{label:"2024 real",data:byYear[2024].rows.map(r=>r[1]),borderColor:c.ink,backgroundColor:c.ink,borderWidth:2.5,pointRadius:2,tension:.3}];
-  SC.forEach((s,i)=>{const col=css(s.col);dsets.push({label:"2025 "+s.k.toLowerCase(),data:s.data,borderColor:i===sc?col:alpha(col,.25),backgroundColor:i===sc?alpha(col,.12):"transparent",fill:i===sc,borderDash:[6,4],borderWidth:i===sc?2.5:1.5,pointRadius:0,tension:.3})});
-  chForecast=new Chart($("#chForecast"),{type:"line",data:{labels:MES,datasets:dsets},options:o});
+function pintaAnio(k){
+  const box=$('#anio-info');
+  if(k==='todos'){box.innerHTML=`<div class="panel-anim"><span class="etiqueta" style="font-size:11.5px">2022 → 2024</span><h3 style="margin-top:8px">Siempre el mismo patrón</h3><p class="frase">Tres años distintos y la misma forma: una línea tranquila que <b>se dispara en noviembre</b>. Cada año, además, la línea entera sube.</p><div class="mini"><div><b>+19,6 %</b><span>de 2022 a 2023</span></div><div><b>+20,8 %</b><span>de 2023 a 2024</span></div><div class="bien"><b>19 %</b><span>de las ventas en nov. y dic.</span></div><div><b>Noviembre</b><span>mejor mes en 2023 y 2024</span></div></div></div>`;return}
+  const a=ANIOS[k];
+  box.innerHTML=`<div class="panel-anim"><span class="etiqueta" style="font-size:11.5px">Resumen del año</span><h3 style="margin-top:8px">${a.a}</h3><p class="frase">${a.f}</p><div class="mini"><div><b>${a.u}</b><span>unidades</span></div><div><b>${a.i}</b><span>ingresos</span></div><div class="${a.mc}"><b>${a.m}</b><span>margen bruto</span></div><div class="${a.mal?'mal':a.bien?'bien':''}"><b>${a.dv}</b><span>devoluciones</span></div></div><p style="margin-top:16px;font-size:15px;color:#D3D7F3"><b class="gold">Ejemplo:</b> ${a.ej}</p></div>`;
 }
-function setScen(k){
-  sc=k;
-  document.querySelectorAll(".scen").forEach((b,i)=>b.classList.toggle("on",i===k));
-  const s=SC[k];
-  $("#scenMethod").innerHTML='<span class="tag '+(k===1?"calc":"hip")+'">'+(k===1?"Cálculo":"Hipótesis")+"</span> "+s.m;
-  $("#scenDetail").innerHTML='<div class="card"><h4>Posibles causas</h4><span class="tag hip">Hipótesis</span><ul>'+s.causas.map(x=>"<li>"+x+"</li>").join("")+'</ul></div><div class="card"><h4>Decisiones</h4><p class="muted small">Ingresos estimados: <b class="num" style="color:var(--ink)">'+eur0(s.T*p24)+'</b> · margen bruto estimado: <b class="num" style="color:var(--ink)">'+eur0(s.T*m24)+'</b> (con el precio y el margen unitario de 2024)</p><ul>'+s.dec.map(x=>"<li>"+x+"</li>").join("")+"</ul></div>";
-  drawForecast();
+let gVentas;
+const COLA=['#6B7299','#A3ACF5','#F2B544'];
+function datasetsVentas(k){
+  return [0,1,2].map(i=>({label:String(2022+i),data:U.slice(i*12,i*12+12),borderColor:COLA[i],borderWidth:(k==='todos'||+k===i)?3.5:1.5,
+    backgroundColor:ctx=>(k!=='todos'&&+k===i)?degradado(ctx.chart.ctx,'rgba(242,181,68,.35)','rgba(242,181,68,0)'):'transparent',fill:k!=='todos'&&+k===i,
+    tension:.4,pointRadius:c=>c.dataIndex===10?7:((k==='todos'||+k===i)?3:0),pointBackgroundColor:COLA[i],pointBorderColor:'#04061A',pointBorderWidth:2,
+    hidden:false,order:(+k===i)?0:1,borderDash:(k!=='todos'&&+k!==i)?[4,4]:[]}));
 }
-(function(){
-  $("#scenTabs").innerHTML=SC.map((s,i)=>'<button type="button" class="scen" style="--sc:var('+s.col+')"><div class="k">'+s.k+'</div><div class="v num">'+nf0.format(Math.round(s.T))+' uds</div><div class="g num">'+pct1((s.T/u24-1)*100)+" frente a 2024</div></button>").join("");
-  document.querySelectorAll(".scen").forEach((b,i)=>b.addEventListener("click",()=>setScen(i)));
-})();
-
-/* ---------- 5C simulator ---------- */
-const BU=u24/12, BP=p24, BC=byYear[2024].ct/u24, BM=BU*(BP-BC);
-$("#baseTxt").textContent=nf0.format(BU)+" unidades a "+eur2(BP)+", coste de "+eur2(BC)+" y "+eur0(BM)+" de margen bruto";
-const S={price:$("#sPrice"),cost:$("#sCost"),elas:$("#sElas"),peak:$("#sPeak"),ads:$("#sAds"),lift:$("#sLift")};
-function sim(){
-  const dp=+S.price.value/100, dc=+S.cost.value/100, e=+S.elas.value, pk=+S.peak.value/100, ad=+S.ads.value, lf=+S.lift.value/100;
-  $("#oPrice").textContent=pct1(dp*100); $("#oCost").textContent=pct1(dc*100); $("#oElas").textContent=nf1.format(e);
-  $("#oPeak").textContent="+"+nf0.format(pk*100)+" %"; $("#oAds").textContent=eur0(ad); $("#oLift").textContent="+"+nf0.format(lf*100)+" %";
-  const P=BP*(1+dp), Cu=BC*(1+dc), mu=P-Cu;
-  const U=Math.max(0,BU*(1+e*dp))*(1+pk)*(1+lf);
-  const M=U*mu-ad; const dM=M-BM;
-  const beU=(BM+ad)/mu; // unidades para igualar el margen actual cubriendo la publicidad
-  const adU=ad>0?ad/mu:0;
-  const stock=U-BU;
-  const box=(k,v,d,cls,tag)=>'<div class="r"><div class="k">'+k+(tag?' <span class="tag '+tag+'" style="font-size:9.5px;padding:1px 6px">'+(tag==="calc"?"Cálculo":"Estimación")+"</span>":"")+'</div><div class="v">'+v+'</div><div class="d '+(cls||"muted")+'">'+d+"</div></div>";
-  $("#res").innerHTML=
-    box("Precio de venta",eur2(P),pct1(dp*100)+" sobre "+eur2(BP),"","calc")+
-    box("Margen por unidad",eur2(mu),pct1((mu/(BP-BC)-1)*100),mu>=BP-BC?"up":"down","calc")+
-    box("Unidades al mes",nf0.format(U),pct1((U/BU-1)*100),U>=BU?"up":"down","hip")+
-    box("Margen bruto al mes",eur0(M),(dM>=0?"+":"")+eur0(dM)+" frente a la base",dM>=0?"up":"down","hip")+
-    box("Unidades para no perder margen",mu>0?nf0.format(beU):"—",mu>0?pct1((beU/BU-1)*100)+" sobre la base":"El precio no cubre el coste","","calc")+
-    box("Stock extra necesario",(stock>=0?"+":"")+nf0.format(stock)+" uds",(stock>=0?"Inversión en compras: ":"Ahorro en compras: ")+eur0(Math.abs(stock)*Cu),"","calc");
-  const mx=Math.max(BM,M,1);
-  $("#barsCmp").innerHTML=
-    '<div class="bc"><span>Margen actual</span><div class="track"><div class="fill" style="width:'+(BM/mx*100)+'%;background:var(--muted)"></div></div><span class="val">'+eur0(BM)+"</span></div>"+
-    '<div class="bc"><span>Margen simulado</span><div class="track"><div class="fill" style="width:'+(Math.max(0,M)/mx*100)+'%;background:'+(dM>=0?"var(--calc)":"var(--coral)")+'"></div></div><span class="val">'+eur0(M)+"</span></div>";
-  let v="";
-  if(dp===0&&dc===0&&pk===0&&ad===0&&lf===0) v="Mueve los controles o pulsa un ejemplo para simular una decisión.";
-  else {
-    v=dM>=0?"<b>Esta decisión mejora el margen mensual en "+eur0(dM)+"</b>, con las hipótesis elegidas.":"<b>Esta decisión reduce el margen mensual en "+eur0(-dM)+"</b>, con las hipótesis elegidas.";
-    if(ad>0) v+=" La campaña de "+eur0(ad)+" se paga sola si trae al menos <b>"+nf0.format(Math.ceil(adU))+" unidades extra</b> ("+pct1(adU/BU*100)+" de las ventas de un mes medio).";
-    if(dc>0&&dp===0) v+=" Para mantener el margen sin subir el precio habría que vender "+nf0.format(beU)+" unidades al mes.";
-    if(pk>0) v+=" Un pico del "+nf0.format(pk*100)+" % exige tener "+nf0.format(Math.round(stock))+" unidades más en stock antes de que empiece.";
-  }
-  const vd=$("#verdict"); vd.innerHTML=v; vd.classList.toggle("bad",dM<0);
-}
-Object.values(S).forEach(i=>i.addEventListener("input",sim));
-const PRE={up:{price:10},down:{price:-10},cost:{cost:15},peak:{peak:19},ads:{ads:3000,lift:10},reset:{}};
-document.querySelectorAll(".preset").forEach(b=>b.addEventListener("click",()=>{const p=PRE[b.dataset.p];S.price.value=p.price||0;S.cost.value=p.cost||0;S.peak.value=p.peak||0;S.ads.value=p.ads||0;S.lift.value=p.lift||0;S.elas.value=-1.5;sim()}));
-sim();
-
-/* ---------- draw all + theme changes ---------- */
-function drawAll(){drawMain();drawSeason();drawQuality();setScen(sc);const k=[...document.querySelectorAll("#microTabs .tab")].findIndex(t=>t.classList.contains("on"));setMicro(k<0?3:k)}
-drawAll();
-let rt;const redraw=()=>{clearTimeout(rt);rt=setTimeout(drawAll,60)};
-try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",redraw)}catch(e){}
-new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
-
-/* ---------- nav highlight + progress ---------- */
-const links=[...document.querySelectorAll("#links a")];
-function onScroll(){
-  const h=document.documentElement; const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);
-  $("#progress").style.width=(p*100)+"%";
-  let cur=null; document.querySelectorAll("section.sec").forEach(s=>{if(s.getBoundingClientRect().top<140)cur=s.id});
-  links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+cur));
-  if(present){const st=stops();let i=0;st.forEach((s,k)=>{if(s.getBoundingClientRect().top<160)i=k});pos=i;$("#hudPos").textContent=(i+1)+" / "+st.length}
-}
-addEventListener("scroll",onScroll,{passive:true});
-
-/* ---------- presentation mode ---------- */
-let present=false,pos=0;
-const stops=()=>[...document.querySelectorAll(".stop")];
-function go(d){const st=stops();pos=Math.max(0,Math.min(st.length-1,pos+d));st[pos].scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});$("#hudPos").textContent=(pos+1)+" / "+st.length}
-function setPresent(on){
-  present=on; $("#hud").hidden=!on; $("#presentBtn").textContent=on?"■ Salir":"▶ Presentar";
-  if(on){try{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{})}catch(e){} onScroll();}
-  else{try{document.fullscreenElement&&document.exitFullscreen().catch(()=>{})}catch(e){}}
-}
-$("#presentBtn").addEventListener("click",()=>setPresent(!present));
-$("#hudPrev").addEventListener("click",()=>go(-1));
-$("#hudNext").addEventListener("click",()=>go(1));
-$("#hudExit").addEventListener("click",()=>setPresent(false));
-addEventListener("keydown",e=>{
-  if(!present)return; const t=e.target; if(t&&(t.tagName==="INPUT"||t.tagName==="TEXTAREA"))return;
-  if(["ArrowRight","ArrowDown","PageDown"," "].includes(e.key)){e.preventDefault();go(1)}
-  else if(["ArrowLeft","ArrowUp","PageUp"].includes(e.key)){e.preventDefault();go(-1)}
-  else if(e.key==="Escape")setPresent(false);
+observar($('#g-ventas'),()=>{
+  gVentas=new Chart($('#g-ventas'),{type:'line',data:{labels:MESES,datasets:datasetsVentas('2')},
+   options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},animation:{duration:1400,easing:'easeOutQuart'},
+    plugins:{legend:{labels:{usePointStyle:true,pointStyle:'circle',boxWidth:8,padding:18,sort:(a,b)=>a.text.localeCompare(b.text)}},tooltip:{...tooltip,callbacks:{label:c=>` ${c.dataset.label}: ${fmt(c.parsed.y)} uds.`}}},
+    scales:{y:{suggestedMin:380,grid:{color:'rgba(160,170,255,.07)'},ticks:{callback:v=>fmt(v)}},x:{grid:{display:false}}}}});
 });
-document.addEventListener("fullscreenchange",()=>{if(!document.fullscreenElement&&present)setPresent(false)});
-onScroll();
-})();
+pintaAnio(2);
+$$('#anio-sw button').forEach(b=>b.addEventListener('click',()=>{$$('#anio-sw button').forEach(x=>x.setAttribute('aria-pressed',x===b));const k=b.dataset.a;pintaAnio(k==='todos'?'todos':+k);if(gVentas){gVentas.data.datasets=datasetsVentas(k);gVentas.update()}}));
+
+observar($('#g-canales'),()=>{
+  new Chart($('#g-canales'),{type:'line',data:{labels:ETQ36,datasets:[
+    {label:'Online',data:ON,borderColor:'#6F7BCF',backgroundColor:ctx=>degradado(ctx.chart.ctx,'rgba(111,123,207,.3)','rgba(111,123,207,0)'),fill:true,tension:.35,borderWidth:2.5,pointRadius:c=>c.dataIndex===26?7:0,pointBackgroundColor:'#EF5F56'},
+    {label:'Tienda física',data:PH,borderColor:'#F2B544',backgroundColor:'transparent',tension:.35,borderWidth:2.5,pointRadius:c=>c.dataIndex===26?7:0,pointBackgroundColor:'#F2B544'},
+    {label:'Marketplace',data:MK,borderColor:'#3FB8A8',backgroundColor:'transparent',tension:.35,borderWidth:2,pointRadius:0}]},
+   options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},animation:{duration:1800},
+    plugins:{legend:{display:false},tooltip:{...tooltip,callbacks:{label:c=>` ${c.dataset.label}: ${fmt(c.parsed.y)} uds.`}}},
+    scales:{y:{grid:{color:'rgba(160,170,255,.07)'}},x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:12}}}}});
+});
+
+observar($('#g-devol'),()=>{
+  new Chart($('#g-devol'),{type:'bar',data:{labels:ETQ36,datasets:[{label:'Devoluciones (%)',data:DEV,borderRadius:6,
+    backgroundColor:DEV.map(v=>v>5?'#EF5F56':'rgba(163,172,245,.55)')}]},
+   options:{maintainAspectRatio:false,animation:{duration:1500,delay:c=>c.dataIndex*25},
+    plugins:{legend:{display:false},tooltip:{...tooltip,callbacks:{label:c=>` ${fmt(c.parsed.y,2)} % devuelto`}}},
+    scales:{y:{grid:{color:'rgba(160,170,255,.07)'},ticks:{callback:v=>v+' %'}},x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:12}}}}});
+});
+
+/* =========================================================
+   ENCUESTA RECREADA
+   ========================================================= */
+const PREG=[
+ {s:'Sobre ti',p:'¿Qué edad tienes?',o:['Menos de 18','18-24','25-34','35-44','45-54','55 o más'],m:'El <b>65 %</b> tiene entre 18 y 34 años.'},
+ {s:'Sobre ti',p:'¿A qué te dedicas?',o:['Estudio','Trabajo','Estudio y trabajo','Ninguna de las anteriores'],m:'Más de la mitad estudia: <b>la vuelta a clase es clave</b>.'},
+ {s:'Sobre ti',p:'¿En qué provincia vives?',o:['Murcia','Granada','Alicante','Almería','Otra'],m:'El <b>15 %</b> ya vive en Granada.'},
+ {s:'Tus auriculares',p:'¿En qué momentos usas auriculares?',multi:1,o:['En el transporte','Haciendo deporte','Estudiando','Trabajando','Jugando a videojuegos','En casa, para relajarme'],m:'El <b>71 %</b> los usa en el transporte.'},
+ {s:'Tus auriculares',p:'Si solo pudieras elegir uno, ¿qué es lo más importante?',o:['Precio','Batería','Calidad de sonido','Cancelación de ruido','Comodidad','Diseño'],m:'Gana la <b>calidad de sonido (29 %)</b>, seguida de la batería.'},
+ {s:'Tus auriculares',p:'¿Cuánto pagarías por unos auriculares inalámbricos?',o:['Menos de 30 €','Entre 30 € y 60 €','Entre 60 € y 100 €','Más de 100 €'],m:'El <b>47 %</b> pagaría 60 € o más.'},
+ {s:'Cómo compras',p:'¿Cuándo sueles comprarlos?',multi:1,o:['Espero a las rebajas','Espero al Black Friday','Como regalo de Navidad','Cuando los necesito'],m:'El <b>46 %</b> espera al Black Friday.'},
+ {s:'Marcas',p:'¿Conoces los JORDÁNPODS?',o:['Sí, los tengo','Sí, pero no los tengo','Me suenan','No los conozco'],m:'El <b>39 %</b> todavía no nos conoce.'},
+ {s:'Sostenibilidad',p:'¿Pagarías algo más por unos auriculares sostenibles?',o:['No','Sí, hasta 5 € más','Sí, hasta 10 € más','Sí, más de 10 €'],m:'El <b>75 %</b> pagaría más.'}
+];
+let qi=0;const resp=PREG.map(()=>new Set());
+function pintaEnc(){
+  const cuerpo=$('#enc-cuerpo'),sig=$('#enc-sig'),atras=$('#enc-atras');
+  $('#enc-prog').style.width=(qi/PREG.length*100)+'%';
+  if(qi>=PREG.length){
+    $('#enc-sec').textContent='¡Terminado!';
+    const cod='JORDAN5-'+Math.random().toString(36).slice(2,8).toUpperCase();
+    cuerpo.innerHTML=`<div class="gracias-enc panel-anim"><div class="emo">🎧</div><h4>¡Gracias!</h4><p>Este es tu código personal de descuento para tu próxima compra:</p><div class="codigo">${cod}</div><p style="margin-top:12px;font-size:12.5px">−5 % · Demostración</p></div>`;
+    sig.textContent='Volver a empezar';sig.disabled=false;atras.style.visibility='hidden';return;
+  }
+  const q=PREG[qi];$('#enc-sec').textContent=q.s;atras.style.visibility=qi?'visible':'hidden';
+  cuerpo.innerHTML=`<div class="panel-anim" style="display:flex;flex-direction:column;flex:1"><div class="pregunta">${qi+1}. ${q.p}</div><div class="tipo">${q.multi?'Puedes marcar varias':'Elige una respuesta'}</div>${q.o.map((o,i)=>`<button class="opcion${q.multi?' multi':''}" data-i="${i}" aria-pressed="${resp[qi].has(i)}"><i></i>${o}</button>`).join('')}<div class="mayoria${resp[qi].size?' si':''}">📊 ${q.m}</div></div>`;
+  sig.textContent=qi===PREG.length-1?'Enviar':'Siguiente';sig.disabled=!resp[qi].size;
+  cuerpo.querySelectorAll('.opcion').forEach(b=>b.addEventListener('click',()=>{
+    const i=+b.dataset.i;if(q.multi){resp[qi].has(i)?resp[qi].delete(i):resp[qi].add(i)}else{resp[qi].clear();resp[qi].add(i)}
+    cuerpo.querySelectorAll('.opcion').forEach(x=>x.setAttribute('aria-pressed',resp[qi].has(+x.dataset.i)));
+    cuerpo.querySelector('.mayoria').classList.toggle('si',resp[qi].size>0);sig.disabled=!resp[qi].size;
+  }));
+}
+$('#enc-sig').addEventListener('click',()=>{if(qi>=PREG.length){qi=0;resp.forEach(s=>s.clear())}else qi++;pintaEnc()});
+$('#enc-atras').addEventListener('click',()=>{if(qi>0){qi--;pintaEnc()}});
+pintaEnc();
+
+// Barras de resultados
+$$('[data-barras]').forEach(el=>{
+  const d=JSON.parse(el.dataset.barras),mx=Math.max(...d.map(x=>x[1]));
+  el.innerHTML=d.map(([l,v,h])=>`<div class="barra-f${h?' hl':''}"><span>${l}</span><span class="t"><i data-w="${v/mx*100}"></i></span><span class="v">${v} %</span></div>`).join('');
+  observar(el,()=>el.querySelectorAll('i').forEach((i,k)=>setTimeout(()=>i.style.width=i.dataset.w+'%',120+k*90)));
+});
+
+/* =========================================================
+   DECISIÓN 1: calendario de promociones
+   ========================================================= */
+const media=MESES.map((_,m)=>(U[m]+U[12+m]+U[24+m])/3);
+const PROMOS=[
+ {k:'Enero',t:'Navidad y Reyes',d:'Seguimos con los <b>packs regalo</b> hasta el 6 de enero: la Navidad no acaba en diciembre.',dato:'Enero sigue vendiendo bien después de diciembre.',img:'folleto_navidad'},
+ {k:'Febrero',t:'Mes flojo: ofertas flash',d:'Descuentos especiales, <b>2x1</b> o promociones por tiempo limitado para animar las compras.',dato:'Febrero vende por debajo de un mes normal.',e:'🏷️'},
+ {k:'Marzo',t:'Mes flojo: ofertas flash',d:'Promociones por tiempo limitado en la web y en tienda para que la marca siga activa.',dato:'Marzo vende por debajo de un mes normal.',e:'🏷️'},
+ {k:'Abril',t:'Mes normal',d:'Contenido en redes y <b>Notas extra</b> en la app para que los socios del club sigan comprando.',dato:'Las ventas se mantienen en la media.',e:'🎵'},
+ {k:'Mayo',t:'Mes flojo: ofertas flash',d:'Ofertas 2x1 en accesorios y descuentos por tiempo limitado.',dato:'Mayo vende por debajo de un mes normal.',e:'🏷️'},
+ {k:'Junio',t:'Mes normal',d:'Campaña de verano en redes: los cascos para el viaje, la playa y el gimnasio.',dato:'Las ventas se mantienen en la media.',e:'☀️'},
+ {k:'Julio',t:'El mes más flojo',d:'Las ofertas más fuertes del verano para evitar que las ventas caigan.',dato:'Julio es el mes más flojo: −6,5 % frente a la media.',e:'🏷️'},
+ {k:'Agosto',t:'Mes flojo + preparar stock',d:'Ofertas de verano y, sobre todo, <b>preparar stock</b> para septiembre y noviembre.',dato:'Agosto vende por debajo de un mes normal.',e:'📦'},
+ {k:'Septiembre',t:'Vuelta a clase',d:'<b>−15 % para estudiantes</b> enseñando el carné, y +10 Notas extra al registrarse en la app.',dato:'Más de la mitad de los encuestados estudia.',img:'folleto_clase'},
+ {k:'Octubre',t:'Lanzamiento en Granada',d:'Anuncios en redes antes de abrir y promociones solo para la tienda nueva de Nevada Shopping, para llegar al Black Friday ya conocidos.',dato:'El 15 % de los encuestados ya vive en Granada.',e:'📍'},
+ {k:'Noviembre',t:'Black Friday',d:'<b>−20 % en JORDÁNPODS</b> y Notas x2 en la app, del 27 al 30 de noviembre, en las dos tiendas.',dato:'Noviembre es el mejor mes todos los años (+19 %).',img:'folleto_bf'},
+ {k:'Diciembre',t:'Navidad',d:'<b>Pack Regalo</b> con funda y almohadillas, y la edición limitada <b>Midnight Gold</b>.',dato:'Diciembre es el segundo mejor mes (+12,5 %).',img:'folleto_navidad'}
+];
+const mm=Math.max(...media),mn=Math.min(...media),prom=media.reduce((a,b)=>a+b)/12;
+$('#meses').innerHTML=media.map((v,i)=>{const cls=v>prom*1.08?'alto':v<prom*0.99?'flojo':'';return `<button class="mes ${cls}" data-m="${i}" aria-pressed="${i===10}" aria-label="${MESES_L[i]}"><i data-h="${20+(v-mn)/(mm-mn)*80}"></i><span>${MESES[i]}</span></button>`}).join('');
+observar($('#meses'),()=>$$('#meses i').forEach((i,k)=>setTimeout(()=>i.style.height=i.dataset.h+'%',k*60)));
+function pintaPromo(i){
+  const p=PROMOS[i];$$('#meses .mes').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.m===i));
+  const vis=p.img?`<img src="assets/web/${p.img}.webp" alt="Folleto: ${p.t}">`:`<div class="vacio"><div>${p.e}</div><b>${p.t}</b>${MESES_L[i]}</div>`;
+  $('#promo').innerHTML=`<div class="tarjeta panel-anim"><span class="k">${p.k} · ${fmt(media[i])} uds. de media</span><h4>${p.t}</h4><p>${p.d}</p><span class="el-dato" style="margin-top:16px">${p.dato}</span></div><div class="visual panel-anim">${vis}</div>`;
+}
+$$('#meses .mes').forEach(b=>b.addEventListener('click',()=>pintaPromo(+b.dataset.m)));
+pintaPromo(10);
+
+/* ---------- DECISIÓN 2: app ---------- */
+let car=0;const carN=4;
+$('#puntos-car').innerHTML=Array.from({length:carN},(_,i)=>`<button aria-label="Pantalla ${i+1}" aria-pressed="${i===0}"></button>`).join('');
+function irCar(i){car=i;$('#carrusel').style.transform=`translateX(-${i*100}%)`;$$('#puntos-car button').forEach((b,j)=>b.setAttribute('aria-pressed',j===i))}
+$$('#puntos-car button').forEach((b,i)=>b.addEventListener('click',()=>{irCar(i);clearInterval(carT);carT=setInterval(()=>irCar((car+1)%carN),3500)}));
+let carT=setInterval(()=>irCar((car+1)%carN),3500);
+function calcNotas(){
+  const g=+$('#gasto').value;$('#gasto-v').textContent=g+' €';$('#gasto').style.setProperty('--p',(g/250*100)+'%');
+  let x=1,extra=0;$$('#extras .extra').forEach(b=>{if(b.getAttribute('aria-pressed')==='true'){if(b.dataset.x)x=+b.dataset.x;else extra+=+b.dataset.n}});
+  const total=g*x+extra;$('#notas').textContent=fmt(total);
+  $$('#escalera .premio').forEach(p=>p.classList.toggle('ok',total>=+p.dataset.p));
+}
+$('#gasto').addEventListener('input',calcNotas);
+$$('#extras .extra').forEach(b=>b.addEventListener('click',()=>{b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true');calcNotas()}));
+calcNotas();
+
+/* ---------- DECISIÓN 5: diferenciación ---------- */
+const DIF=[
+ {e:'📦',t:'Packaging personalizado',s:'Originalidad',img:'caja_personalizada',
+  txt:'Una caja de <b>cartón reciclado</b>, reconocible y lista para escribir el nombre de quien la recibe. Hace la marca más visible, más sostenible y perfecta para regalar.',
+  q:'Un regalo de Navidad',ej:'Marta compra unos JORDÁNPODS para su hermano y escribe su nombre en la caja. No necesita papel de regalo: <b>la caja ya es el regalo</b>.',dato:'Al 71 % le importa que la caja sea de cartón reciclado.'},
+ {e:'✨',t:'Edición limitada Midnight Gold',s:'Exclusividad',img:'midnight_gold',oro:1,
+  txt:'Unos JORDÁNPODS en negro y dorado, <b>solo 500 unidades numeradas</b>, para las fechas clave. Lo que es escaso se desea más.',
+  q:'Un coleccionista',ej:'Javi ve en Instagram que solo quedan 80 unidades de la Midnight Gold. No espera a enero: <b>los compra ese mismo día</b>.',dato:'Noviembre y diciembre: casi 1 de cada 5 ventas del año.'},
+ {e:'🎧',t:'Probar en tienda',s:'Calidad',
+  txt:'Un espacio en las tiendas de <b>Cartagena y Granada</b> para probar los cascos antes de comprarlos: escuchar, comparar y acertar.',
+  q:'Un cliente indeciso',ej:'Antes de pagar, se pone los cascos cinco minutos y escucha su canción favorita. Si le convencen, se los lleva y <b>no los devuelve</b>.',dato:'12 % de devoluciones en noviembre de 2023, frente al 2 % normal.'}
+];
+$('#difer-tabs').innerHTML=DIF.map((d,i)=>`<button class="difer-tab" role="tab" aria-selected="${i===0}"><div>${d.e}</div><b>${d.t}</b><span>${d.s}</span></button>`).join('');
+function pintaDif(i){
+  const d=DIF[i];$$('#difer-tabs .difer-tab').forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+  const vis=d.img?`<img src="assets/web/${d.img}.webp" alt="${d.t}">`:`<div class="tienda-ilu"><div class="e">🎧</div><b>Pruébalos aquí</b><span>Cartagena · Granada</span></div>`;
+  $('#difer-panel').innerHTML=`<div class="difer-img${d.oro?' oro':''} panel-anim">${vis}</div><div style="display:grid;gap:14px"><div class="tarjeta panel-anim"><h3 style="font-size:30px">${d.t}</h3><p style="color:#D3D7F3;margin-top:8px">${d.txt}</p><span class="el-dato" style="margin-top:14px">${d.dato}</span></div><div class="ejemplo panel-anim"><div class="persona"><span class="avatar">${d.e}</span><div><b>${d.q}</b><span>${d.s}</span></div></div><p>${d.ej}</p></div></div>`;
+}
+$$('#difer-tabs .difer-tab').forEach((b,i)=>b.addEventListener('click',()=>pintaDif(i)));
+pintaDif(0);
+
+/* ---------- DECISIÓN 6: calculadora ---------- */
+let uds=702;
+function calc(){
+  const c=+$('#coste').value,ah=Math.max(0,35.89-c);
+  $('#coste-v').textContent=fmt(c,2)+' €';$('#coste').style.setProperty('--p',((c-30)/5.89*100)+'%');
+  $('#ahorro').textContent=fmt(ah*uds,2)+' €';$('#ahorro-u').textContent=fmt(ah,2)+' €';$('#ahorro-n').textContent=fmt(uds);
+}
+$('#coste').addEventListener('input',calc);
+$$('#periodo button').forEach(b=>b.addEventListener('click',()=>{$$('#periodo button').forEach(x=>x.setAttribute('aria-pressed',x===b));uds=+b.dataset.u;calc()}));
+calc();
+
+/* ---------- Conclusión ---------- */
+const AD=[
+ ['No se sabía quién compraba ni qué opinaba de los auriculares.','La <b>encuesta con código de descuento</b> dice quiénes son los clientes, qué buscan y qué precio les parece justo.'],
+ ['Las promociones surgían sin plan y todo dependía del final de año.','Un <b>calendario de promociones</b> marca qué hacer en cada momento: meses flojos, vuelta a clase, Black Friday y Navidad.'],
+ ['Abrir una nueva tienda era una idea sin fecha.','La <b>apertura de Granada</b> se planifica antes del Black Friday, con su propia campaña de lanzamiento.'],
+ ['La temporada alta llegaba sin preparar y un fallo de calidad afectaba a muchos clientes a la vez.','La temporada se prepara con tiempo: <b>stock en septiembre, lotes revisados y un segundo proveedor</b>.'],
+ ['La caja de los auriculares era solo un envase.','El <b>packaging personalizado</b> hace que la marca se reconozca, sea sostenible y esté lista para regalar.'],
+ ['Se vendía siempre el mismo modelo, todo el año.','Las <b>ediciones limitadas</b> dan un motivo especial para comprar en las fechas clave.'],
+ ['El cliente compraba sin probar y, si no le convencía, lo devolvía.','<b>Probar los cascos en tienda</b> ayuda a acertar y reduce las devoluciones.'],
+ ['La publicidad se hacía sin saber dónde estaban los clientes.','Las <b>redes sociales y los influencers</b> llevan la marca justo donde los clientes se informan.'],
+ ['El cliente compraba y no había forma de que volviera.','La <b>app con el Club de Notas</b> premia a quien vuelve y le avisa de las ofertas.'],
+ ['Todo dependía de un solo producto y de un solo tipo de cliente.','Los <b>auriculares para personas mayores</b> abren la puerta a un público nuevo que crece cada año.']
+];
+$('#ad').innerHTML=AD.map((r,i)=>`<div class="ad-fila" data-r style="transition-delay:${(i%3)*.06}s"><span class="antes">${r[0]}</span><span class="flecha">→</span><span class="despues">${r[1]}</span></div>`).join('');
+$$('#ad .ad-fila').forEach(el=>observar(el));
 </script>
 <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/"}}</script>
 <script type="module" src="js/jordanpods3d.js"></script>

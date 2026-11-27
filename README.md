@@ -7,7 +7,7 @@ Diseño de un Sistema de Información de Marketing (SIM) para JORDÁNMUSIK, marc
 
 | Archivo | Qué es |
 |---|---|
-| `index.html` | Web-presentación interactiva del proyecto (versión base, en construcción). |
+| `index.html` | Web del proyecto: estilo oscuro, auriculares 3D, gráficos del Excel, encuesta interactiva y decisiones. |
 | `formulario/formulario_jordanmusik.gs` | Script de Google Apps Script que crea el formulario de Google de 15 preguntas. |
 
 ## Ver la web
