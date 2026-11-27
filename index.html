@@ -623,6 +623,59 @@ nav.menu .fila1{height:74px;gap:24px}
 .lema em{color:#2F7BFF;font-style:normal}
 .portada .autores{opacity:1;animation:none;margin-top:30px;font-size:13.5px;color:#7F8BA8;font-weight:600}
 
+
+/* ===== Portada «literal» sobre la foto de la referencia ===== */
+#tab-inicio{background:#0A0E18}
+.portada.poster{display:block!important;position:relative;width:min(100%,1500px);margin:0 auto;aspect-ratio:1024/1536;padding:0;min-height:0;background:url(assets/web/fondo_hero.webp) center/100% 100% no-repeat;container-type:inline-size;overflow:hidden;text-align:center}
+.poster::before,.poster::after{content:"";position:absolute;top:0;bottom:0;width:6%;z-index:0;pointer-events:none}
+.poster>*{position:absolute;z-index:2}
+.p-kick{left:0;right:0;top:8.4%;gap:3cqw}
+.p-kick i{width:6.5cqw}
+.p-kick span{font-size:4.1cqw;font-weight:300}
+.p-titulo{left:0;right:0;top:13.1%;margin:0!important;font-size:7cqw!important;line-height:1.1!important;letter-spacing:-.25cqw!important}
+.p-design{left:0;right:0;top:18.6%;display:flex;align-items:center;justify-content:center;gap:3cqw}
+.p-design i{width:5.5cqw;border-top:.25cqw dotted rgba(150,170,220,.55)}
+.p-design .azul{font-weight:800;font-size:8cqw;line-height:1.1;letter-spacing:-.3cqw;background:linear-gradient(180deg,#5AA8FF,#1F5BFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.p-sub{left:0;right:0;top:25.2%;font-size:2.55cqw;color:#E6ECFA;font-weight:400}
+.p-sub b{font-weight:700;color:#fff}
+.p-raya{left:0;right:0;top:28.6%;margin:0!important;gap:2.2cqw}
+.p-raya i{width:10cqw;height:.3cqw}
+.p-raya b{width:.6cqw;height:.6cqw}
+
+.pantalla-3d{left:0;top:0;width:1200px;height:740px;transform-origin:0 0;border-radius:26px;background:radial-gradient(ellipse at 80% 70%,rgba(47,123,255,.35),transparent 55%),linear-gradient(160deg,#0D1428,#060914 70%);border:14px solid #07080b;overflow:hidden;display:flex;flex-direction:column;text-align:left;font-size:16px}
+.pantalla-3d::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.08),transparent 35%);pointer-events:none}
+.pantalla-3d .mini-nav{padding:26px 44px;font-size:17px}
+.pantalla-3d .mini-logo{font-size:22px}.pantalla-3d .mini-logo img{width:28px}
+.pantalla-3d .mini-links{gap:34px}
+.pantalla-3d .mini-btn{font-size:16px;padding:10px 22px;border-radius:12px}
+.pantalla-3d .mini-cuerpo{padding:0 44px;grid-template-columns:1fr 1.05fr;gap:20px}
+.pantalla-3d .mini-texto h2{font-size:56px}
+.pantalla-3d .mini-texto p{font-size:20px;margin:16px 0 30px}
+.pantalla-3d .mini-cta{font-size:20px;padding:16px 32px;border-radius:14px}
+.pantalla-3d .mini-play{font-size:18px}.pantalla-3d .mini-play i{width:44px;height:44px;font-size:14px}
+.pantalla-3d .mini-panel{height:90%}
+.pantalla-3d .mini-badge{font-size:24px;left:22px;top:18px}.pantalla-3d .mini-badge small{font-size:16px}
+.pantalla-3d .visor-hint{font-size:14px}
+.pantalla-3d .mini-marcas{margin:22px 44px 30px;padding:20px 26px;font-size:24px;border-radius:18px}
+.pantalla-3d .mini-marcas small{font-size:15px}
+
+.p-card{width:16.6%;height:10.1%;background:linear-gradient(180deg,#fff,#E4E9F3)!important;padding:1.8cqw 1cqw 1.4cqw!important;gap:1.1cqw!important;border-radius:1.4cqw!important;justify-content:center}
+.p-card .ico-s{width:4.6cqw!important;height:4.6cqw!important;font-size:2.2cqw!important}
+.p-card b{font-size:1.75cqw!important;min-height:0!important}
+.p-card i{height:.15cqw!important}
+.p-card small{font-size:1.3cqw}
+.p-card.destacado{transform:none;background:linear-gradient(180deg,#1A2E6B,#0C1640 60%,#1F5BFF 140%)!important}
+.p-card:hover{transform:translateY(-.8cqw)}
+.p-stats{left:17.6%;top:80.9%;width:75.2%;height:6.4%;margin:0!important;padding:0 1.2cqw 0 .6cqw!important;border-radius:2.2cqw!important;background:rgba(18,22,34,.94)!important;grid-template-columns:1fr 1.25fr 1fr auto!important}
+.p-stats>div{padding:0 1cqw!important}
+.p-stats b{font-size:3cqw!important}
+.p-stats span{font-size:1.55cqw!important}
+.p-stats .cta-grande{font-size:2cqw;padding:1.7cqw 3.4cqw;border-radius:1.6cqw;gap:1.2cqw}
+.p-lema{left:0;right:0;top:90.2%;margin:0!important;font-size:2.45cqw!important;letter-spacing:.4cqw!important;gap:1.4cqw!important}
+.p-lema i{width:3cqw!important}
+.p-autores{left:0;right:0;bottom:2.2%;font-size:1.3cqw;color:#8A96B3;font-weight:600}
+@media (max-width:760px){.p-stats{grid-template-columns:1fr 1fr 1fr auto!important}}
+
 </style>
 </head>
 <body>
@@ -651,64 +704,49 @@ nav.menu .fila1{height:74px;gap:24px}
 
 <!-- ===================== PORTADA ===================== -->
 <div class="tab-content" id="tab-inicio">
-<header class="portada" id="portada">
- <div class="luces" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
- <svg class="rayos" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true">
-  <defs><linearGradient id="ry" x1="0" x2="1"><stop offset="0" stop-color="#2F7BFF" stop-opacity="0"/><stop offset=".7" stop-color="#4C9BFF" stop-opacity=".9"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs>
-  <path d="M0 380 C300 360 520 300 800 120" stroke="url(#ry)" stroke-width="3" fill="none"/>
-  <path d="M0 395 C320 375 540 320 800 160" stroke="url(#ry)" stroke-width="1.5" fill="none" opacity=".7"/>
-  <path d="M60 400 C360 385 560 340 800 200" stroke="url(#ry)" stroke-width="1" fill="none" opacity=".5"/>
- </svg>
- <div class="puntos-mapa" aria-hidden="true"></div>
- <div class="wrap hero">
-  <div class="kick-hero"><i></i><span>Proyecto de Investigación Comercial</span><i></i></div>
-  <h1 id="h1"><span class="blanco">Sistema de Información</span><br><span class="azul">de Marketing</span></h1>
-  <p class="hero-sub">Cómo <b>JORDÁNMUSIK</b> puede vender más JORDÁNPODS escuchando a sus datos</p>
-  <div class="raya" aria-hidden="true"><i></i><b></b></div>
+<header class="portada poster" id="portada">
+ <div class="kick-hero p-kick"><i></i><span>Proyecto de Investigación</span><i></i></div>
+ <h1 class="p-titulo" id="h1"><span class="blanco">Sistema de Información</span></h1>
+ <div class="p-design"><i></i><span class="azul" id="h1b">de Marketing</span><i></i></div>
+ <p class="p-sub">Cómo <b>JORDÁNMUSIK</b> puede vender más escuchando a sus datos</p>
+ <div class="raya p-raya" aria-hidden="true"><i></i><b></b></div>
 
-  <div class="portatil" data-visor>
-   <div class="pantalla-pc">
-    <div class="mini-nav"><span class="mini-logo"><img src="assets/escudo_pj.png" alt="">JORDÁNMUSIK</span><span class="mini-links"><u>Inicio</u><span>Entorno</span><span>Ventas</span><span>Clientes</span><span>Decisiones</span></span><span class="mini-btn">Sonia y Brayan</span></div>
-    <div class="mini-cuerpo">
-     <div class="mini-texto">
-      <h2>Escucha lo que<br>dicen tus datos</h2>
-      <p>Entorno, ventas y clientes en un solo sistema</p>
-      <div class="mini-botones"><button class="mini-cta" data-ir="inteligencia">Empezar</button><button class="mini-play" data-ir="investigacion"><i>▶</i>Ver la encuesta</button></div>
-     </div>
-     <div class="mini-panel">
-      <span class="mini-badge">+44,5 % <small>crecimiento</small></span>
-      <svg class="mini-barras" viewBox="0 0 200 90" preserveAspectRatio="none" aria-hidden="true">
-       <rect x="8" y="58" width="22" height="32" rx="3"/><rect x="40" y="50" width="22" height="40" rx="3"/><rect x="72" y="44" width="22" height="46" rx="3"/><rect x="104" y="36" width="22" height="54" rx="3"/><rect x="136" y="22" width="22" height="68" rx="3"/><rect x="168" y="6" width="22" height="84" rx="3"/>
-       <polyline points="19,52 51,44 83,38 115,30 147,16 179,2" fill="none" stroke="#CFE3FF" stroke-width="2"/>
-      </svg>
-      <img class="visor-foto" src="assets/web/pods.webp" alt="Auriculares JORDÁNPODS">
-      <div class="visor3d" role="img" aria-label="Modelo 3D de los JORDÁNPODS. Arrastra para girarlo."></div>
-      <span class="visor-hint">↔ Gíralos</span>
-     </div>
-    </div>
-    <div class="mini-marcas"><small>Competencia<br>analizada</small><b style="font-weight:900">MediaMarkt</b><b>Rossellimac</b><b>Phone House</b><b style="font-weight:600"> AirPods</b><b style="letter-spacing:1px">SAMSUNG</b></div>
+ <div class="pantalla-3d" id="pantalla3d" data-visor>
+  <div class="mini-nav"><span class="mini-logo"><img src="assets/escudo_pj.png" alt="">JORDÁNMUSIK</span><span class="mini-links"><u>Inicio</u><span>Entorno</span><span>Ventas</span><span>Clientes</span><span>Decisiones</span></span><span class="mini-btn">Sonia y Brayan</span></div>
+  <div class="mini-cuerpo">
+   <div class="mini-texto">
+    <h2>Escucha lo que<br>dicen tus datos</h2>
+    <p>Entorno, ventas y clientes en un solo sistema</p>
+    <div class="mini-botones"><button class="mini-cta" data-ir="inteligencia">Empezar</button><button class="mini-play" data-ir="investigacion"><i>▶</i>Ver la encuesta</button></div>
    </div>
-   <div class="base-pc"><i></i></div>
-   <div class="luz-mesa"></div>
+   <div class="mini-panel">
+    <span class="mini-badge">+44,5 % <small>crecimiento</small></span>
+    <svg class="mini-barras" viewBox="0 0 200 90" preserveAspectRatio="none" aria-hidden="true">
+     <rect x="8" y="58" width="22" height="32" rx="3"/><rect x="40" y="50" width="22" height="40" rx="3"/><rect x="72" y="44" width="22" height="46" rx="3"/><rect x="104" y="36" width="22" height="54" rx="3"/><rect x="136" y="22" width="22" height="68" rx="3"/><rect x="168" y="6" width="22" height="84" rx="3"/>
+     <polyline points="19,52 51,44 83,38 115,30 147,16 179,2" fill="none" stroke="#CFE3FF" stroke-width="2"/>
+    </svg>
+    <img class="visor-foto" src="assets/web/pods.webp" alt="Auriculares JORDÁNPODS">
+    <div class="visor3d" role="img" aria-label="Modelo 3D de los JORDÁNPODS. Arrastra para girarlo."></div>
+    <span class="visor-hint">↔ Gíralos</span>
+   </div>
   </div>
-
-  <div class="servicios">
-   <button class="servicio" data-ir="inteligencia"><span class="ico-s">🌍</span><b>Sistema de inteligencia</b><i></i><small>•••</small></button>
-   <button class="servicio" data-ir="registro"><span class="ico-s">📈</span><b>Sistema de registro</b><i></i><small>•••</small></button>
-   <button class="servicio destacado" data-ir="investigacion"><span class="ico-s">📋</span><b>Investigación comercial</b><i></i><small>•••</small></button>
-   <button class="servicio" data-ir="decisiones"><span class="ico-s">🚀</span><b>Decisiones</b><i></i><small>•••</small></button>
-  </div>
-
-  <div class="stats">
-   <div><b data-cuenta="7675">0</b><span>vendidos en 2024</span></div>
-   <div><b data-cuenta="44.5" data-dec="1" data-pre="+" data-suf=" %">0</b><span>de crecimiento</span></div>
-   <div><b data-cuenta="385">0</b><span>encuestados</span></div>
-   <button class="cta-grande" data-ir="decisiones">Nuestra propuesta <span>→</span></button>
-  </div>
-
-  <div class="lema"><i></i><span>Entorno</span><em>•</em><span>Ventas</span><em>•</em><span>Clientes</span><em>•</em><span>Decisiones</span><i></i></div>
-  <p class="autores">Sonia Lázaro y Brayan Aramayo · Investigación Comercial · 1.º CFGS Marketing y Publicidad</p>
+  <div class="mini-marcas"><small>Competencia<br>analizada</small><b style="font-weight:900">MediaMarkt</b><b>Rossellimac</b><b>Phone House</b><b style="font-weight:600"> AirPods</b><b style="letter-spacing:1px">SAMSUNG</b></div>
  </div>
+
+ <button class="servicio p-card" style="left:15.6%;top:68.7%" data-ir="inteligencia"><span class="ico-s">🌍</span><b>Sistema de inteligencia</b><i></i><small>•••</small></button>
+ <button class="servicio destacado p-card" style="left:33.9%;top:68.55%" data-ir="registro"><span class="ico-s">📈</span><b>Sistema de registro</b><i></i><small>•••</small></button>
+ <button class="servicio p-card" style="left:52.1%;top:68.7%" data-ir="investigacion"><span class="ico-s">📋</span><b>Investigación comercial</b><i></i><small>•••</small></button>
+ <button class="servicio p-card" style="left:70.3%;top:68.85%" data-ir="decisiones"><span class="ico-s">🚀</span><b>Decisiones</b><i></i><small>•••</small></button>
+
+ <div class="stats p-stats">
+  <div><b data-cuenta="7675">0</b><span>Vendidos 2024</span></div>
+  <div><b data-cuenta="44.5" data-dec="1" data-pre="+" data-suf=" %">0</b><span>Crecimiento</span></div>
+  <div><b data-cuenta="385">0</b><span>Encuestados</span></div>
+  <button class="cta-grande" data-ir="decisiones">Nuestra propuesta <span>→</span></button>
+ </div>
+
+ <div class="lema p-lema"><i></i><span>Entorno</span><em>•</em><span>Ventas</span><em>•</em><span>Clientes</span><em>•</em><span>Decisiones</span><i></i></div>
+ <p class="p-autores">Sonia Lázaro y Brayan Aramayo · Investigación Comercial · 1.º CFGS Marketing y Publicidad</p>
 </header>
 
 <!-- ===================== INTRODUCCIÓN ===================== -->
@@ -1406,6 +1444,24 @@ const AD=[
 ];
 $('#ad').innerHTML=AD.map((r,i)=>`<div class="ad-fila" data-r style="transition-delay:${(i%3)*.06}s"><span class="antes">${r[0]}</span><span class="flecha">→</span><span class="despues">${r[1]}</span></div>`).join('');
 $$('#ad .ad-fila').forEach(el=>observar(el));
+
+
+/* ---------- Pantalla del portátil: encajar el contenido en la foto ---------- */
+(function(){
+  const el=document.getElementById('pantalla3d'),hero=document.getElementById('portada');if(!el||!hero)return;
+  // Esquinas de la pantalla en la foto original (1024 × 1536 px)
+  const Q=[[300,498],[870,487],[841,862],[246,834]];
+  const W=1200,H=740;
+  function resolver(A,b){const n=b.length;for(let i=0;i<n;i++){let m=i;for(let k=i+1;k<n;k++)if(Math.abs(A[k][i])>Math.abs(A[m][i]))m=k;[A[i],A[m]]=[A[m],A[i]];[b[i],b[m]]=[b[m],b[i]];for(let k=i+1;k<n;k++){const f=A[k][i]/A[i][i];for(let j=i;j<n;j++)A[k][j]-=f*A[i][j];b[k]-=f*b[i]}}const x=new Array(n);for(let i=n-1;i>=0;i--){let s=b[i];for(let j=i+1;j<n;j++)s-=A[i][j]*x[j];x[i]=s/A[i][i]}return x}
+  function encajar(){
+    const k=hero.clientWidth/1024,src=[[0,0],[W,0],[W,H],[0,H]],dst=Q.map(([x,y])=>[x*k,y*k]);
+    const A=[],b=[];
+    for(let i=0;i<4;i++){const [x,y]=src[i],[u,v]=dst[i];A.push([x,y,1,0,0,0,-u*x,-u*y]);b.push(u);A.push([0,0,0,x,y,1,-v*x,-v*y]);b.push(v)}
+    const h=resolver(A,b);
+    el.style.transform=`matrix3d(${h[0]},${h[3]},0,${h[6]},${h[1]},${h[4]},0,${h[7]},0,0,1,0,${h[2]},${h[5]},0,1)`;
+  }
+  new ResizeObserver(encajar).observe(hero);encajar();
+})();
 
 /* =========================================================
    PESTAÑAS (como la web de la UT2)
