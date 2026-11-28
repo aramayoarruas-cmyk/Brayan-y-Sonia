@@ -689,7 +689,6 @@ section.tab-content::after{display:none}
 #tab-dafo{--foto:url(assets/web/bg_lampara.webp)}
 #tab-decisiones{--foto:url(assets/web/bg_mesa.webp)}
 #tab-conclusion{--foto:url(assets/web/bg_oficina.webp);--giro:scaleX(-1)}
-#tab-final{background:url(assets/web/bg_rayos.webp) center bottom/100% auto no-repeat}
 #tab-final::before,#tab-final::after{display:none}
 #intro{position:relative}
 .num-gigante{display:none}
@@ -935,6 +934,34 @@ section.bandas::before{display:none}
 .nova-proy .foto.qr{height:280px}
 .nova-proy .foto.qr img{width:230px;height:230px;max-width:none;padding:0;border-radius:10px;background:#fff;object-fit:contain;transform:none!important}
 .nova-img .m2{width:200px;height:200px;padding:0;border-radius:12px;transform:none;object-fit:contain}
+
+/* ===== Despedida (sin 3D) ===== */
+#tab-final{background:linear-gradient(90deg,rgba(6,10,22,.94) 0%,rgba(6,10,22,.75) 50%,rgba(6,10,22,.45)),url(assets/web/bg_oficina.webp) center/cover no-repeat!important;min-height:100vh;padding:110px 0 70px;display:none;align-items:center;overflow:hidden;position:relative}
+#tab-final.active{display:flex!important}
+.rayos-fin{position:absolute;right:0;bottom:0;width:55%;height:40%;pointer-events:none;filter:drop-shadow(0 0 8px #2F7BFF);z-index:0}
+.fin-grid{display:grid!important;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;padding-top:0!important;position:relative;z-index:1}
+@media (max-width:980px){.fin-grid{grid-template-columns:1fr}}
+.fin-texto .etiqueta{display:inline-flex}
+#tab-final .eslogan{font-family:Mont;font-weight:800;font-size:clamp(40px,4.6vw,72px);line-height:1.02;letter-spacing:-1.5px;margin-top:16px}
+#tab-final .eslogan span{display:block}
+#tab-final .eslogan .hueco{color:transparent;-webkit-text-stroke:1.6px #fff;font-weight:700}
+#tab-final .eslogan .oro{background:linear-gradient(180deg,#5AA8FF,#1F5BFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fin-sub{font-size:clamp(16px,1.3vw,19px);color:#C7D0E6;max-width:560px;margin-top:20px;padding-left:16px;border-left:3px solid #2F7BFF}
+.fin-sub b{color:#fff}
+.fin-fila{display:flex;gap:16px;align-items:stretch;margin-top:30px;flex-wrap:wrap}
+.fin-gracias{flex:1;min-width:260px;padding:22px 26px;border-radius:18px;background:rgba(18,24,40,.8);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;justify-content:center}
+.fin-gracias b{font-size:clamp(22px,2vw,28px);font-weight:800;line-height:1.1}
+.fin-gracias span{font-size:14px;font-weight:700;color:#8FB8FF;margin-top:6px}
+.fin-qr{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:18px;background:linear-gradient(90deg,#1F5BFF,#3B8BFF);box-shadow:0 14px 34px -10px rgba(47,123,255,.9)}
+.fin-qr img{width:120px;height:120px;border-radius:10px;background:#fff;flex:none}
+.fin-qr small{font-weight:800;font-size:14px;max-width:130px;line-height:1.35;color:#fff}
+.fin-foto{position:relative;aspect-ratio:1;max-height:70vh;display:grid;place-items:center}
+.fin-halo{position:absolute;inset:12%;border-radius:50%;background:radial-gradient(circle,rgba(47,123,255,.55),rgba(47,123,255,.12) 50%,transparent 70%);animation:late 5s ease-in-out infinite}
+.fin-aro{position:absolute;left:50%;top:50%;width:80%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(90,168,255,.35);transform:translate(-50%,-50%);animation:gira 30s linear infinite}
+.fin-aro::after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:#2F7BFF;top:-6px;left:50%;box-shadow:0 0 20px #2F7BFF}
+.fin-aro.b{width:98%;border-color:rgba(143,184,255,.18);animation-duration:46s;animation-direction:reverse}
+.fin-foto img{position:relative;height:78%;width:auto;filter:drop-shadow(0 40px 50px rgba(0,0,0,.7));animation:levita 6s ease-in-out infinite}
+#tab-final .siguiente{margin-top:34px}
 </style>
 </head>
 <body>
@@ -1404,25 +1431,26 @@ section.bandas::before{display:none}
 </section>
 
 <!-- ===================== FINAL ===================== -->
-<section class="final tab-content" id="tab-final" data-visor>
- <div class="wrap">
-  <div>
+<section class="final tab-content" id="tab-final">
+ <svg class="rayos-fin" viewBox="0 0 800 400" preserveAspectRatio="none" aria-hidden="true">
+  <defs><linearGradient id="ryf" x1="0" x2="1"><stop offset="0" stop-color="#2F7BFF" stop-opacity="0"/><stop offset=".7" stop-color="#4C9BFF" stop-opacity=".9"/><stop offset="1" stop-color="#CFE3FF"/></linearGradient></defs>
+  <path d="M0 380 C300 360 520 300 800 120" stroke="url(#ryf)" stroke-width="3" fill="none"/>
+  <path d="M0 395 C320 375 540 320 800 160" stroke="url(#ryf)" stroke-width="1.5" fill="none" opacity=".7"/>
+  <path d="M60 400 C360 385 560 340 800 200" stroke="url(#ryf)" stroke-width="1" fill="none" opacity=".5"/>
+ </svg>
+ <div class="wrap fin-grid">
+  <div class="fin-texto">
    <span class="etiqueta">Despedida</span>
-   <p class="eslogan" data-r style="margin-top:20px"><span>Decidir sin datos</span><span class="hueco">es escuchar</span><span class="oro">sin auriculares.</span></p>
-   <div class="gracias" data-r>
-    <div class="t"><b>¡Gracias por escucharnos!</b><span>Sonia Lázaro y Brayan Aramayo</span></div>
-    <div class="qr"><img src="final/qr_web.png" alt="QR de esta web"><small>Escanea y llévate la web en el móvil</small></div>
+   <p class="eslogan" data-r><span>Decidir sin datos</span><span class="hueco">es escuchar</span><span class="oro">sin auriculares.</span></p>
+   <p class="fin-sub" data-r>Con este Sistema de Información de Marketing, <b>JORDÁNMUSIK ya puede escuchar a sus clientes</b> y decidir con información.</p>
+   <div class="fin-fila" data-r>
+    <div class="fin-gracias"><b>¡Gracias por escucharnos!</b><span>Sonia Lázaro y Brayan Aramayo</span></div>
+    <div class="fin-qr"><img src="assets/web/qr_web.png" alt="QR de esta web"><small>Escanea y llévate la web en el móvil</small></div>
    </div>
   </div>
-  <div class="escena">
-   <div class="halo"></div><div class="aro"></div><div class="aro b"></div>
-   <img class="visor-foto" src="assets/web/pods.webp" alt="Auriculares JORDÁNPODS">
-   <div class="visor3d" role="img" aria-label="Modelo 3D de los JORDÁNPODS. Arrastra para girarlo."></div>
-   <span class="visor-hint">↔ Gíralos una última vez</span>
-   <div class="controles">
-    <button class="color" data-color="negro" aria-pressed="true"><i style="background:#18181b"></i>Negro</button>
-    <button class="color" data-color="azul" aria-pressed="false"><i style="background:#23264d"></i>Azul</button>
-   </div>
+  <div class="fin-foto" data-r="der">
+   <div class="fin-halo"></div><div class="fin-aro"></div><div class="fin-aro b"></div>
+   <img src="assets/web/pods.webp" alt="Auriculares JORDÁNPODS">
   </div>
  </div>
 </section>
@@ -1828,7 +1856,5 @@ addEventListener('keydown',e=>{if(e.target.closest('input'))return;const i=TABS.
 irTab(location.hash.slice(1)||'inicio',true);
 </script>
 
-<script type="importmap">{"imports":{"three":"./vendor/three.module.min.js","three/addons/":"./vendor/"}}</script>
-<script type="module" src="js/jordanpods3d.js"></script>
 </body>
 </html>
