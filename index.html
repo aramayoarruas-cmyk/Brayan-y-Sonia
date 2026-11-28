@@ -676,6 +676,85 @@ nav.menu .fila1{height:74px;gap:24px}
 .p-autores{left:0;right:0;bottom:2.2%;font-size:1.3cqw;color:#8A96B3;font-weight:600}
 @media (max-width:760px){.p-stats{grid-template-columns:1fr 1fr 1fr auto!important}}
 
+
+/* ===== Resto de pestañas con el estilo de la portada ===== */
+section.tab-content{overflow:hidden;isolation:isolate}
+section.tab-content::before{content:"";position:absolute;left:0;right:0;top:0;height:720px;z-index:-1;background:var(--foto) center/cover no-repeat;transform:var(--giro,none);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.85) 45%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.85) 45%,transparent 100%);filter:brightness(.62) saturate(1.1);opacity:1}
+section.tab-content::after{display:none}
+#tab-inteligencia{--foto:url(assets/web/bg_oficina.webp)}
+#tab-registro{--foto:url(assets/web/bg_portatil.webp)}
+#tab-persona{--foto:url(assets/web/bg_planta.webp)}
+#tab-investigacion{--foto:url(assets/web/bg_frente.webp)}
+#tab-dafo{--foto:url(assets/web/bg_lampara.webp)}
+#tab-decisiones{--foto:url(assets/web/bg_mesa.webp)}
+#tab-conclusion{--foto:url(assets/web/bg_oficina.webp);--giro:scaleX(-1)}
+#tab-final{background:url(assets/web/bg_rayos.webp) center bottom/100% auto no-repeat}
+#tab-final::before,#tab-final::after{display:none}
+#intro{position:relative}
+.num-gigante{display:none}
+
+/* Encabezado: «Professional» en cursiva con rayas, título blanco + azul y raya con punto */
+.etiqueta{font-size:clamp(20px,2vw,28px);font-weight:300;font-style:italic;letter-spacing:.3px;text-transform:none;color:#4C9BFF;gap:18px}
+.etiqueta::before{width:56px;height:1.5px;background:linear-gradient(90deg,transparent,#3B82F6)}
+.etiqueta::after{content:"";width:56px;height:1.5px;background:linear-gradient(90deg,#3B82F6,transparent)}
+h2.titulo{font-weight:700;font-size:clamp(44px,5.4vw,80px);letter-spacing:-1.5px;line-height:1.04;margin:10px 0 20px}
+h2.titulo em .w{background:linear-gradient(180deg,#5AA8FF,#1F5BFF);-webkit-background-clip:text;background-clip:text;font-weight:800}
+.wrap>.etiqueta:first-of-type+h2.titulo+.lead{color:#E6ECFA;font-size:clamp(18px,1.6vw,21px)}
+.wrap>.etiqueta:first-of-type+h2.titulo+.lead::after{content:"";display:block;width:150px;height:8px;margin-top:26px;background:radial-gradient(circle at calc(100% - 4px) 50%,#2F7BFF 3.5px,transparent 4px),linear-gradient(90deg,transparent,#2F7BFF 0) left center/112px 3px no-repeat;filter:drop-shadow(0 0 6px #2F7BFF)}
+/* Variación: unas pestañas con el encabezado centrado y otras a la izquierda */
+#tab-inteligencia .wrap>.etiqueta:first-of-type,#tab-persona .wrap>.etiqueta:first-of-type,#tab-dafo .wrap>.etiqueta:first-of-type,#tab-conclusion .wrap>.etiqueta:first-of-type{display:flex;justify-content:center}
+#tab-inteligencia h2.titulo,#tab-persona h2.titulo,#tab-dafo h2.titulo,#tab-conclusion h2.titulo{text-align:center}
+#tab-inteligencia .wrap>.lead:first-of-type,#tab-persona .wrap>.lead:first-of-type,#tab-dafo .wrap>.lead:first-of-type,#tab-conclusion .wrap>.lead:first-of-type{text-align:center;margin-inline:auto}
+#tab-inteligencia .wrap>.lead:first-of-type::after,#tab-persona .wrap>.lead:first-of-type::after,#tab-dafo .wrap>.lead:first-of-type::after,#tab-conclusion .wrap>.lead:first-of-type::after{margin-inline:auto;width:250px;background:linear-gradient(90deg,transparent,#2F7BFF) left center/100px 3px no-repeat,radial-gradient(circle,#2F7BFF 3.5px,transparent 4px) center/8px 8px no-repeat}
+.sub-titulo h3{font-weight:700;letter-spacing:-.5px}
+
+/* Tarjetas: cristal oscuro como la barra de cifras */
+.tarjeta,.ejemplo,.ciudad,.fuerza,.momento,.cuadrante,.ad-fila,.prov,.contador,.res{background:rgba(18,24,40,.72);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(12px)}
+.ejemplo::before{color:#8FB8FF;border-color:#3B82F6;background:rgba(47,123,255,.12)}
+
+/* Tarjetas blancas como las de la portada (dato, claves, momentos, premios…) */
+.dato{background:linear-gradient(180deg,#fff,#E4E9F3);border:0;color:#0B1020;box-shadow:0 24px 50px -24px rgba(0,0,0,.9)}
+.dato .k{color:#1F5BFF}
+.dato .v{font-size:clamp(54px,5.4vw,88px);white-space:nowrap;letter-spacing:-2px}
+.dato .v{background:linear-gradient(180deg,#3B8BFF,#1F5BFF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dato p{color:#2A3352}.dato p b,.dato b{color:#0B1020}
+.dato small{color:#6B7695}
+.dato .chip{background:#fff;border-color:#D5DDEE;color:#2A3352}.dato .chip b{color:#1F5BFF}
+.clave,.momento{background:linear-gradient(180deg,#fff,#E4E9F3);border:0;color:#0B1020;box-shadow:0 24px 50px -24px rgba(0,0,0,.9)}
+.clave .v{color:#1F5BFF}.clave b{color:#0B1020}.clave p{color:#4A5575}.clave .a{color:#1F5BFF}
+.momento p{color:#2A3352}.momento .h{color:#1F5BFF}.momento .pct{color:#4A5575;border-color:#D5DDEE}.momento .pct b{color:#1F5BFF}
+.premio{background:#fff;color:#0B1020;opacity:.5}.premio b{color:#0B1020}.premio.ok{opacity:1;background:#fff;border-color:#2F7BFF;box-shadow:0 0 0 3px rgba(47,123,255,.35)}
+.cuad .tarjeta:nth-child(2),.cuad .tarjeta:nth-child(3){background:linear-gradient(180deg,#fff,#E4E9F3);border:0}
+.cuad .tarjeta:nth-child(2) li,.cuad .tarjeta:nth-child(3) li{color:#2A3352}
+.cuad .tarjeta:nth-child(2) h4,.cuad .tarjeta:nth-child(3) h4{color:#1F5BFF}
+
+/* Elementos destacados en azul como la tarjeta central de la portada */
+.lucia,.lola-nombre{background:linear-gradient(180deg,#1A2E6B,#0C1640 60%,#1F5BFF 160%)!important;border:1px solid rgba(90,168,255,.35)!important;box-shadow:0 30px 60px -20px rgba(47,123,255,.6)}
+.lucia .foto{background:radial-gradient(circle at 35% 30%,#CFE3FF,#5AA8FF 55%,#1F5BFF);box-shadow:0 0 0 8px rgba(47,123,255,.2),0 0 0 16px rgba(47,123,255,.08)}
+.lucia::after{color:rgba(90,168,255,.12)}
+
+/* Botones y selectores como el botón «Get Started» */
+.interruptor{background:rgba(18,24,40,.8);border-color:rgba(255,255,255,.12)}
+.interruptor button[aria-pressed="true"],.boton,.resumen .ico,.ad-fila .flecha{background:linear-gradient(90deg,#1F5BFF,#3B8BFF);color:#fff;box-shadow:0 8px 22px -8px rgba(47,123,255,.9)}
+.pestana[aria-selected="true"],.difer-tab[aria-selected="true"]{background:linear-gradient(90deg,#1F5BFF,#3B8BFF);border-color:transparent;color:#fff}
+.pestana[aria-selected="true"] .l{background:#fff;color:#1F5BFF}
+.difer-tab[aria-selected="true"] span{color:#DCE8FF}
+.resumen{background:linear-gradient(100deg,rgba(31,91,255,.28),rgba(18,24,40,.75));border:1px solid rgba(90,168,255,.4)}
+.resumen b{color:#8FB8FF}
+.siguiente button.sig{background:linear-gradient(90deg,#1F5BFF,#3B8BFF);border:0;box-shadow:0 14px 34px -10px rgba(47,123,255,.9)}
+.siguiente button.sig b,.siguiente button.sig small{color:#fff}
+.el-dato::before{background:#2F7BFF;color:#fff}
+.indice-dec{background:rgba(18,24,40,.85)}
+.contadores .contador::before{background:radial-gradient(circle,rgba(47,123,255,.35),transparent 70%)}
+.simulados{background:rgba(47,123,255,.15);color:#8FB8FF;border-color:rgba(90,168,255,.4)}
+
+/* Contadores como la barra de cifras de la portada */
+.contadores{gap:0;border-radius:22px;overflow:hidden;background:rgba(18,24,40,.8);border:1px solid rgba(255,255,255,.12)}
+.contadores .contador{border:0;border-right:1px solid rgba(255,255,255,.14);border-radius:0;background:transparent;text-align:center}
+.contadores .contador:last-child{border-right:0}
+.contadores .contador .v{font-weight:800;font-size:clamp(36px,3.6vw,54px);white-space:nowrap}
+
 </style>
 </head>
 <body>
