@@ -755,6 +755,182 @@ h2.titulo em .w{background:linear-gradient(180deg,#5AA8FF,#1F5BFF);-webkit-backg
 .contadores .contador:last-child{border-right:0}
 .contadores .contador .v{font-weight:800;font-size:clamp(36px,3.6vw,54px);white-space:nowrap}
 
+
+/* ===== Pestañas por bandas (Apex, Yaro Nexora y NovaLyne) ===== */
+section.bandas{padding:0}
+section.bandas::before{display:none}
+.banda{position:relative;padding:90px 0}
+.sangrado{margin-inline:calc(50% - 50vw);padding:80px calc(50vw - 50%)}
+.centro{display:flex;justify-content:center}
+.ico-linea{width:46px;height:46px;fill:none;stroke:#2F7BFF;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.btn-lleno,.btn-borde{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:.3s}
+.btn-lleno{background:linear-gradient(90deg,#1F5BFF,#3B8BFF);color:#fff;box-shadow:0 12px 30px -10px rgba(47,123,255,.9)}
+.btn-borde{border:1.5px solid rgba(255,255,255,.55);color:#fff;background:rgba(255,255,255,.04)}
+.btn-borde.oscuro{border-color:#2F7BFF;color:#1F5BFF;background:#fff;border-radius:999px}
+.btn-lleno:hover,.btn-borde:hover{transform:translateY(-3px)}
+.btn-lleno.chico{padding:11px 22px;font-size:14.5px;border-radius:8px}
+.botones-hero{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.titulo-mayus{text-align:center;font-weight:600;font-size:clamp(26px,2.6vw,36px);letter-spacing:1.5px;text-transform:uppercase;color:#2D4E86;margin-top:80px}
+.nota-centro{text-align:center;color:#5B6A8A;max-width:640px;margin:10px auto 30px;font-size:15.5px}
+.nota-centro.grande{font-size:clamp(20px,2vw,26px);max-width:900px}
+.claro-txt{color:#E6ECFA!important}
+.nota-centro.claro-txt{color:#B9C5E0!important}
+
+/* ---------- Zonas claras ---------- */
+.claro{background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.7) 46%,transparent 52%),linear-gradient(115deg,transparent 62%,rgba(255,255,255,.55) 66%,transparent 70%),linear-gradient(180deg,#F4F7FC,#E6ECF6);color:#0B1530}
+.claro h3,.claro h4,.claro b,.claro strong{color:#0B1530}
+.claro p,.claro li{color:#44506E}
+.claro .tarjeta,.claro .ejemplo,.claro .res{background:#fff;border:1px solid #E1E7F2;box-shadow:0 18px 40px -24px rgba(20,40,90,.35);backdrop-filter:none}
+.claro .ejemplo p,.claro .res .ej{color:#44506E}
+.claro .ejemplo::before{background:#EEF3FF;color:#1F5BFF;border-color:#BFD3FF}
+.claro .persona span{color:#6B7695}
+.claro .nota{color:#8A94AE}
+.claro .barra-f{color:#44506E}.claro .barra-f.hl{color:#0B1530}.claro .barra-f .t{background:#E8EDF6}
+.claro .barra-f .t i{background:#9DB8F0}
+.claro .interruptor{background:#fff;border:1px solid #D5DDEE}
+.claro .interruptor button{color:#5B6A8A}
+.claro .interruptor button[aria-pressed="true"]{color:#fff}
+.claro .leyenda{color:#44506E}
+.claro .anio-info .frase{color:#44506E}
+.claro .anio-info .mini div{background:#F1F4FA}
+.claro .anio-info .mini span{color:#6B7695}
+.claro .anio-info .mini b{color:#0B1530}
+.claro .anio-info .mini .mal b{color:#E0453B}.claro .anio-info .mini .bien b{color:#119A6A}
+.claro .etiqueta{color:#1F5BFF}
+.claro .dato{background:linear-gradient(150deg,#0F1D45,#1A3A9A 70%,#1F5BFF);color:#fff;box-shadow:0 24px 50px -24px rgba(20,40,90,.7)}
+.claro .dato .k{color:#9CC2FF}.claro .dato p{color:#DCE6FA}.claro .dato p b{color:#fff}
+.claro .dato .v{background:linear-gradient(180deg,#fff,#BFD6FF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.claro .resumen{background:linear-gradient(90deg,#1F5BFF,#3B8BFF);border:0}
+.claro .resumen p,.claro .resumen b{color:#fff}.claro .resumen .ico{background:#fff;color:#1F5BFF}
+.claro .simulados{background:#EEF3FF;color:#1F5BFF;border-color:#BFD3FF}
+
+/* ---------- APEX (Sistema de inteligencia) ---------- */
+.apex-hero{padding:170px 0 210px;background:linear-gradient(90deg,rgba(8,14,32,.92) 0%,rgba(8,14,32,.55) 55%,rgba(8,14,32,.3)),url(assets/web/bg_oficina.webp) center/cover}
+.apex-hero .lead{max-width:640px}
+.apex-hero .lead::after{display:none!important}
+.apex-hero h2.titulo{text-align:left!important}
+.apex-hero .etiqueta{display:inline-flex!important}
+.apex-curva{padding:0 0 100px;background:radial-gradient(130% 120px at 50% 0,transparent 98%,#F4F7FC 100%) top/100% 140px no-repeat,linear-gradient(180deg,transparent 140px,#F4F7FC 140px,#E6ECF6);margin-top:-140px;color:#0B1530}
+.apex-curva .wrap{position:relative}
+.apex-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:900px){.apex-cards{grid-template-columns:1fr}}
+.apex-card{background:linear-gradient(180deg,#fff,#F1F4FA);border-radius:6px;padding:40px 30px;text-align:center;box-shadow:0 30px 60px -30px rgba(10,20,50,.6);border:1px solid #E1E7F2}
+.apex-card .ico-linea{width:58px;height:58px;stroke:#2D6FA8}
+.apex-card h3{color:#0B1530;font-weight:600;font-size:26px;margin:16px 0 10px}
+.apex-card p{color:#5B6A8A;font-size:15px;margin-bottom:24px}
+.apex-card .btn-lleno{background:linear-gradient(90deg,#3B7FA8,#4C8FC0);box-shadow:none;border-radius:4px}
+.apex-card:nth-child(3) .btn-lleno{background:linear-gradient(90deg,#3A5BA8,#4A6BC0)}
+.apex-focus{display:grid;grid-template-columns:repeat(5,1fr);margin-top:10px}
+@media (max-width:900px){.apex-focus{grid-template-columns:1fr 1fr}}
+.apex-focus .pestana{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;text-align:center;padding:16px 18px 22px;border-right:1px solid #D5DDEE;transition:.3s;border-radius:10px}
+.apex-focus .pestana:last-child{border-right:0}
+.apex-focus .pestana .ico-linea{width:52px;height:52px}
+.apex-focus .pestana:nth-child(odd) .ico-linea{stroke:#3B9C9C}
+.apex-focus .pestana b{font-size:21px;font-weight:600;color:#0B1530;margin:12px 0 4px}
+.apex-focus .pestana .dv{font-size:30px;font-weight:800;color:#1F5BFF;line-height:1.1}
+.apex-focus .pestana small{font-size:13px;color:#6B7695;margin:6px 0 14px;min-height:38px}
+.apex-focus .pestana .ver{border:1px solid #C9D3E6;border-radius:4px;padding:7px 14px;font-size:13.5px;color:#2D4E86;background:#fff;transition:.25s}
+.apex-focus .pestana:hover{background:rgba(255,255,255,.6)}
+.apex-focus .pestana[aria-selected="true"]{background:#fff;box-shadow:0 14px 30px -18px rgba(20,40,90,.5)}
+.apex-focus .pestana[aria-selected="true"] .ver{background:#1F5BFF;color:#fff;border-color:#1F5BFF}
+.pestel-claro{margin-top:26px}
+.pestel-claro .ejemplo{background:#fff;border:1px solid #E1E7F2;box-shadow:0 18px 40px -24px rgba(20,40,90,.35)}
+.pestel-claro .ejemplo p{color:#44506E}.pestel-claro .ejemplo b{color:#0B1530}.pestel-claro .persona span{color:#6B7695}
+.pestel-claro .ejemplo::before{background:#EEF3FF;color:#1F5BFF;border-color:#BFD3FF}
+.pestel-claro .dato{background:linear-gradient(150deg,#1D3D6B,#2D5F96);color:#fff}
+.pestel-claro .dato .k{color:#A9D6E5}.pestel-claro .dato p{color:#E1ECF7}.pestel-claro .dato p b{color:#fff}
+.pestel-claro .dato .v{background:linear-gradient(180deg,#fff,#CFE3FF);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pestel-claro .dato small{color:#A9C0DA}
+.pestel-claro .dato .chip{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff}.pestel-claro .dato .chip b{color:#CFE3FF}
+.apex-oscura{background:radial-gradient(ellipse at 50% 0,rgba(70,100,170,.35),transparent 60%),linear-gradient(180deg,#1B2A4E,#121C38 60%,#0B1226);padding:20px 0 100px}
+.apex-oscura .titulo-mayus{margin-top:70px}
+.apex-oscura .marca-t{border-radius:6px 6px 0 0;height:100px;position:relative;margin-bottom:46px}
+.apex-oscura .marca-t::after{content:"Ver ejemplo";position:absolute;left:0;right:0;top:100%;height:46px;background:#fff;color:#2D4E86;font-size:13.5px;font-weight:700;display:grid;place-items:center;border-radius:0 0 6px 6px;box-shadow:0 20px 30px -20px rgba(0,0,0,.6)}
+.apex-oscura .marca-t[aria-pressed="true"]::after{background:#1F5BFF;color:#fff}
+.apex-oscura .marcas{row-gap:4px}
+.apex-oscura .fuerza{background:rgba(255,255,255,.06)}
+
+/* ---------- YARO NEXORA (Sistema de registro y Decisiones) ---------- */
+.yaro-hero{padding:150px 0 80px;background:radial-gradient(ellipse at 80% 30%,rgba(47,123,255,.18),transparent 55%),linear-gradient(180deg,#0A1124,#08101F)}
+.yaro-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center}
+@media (max-width:980px){.yaro-grid{grid-template-columns:1fr}}
+.yaro-hero h2.titulo{text-align:left!important;margin-top:18px}
+.yaro-hero .lead::after{display:none!important}
+.pildora{display:inline-block;padding:8px 16px;border-radius:999px;background:rgba(47,123,255,.15);border:1px solid rgba(90,168,255,.35);color:#CFE3FF;font-size:13.5px;font-weight:700}
+.rasgos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}
+.rasgos div{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center}
+.rasgos .ico-linea{grid-row:span 2;width:34px;height:34px;stroke:#5AA8FF}
+.rasgos b{font-size:14.5px}.rasgos span{font-size:12.5px;color:#9AA8C7}
+.yaro-foto{position:relative}
+.yaro-foto img{width:100%;border-radius:22px;box-shadow:0 40px 80px -30px rgba(0,0,0,.9);-webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse at 50% 50%,#000 60%,transparent 100%)}
+.firma{position:absolute;right:4%;bottom:6%;font-family:Mont;font-style:italic;font-weight:600;font-size:clamp(22px,2.4vw,34px);line-height:1.05;color:#fff;transform:rotate(-8deg);text-shadow:0 4px 20px rgba(0,0,0,.6)}
+.firma span{color:#5AA8FF}
+.yaro-servicios{display:grid;grid-template-columns:330px 1fr;gap:46px;align-items:start}
+@media (max-width:980px){.yaro-servicios{grid-template-columns:1fr}}
+.yaro-izq{position:sticky;top:120px}
+.mini-etq{font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#1F5BFF}
+.yaro-tit{font-size:clamp(32px,3.2vw,44px);font-weight:800;line-height:1.08;margin:10px 0 14px;color:#0B1530}
+.yaro-tit em{font-style:normal;color:#1F5BFF}
+.yaro-izq p{font-size:16px;margin-bottom:22px}
+.yaro-der{display:grid;gap:18px}
+.yaro-stats{padding:34px 0;background:linear-gradient(90deg,#0B1530,#0F1E45 50%,#0B1530)}
+.yaro-stats .contadores{background:none;border:0;border-radius:0}
+.yaro-stats .contador{display:flex;align-items:center;gap:18px;text-align:left;padding:14px 26px}
+.yaro-stats .contador::before{display:none}
+.yaro-stats .contador .ico-linea{width:52px;height:52px;flex:none;stroke:#3B8BFF}
+.yaro-stats .contador .v{font-size:clamp(30px,2.8vw,42px)!important;color:#fff}
+.yaro-stats .contador .v.oro{color:#5AA8FF}
+.yaro-stats .contador span{margin-top:2px;color:#B9C5E0}
+.yaro-dec{margin-top:40px;margin-bottom:40px}
+.yaro-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.yaro-cards{grid-template-columns:1fr 1fr}}
+.yaro-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;text-align:left;padding:24px;border-radius:14px;background:#fff;border:1px solid #E1E7F2;box-shadow:0 18px 40px -26px rgba(20,40,90,.4);transition:.3s}
+.yaro-card:hover{transform:translateY(-6px);border-color:#9DB8F0;box-shadow:0 24px 40px -20px rgba(31,91,255,.45)}
+.yaro-card .ico-linea{width:40px;height:40px;padding:8px;box-sizing:content-box;border-radius:12px;background:#EEF3FF}
+.yaro-card b{font-size:17px;color:#0B1530;margin-top:6px}
+.yaro-card span{font-size:14px;color:#5B6A8A}
+#tab-decisiones .indice-dec{display:none}
+
+/* ---------- NOVALYNE (Investigación comercial) ---------- */
+.nova-hero{padding:150px 0 70px;background:linear-gradient(100deg,#0A1226 0%,#0C1838 45%,rgba(12,24,56,.6) 70%,rgba(12,24,56,.3)),url(assets/web/bg_frente.webp) center/cover}
+.nova-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+@media (max-width:980px){.nova-grid{grid-template-columns:1fr}}
+.nova-hero h2.titulo{text-align:left!important}
+.nova-hero .lead::after{display:none!important}
+.nova-img{position:relative;height:440px}
+.nova-img .m1{position:absolute;left:12%;top:0;height:100%;border-radius:16px;transform:rotate(-5deg);box-shadow:0 40px 70px -25px rgba(0,0,0,.9),0 0 60px rgba(47,123,255,.35)}
+.nova-img .m2{position:absolute;right:6%;bottom:6%;width:170px;border-radius:14px;background:#fff;padding:8px;transform:rotate(6deg);box-shadow:0 30px 50px -20px rgba(0,0,0,.9)}
+.nova{padding-top:50px}
+.nova-servicios{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:-90px;position:relative;z-index:3}
+@media (max-width:900px){.nova-servicios{grid-template-columns:1fr}}
+.nova-card{display:flex;gap:16px;align-items:flex-start;padding:24px;border-radius:10px;background:#fff;border:1px solid #E1E7F2;box-shadow:0 24px 50px -26px rgba(10,20,50,.55)}
+.nova-card b{display:block;font-size:19px;margin-bottom:4px}
+.nova-card p{font-size:14.5px}
+.ico-color{flex:none;width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font-size:30px;background:linear-gradient(180deg,#EAF1FF,#D6E3FF);box-shadow:inset 0 -3px 0 rgba(31,91,255,.18)}
+.titulo-lineas{display:flex;align-items:center;justify-content:center;gap:24px;font-size:clamp(28px,2.8vw,40px);font-weight:700;color:#0B1530;margin-top:90px}
+.titulo-lineas::before,.titulo-lineas::after{content:"";width:80px;height:1.5px;background:#9DB0D6}
+.nova-prueba{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
+@media (max-width:900px){.nova-prueba{grid-template-columns:1fr;justify-items:center}}
+.nova-proyectos{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.nova-proy{background:#fff;border-radius:10px;border:1px solid #E1E7F2;box-shadow:0 18px 40px -24px rgba(20,40,90,.4);overflow:hidden;text-align:center;padding-bottom:20px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.nova-proy .foto{width:100%;height:260px;overflow:hidden;background:linear-gradient(135deg,#1A2E6B,#0C1640);display:grid;place-items:center}
+.nova-proy .foto img{height:92%;object-fit:contain;transition:.5s}
+.nova-proy .foto.qr img{height:70%;background:#fff;padding:10px;border-radius:12px}
+.nova-proy:hover .foto img{transform:scale(1.06)}
+.nova-proy b{font-size:18px;margin-top:8px}
+.nova-proy span{font-size:14px;color:#5B6A8A;padding:0 18px}
+.nova .claves{grid-template-columns:repeat(3,1fr)}
+.nova .clave{text-align:left}
+.nova .clave .ico-color{width:50px;height:50px;font-size:26px;margin-bottom:12px}
+.nova-pie{padding:60px 0 20px;background:linear-gradient(180deg,#0F1E45,#0A1226)}
+.nova-pie .titulo-lineas{margin-top:0;color:#fff}
+
+.apex-hero .lead{text-align:left!important;margin-inline:0!important}
+
+.claro .anio-info p{color:#44506E!important}.claro .anio-info p b{color:#0B1530}.claro .gold{color:#1F5BFF}
+.yaro-izq .interruptor{flex-wrap:wrap;border-radius:18px;gap:4px}
+.yaro-der .dato .v{font-size:clamp(44px,4vw,64px)}
+.apex-hero{background:linear-gradient(90deg,rgba(8,14,32,.9) 0%,rgba(8,14,32,.45) 55%,rgba(8,14,32,.1)),url(assets/web/bg_oficina.webp) center/cover}
 </style>
 </head>
 <body>
@@ -846,71 +1022,120 @@ h2.titulo em .w{background:linear-gradient(180deg,#5AA8FF,#1F5BFF);-webkit-backg
 </section>
 
 </div>
-<!-- ===================== INTELIGENCIA ===================== -->
-<section class="tab-content" id="tab-inteligencia">
- <div class="wrap">
-  <span class="etiqueta">Sistema de inteligencia</span>
-  <h2 class="titulo" data-split>Lo que pasa <em>ahí fuera</em></h2>
-  <p class="lead" data-r>Ninguna empresa vende en una burbuja. La economía crece y la <b>venta online sube un 15 % al año</b>, pero los precios también suben y la gente mira más cada euro. Además, el cliente de hoy se informa en redes, lee reseñas y valora lo sostenible. En Cartagena y en Granada la competencia es fuerte, así que <span class="gold">ser uno más no basta</span>.</p>
-
-  <div class="sub-titulo"><h3 data-r>Análisis PESTEL</h3><p data-r>Pulsa cada factor: a la izquierda, el dato; a la derecha, un ejemplo de cómo afecta a JORDÁNMUSIK.</p></div>
-  <div class="pestanas" role="tablist" id="pestel-tabs" data-r></div>
-  <div id="pestel-panel" data-r></div>
-
-  <div class="sub-titulo"><h3 data-r>¿Contra quién competimos?</h3>
-   <div class="marcas-cab" data-r><div class="interruptor" id="ciudad-sw"><button aria-pressed="true" data-c="cartagena">Cartagena</button><button aria-pressed="false" data-c="granada">Granada</button></div></div>
+<!-- ===================== INTELIGENCIA (estilo Apex) ===================== -->
+<section class="tab-content bandas" id="tab-inteligencia">
+ <div class="banda apex-hero">
+  <div class="wrap">
+   <span class="etiqueta">Sistema de inteligencia</span>
+   <h2 class="titulo" data-split>Lo que pasa <em>ahí fuera</em></h2>
+   <p class="lead" data-r>Ninguna empresa vende en una burbuja. La economía crece y la <b>venta online sube un 15 % al año</b>, pero los precios también suben y la gente mira más cada euro. El cliente se informa en redes, lee reseñas y valora lo sostenible. Y en Cartagena y en Granada la competencia es fuerte: <span class="gold">ser uno más no basta</span>.</p>
+   <div class="botones-hero" data-r><button class="btn-lleno" data-saltar="b-pestel">Ver el PESTEL</button><button class="btn-borde" data-saltar="b-competencia">Ver la competencia</button></div>
   </div>
-  <div class="marcas-grid">
-   <div class="marcas" id="marcas" data-r></div>
-   <div class="ejemplo" id="marca-ej" data-r="der"></div>
+ </div>
+ <div class="banda apex-curva">
+  <div class="wrap">
+   <div class="apex-cards">
+    <div class="apex-card" data-r style="transition-delay:0s"><svg class="ico-linea" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c6 6 6 30 0 36M24 6c-6 6-6 30 0 36"/></svg><h3>Análisis PESTEL</h3><p>Los factores de fuera que JORDÁNMUSIK no controla: leyes, economía, sociedad, tecnología y planeta.</p><button class="btn-lleno chico" data-saltar="b-pestel">Ver más</button></div>
+    <div class="apex-card" data-r style="transition-delay:.1s"><svg class="ico-linea" viewBox="0 0 48 48"><circle cx="21" cy="21" r="13"/><path d="M31 31l11 11"/></svg><h3>La competencia</h3><p>Quién nos quita clientes en Cartagena y en Granada, y qué marcas sustituyen a los JORDÁNPODS.</p><button class="btn-lleno chico" data-saltar="b-competencia">Ver más</button></div>
+    <div class="apex-card" data-r style="transition-delay:.2s"><svg class="ico-linea" viewBox="0 0 48 48"><circle cx="24" cy="24" r="7"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8M10 10l6 6M32 32l6 6M38 10l-6 6M16 32l-6 6"/></svg><h3>Las 5 fuerzas de Porter</h3><p>Cuánta presión hay en el mercado: rivales, nuevas marcas, sustitutos, clientes y proveedores.</p><button class="btn-lleno chico" data-saltar="b-porter">Ver más</button></div>
+   </div>
+
+   <h3 class="titulo-mayus" id="b-pestel" data-r>Los factores del entorno</h3>
+   <p class="nota-centro" data-r>Pulsa «Ver ejemplo» en cada factor: el dato y un ejemplo real de cómo afecta a JORDÁNMUSIK.</p>
+   <div class="apex-focus" id="pestel-tabs" data-r></div>
+   <div id="pestel-panel" class="pestel-claro"></div>
   </div>
+ </div>
+ <div class="banda apex-oscura">
+  <div class="wrap">
+   <h3 class="titulo-mayus claro-txt" id="b-competencia" data-r>¿Contra quién competimos?</h3>
+   <div class="centro" data-r><div class="interruptor" id="ciudad-sw"><button aria-pressed="true" data-c="cartagena">Cartagena</button><button aria-pressed="false" data-c="granada">Granada</button></div></div>
+   <div class="marcas-grid" style="margin-top:26px">
+    <div class="marcas" id="marcas" data-r></div>
+    <div class="ejemplo" id="marca-ej" data-r="der"></div>
+   </div>
 
-  <div class="sub-titulo"><h3 data-r>Las 5 fuerzas de Porter</h3><p data-r>Cuanto más llena la barra, más presión para la empresa. Pulsa cada fuerza para ver un ejemplo.</p></div>
-  <div class="porter" id="porter"></div>
+   <h3 class="titulo-mayus claro-txt" id="b-porter" data-r style="margin-top:90px">Las 5 fuerzas de Porter</h3>
+   <p class="nota-centro claro-txt" data-r>Cuanto más llena la barra, más presión para la empresa. Pulsa cada fuerza para ver un ejemplo.</p>
+   <div class="porter" id="porter"></div>
 
-  <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> el mercado está lleno, y para ganar hay que diferenciarse.</p></div>
+   <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> el mercado está lleno, y para ganar hay que diferenciarse.</p></div>
+  </div>
  </div>
 </section>
 
-<!-- ===================== REGISTRO ===================== -->
-<section class="tab-content" id="tab-registro">
- <div class="wrap">
-  <span class="etiqueta">Sistema de registro</span>
-  <h2 class="titulo" data-split>Lo que dicen <em>las ventas</em></h2>
-  <p class="lead" data-r>Hemos analizado tres años de ventas de JORDÁNMUSIK y los números hablan solos: la empresa crece <b>cerca de un 20 % cada año</b>. Pero lo más interesante es el patrón que se repite: ventas tranquilas hasta octubre y una explosión en <span class="gold">noviembre y diciembre</span>. Y hay más: la tienda física ya vende casi lo mismo que la web. ¿La conclusión? Abrir en Granada no es un riesgo, <b>es el siguiente paso lógico</b>.</p>
-
-  <div class="contadores" style="margin-top:44px">
-   <div class="contador" data-r style="transition-delay:0s"><div class="v" data-cuenta="5311">0</div><span>auriculares vendidos en 2022</span></div>
-   <div class="contador" data-r style="transition-delay:.1s"><div class="v" data-cuenta="7675">0</div><span>auriculares vendidos en 2024</span></div>
-   <div class="contador" data-r style="transition-delay:.2s"><div class="v oro" data-cuenta="44.5" data-dec="1" data-pre="+" data-suf=" %">0</div><span>de crecimiento en tres años</span></div>
-   <div class="contador" data-r style="transition-delay:.3s"><div class="v" data-cuenta="777">0</div><span>unidades en noviembre de 2024, el récord</span></div>
+<!-- ===================== REGISTRO (estilo Yaro Nexora) ===================== -->
+<section class="tab-content bandas" id="tab-registro">
+ <div class="banda yaro-hero">
+  <div class="wrap yaro-grid">
+   <div>
+    <span class="pildora" data-r>3 años de datos · 2022 – 2024</span>
+    <h2 class="titulo" data-split>Lo que dicen <em>las ventas</em></h2>
+    <p class="lead" data-r>Hemos analizado tres años de ventas y los números hablan solos: la empresa crece <b>cerca de un 20 % cada año</b>, con ventas tranquilas hasta octubre y una explosión en <span class="gold">noviembre y diciembre</span>. Y la tienda física ya vende casi lo mismo que la web: abrir en Granada <b>es el siguiente paso lógico</b>.</p>
+    <div class="botones-hero" data-r><button class="btn-lleno" data-saltar="b-meses">Ver los gráficos →</button><button class="btn-borde" data-saltar="b-canales">Canales y devoluciones</button></div>
+    <div class="rasgos" data-r>
+     <div><svg class="ico-linea" viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32" rx="4"/><path d="M6 20h36M16 6v8M32 6v8"/></svg><b>36 meses</b><span>de enero de 2022 a diciembre de 2024</span></div>
+     <div><svg class="ico-linea" viewBox="0 0 48 48"><path d="M6 18l4-10h28l4 10M6 18h36v22H6zM18 40V28h12v12"/></svg><b>3 canales</b><span>tienda, web y marketplace</span></div>
+     <div><svg class="ico-linea" viewBox="0 0 48 48"><path d="M10 24a14 14 0 1 0 4-10M10 6v8h8"/></svg><b>Devoluciones</b><span>y satisfacción de los clientes</span></div>
+    </div>
+   </div>
+   <div class="yaro-foto" data-r="der"><img src="assets/web/foto_portatil.webp" alt="Portátil con la web de JORDÁNMUSIK"><span class="firma">Escucha<br><span>tus datos</span></span></div>
   </div>
-
-  <div class="sub-titulo"><h3 data-r>Ventas mes a mes</h3>
-   <div class="interruptor" id="anio-sw" data-r><button aria-pressed="false" data-a="todos">Los 3 años</button><button aria-pressed="false" data-a="0">2022</button><button aria-pressed="false" data-a="1">2023</button><button aria-pressed="true" data-a="2">2024</button></div>
+ </div>
+ <div class="banda claro">
+  <div class="wrap yaro-servicios" id="b-meses">
+   <div class="yaro-izq">
+    <span class="mini-etq">Ventas mes a mes</span>
+    <h3 class="yaro-tit">Siempre el mismo <em>patrón</em></h3>
+    <p>Cambia de año y mira la línea: tranquila de enero a octubre y, de repente, <b>noviembre se dispara</b>. Cada año, además, la línea entera está más arriba.</p>
+    <div class="interruptor" id="anio-sw"><button aria-pressed="false" data-a="todos">Los 3 años</button><button aria-pressed="false" data-a="0">2022</button><button aria-pressed="false" data-a="1">2023</button><button aria-pressed="true" data-a="2">2024</button></div>
+   </div>
+   <div class="yaro-der">
+    <div class="tarjeta" data-r><div class="lienzo"><canvas id="g-ventas" aria-label="Gráfico de ventas mensuales"></canvas></div></div>
+    <div class="tarjeta anio-info" id="anio-info" data-r></div>
+   </div>
   </div>
-  <div class="grafico-caja">
-   <div class="tarjeta" data-r="izq"><div class="lienzo"><canvas id="g-ventas" aria-label="Gráfico de ventas mensuales"></canvas></div></div>
-   <div class="tarjeta anio-info" id="anio-info" data-r="der"></div>
+ </div>
+ <div class="banda yaro-stats">
+  <div class="wrap">
+   <div class="contadores">
+    <div class="contador"><svg class="ico-linea" viewBox="0 0 48 48"><path d="M10 26v-4a14 14 0 0 1 28 0v4"/><rect x="6" y="26" width="9" height="14" rx="3"/><rect x="33" y="26" width="9" height="14" rx="3"/></svg><div><div class="v" data-cuenta="5311">0</div><span>vendidos en 2022</span></div></div>
+    <div class="contador"><svg class="ico-linea" viewBox="0 0 48 48"><path d="M10 26v-4a14 14 0 0 1 28 0v4"/><rect x="6" y="26" width="9" height="14" rx="3"/><rect x="33" y="26" width="9" height="14" rx="3"/></svg><div><div class="v" data-cuenta="7675">0</div><span>vendidos en 2024</span></div></div>
+    <div class="contador"><svg class="ico-linea" viewBox="0 0 48 48"><path d="M6 38l12-12 8 8 16-18M32 16h10v10"/></svg><div><div class="v oro" data-cuenta="44.5" data-dec="1" data-pre="+" data-suf=" %">0</div><span>en tres años</span></div></div>
+    <div class="contador"><svg class="ico-linea" viewBox="0 0 48 48"><path d="M24 6l5 11 12 1-9 8 3 12-11-7-11 7 3-12-9-8 12-1z"/></svg><div><div class="v" data-cuenta="777">0</div><span>récord: nov. 2024</span></div></div>
+   </div>
   </div>
-
-  <div class="sub-titulo"><h3 data-r>¿Por dónde se vende?</h3><p data-r>Online, tienda física y marketplace, mes a mes de 2022 a 2024.</p></div>
-  <div class="tarjeta" data-r>
-   <div class="leyenda" style="margin-bottom:12px"><span><i style="background:#8FB8FF"></i>Online · 43 %</span><span><i style="background:#2F7BFF"></i>Tienda física · 42 %</span><span><i style="background:#3FB8A8"></i>Marketplace · 15 %</span></div>
-   <div class="lienzo bajo"><canvas id="g-canales" aria-label="Gráfico de ventas por canal"></canvas></div>
+ </div>
+ <div class="banda claro">
+  <div class="wrap">
+   <div class="yaro-servicios" id="b-canales">
+    <div class="yaro-izq">
+     <span class="mini-etq">Canales de venta</span>
+     <h3 class="yaro-tit">¿Por dónde <em>se vende?</em></h3>
+     <p>Online y tienda física van casi a la par; el marketplace es un complemento estable.</p>
+     <div class="leyenda" style="flex-direction:column;gap:8px"><span><i style="background:#8FB8FF"></i>Online · 43 %</span><span><i style="background:#2F7BFF"></i>Tienda física · 42 %</span><span><i style="background:#3FB8A8"></i>Marketplace · 15 %</span></div>
+    </div>
+    <div class="yaro-der">
+     <div class="tarjeta" data-r><div class="lienzo bajo"><canvas id="g-canales" aria-label="Gráfico de ventas por canal"></canvas></div></div>
+     <div class="dato-ej">
+      <div class="dato" data-r><span class="k">Marzo de 2024</span><div class="v">160 vs 320</div><p>La web cayó a <b>160 ventas</b> mientras la tienda subía a <b>320</b>, probablemente por un problema de la web.</p></div>
+      <div class="ejemplo" data-r><div class="persona"><span class="avatar">🛒</span><div><b>Un cliente cualquiera</b><span>Marzo de 2024</span></div></div><p>No puede terminar su pedido en la web y, en lugar de irse a la competencia, los compra en la tienda de Espacio Mediterráneo. <b>La tienda física salvó el mes.</b></p></div>
+     </div>
+    </div>
+   </div>
+   <div class="yaro-servicios" style="margin-top:80px">
+    <div class="yaro-izq">
+     <span class="mini-etq">Devoluciones</span>
+     <h3 class="yaro-tit">El mes que <em>se salió</em></h3>
+     <p>Lo normal es devolver alrededor del 2 %. En noviembre de 2023 se llegó al <b>12 %</b> y la satisfacción bajó a 3,41 sobre 5.</p>
+    </div>
+    <div class="yaro-der">
+     <div class="tarjeta" data-r><div class="lienzo bajo"><canvas id="g-devol" aria-label="Gráfico de devoluciones"></canvas></div></div>
+     <div class="ejemplo" data-r><div class="persona"><span class="avatar">🎁</span><div><b>Noviembre de 2023</b><span>77 devoluciones en un mes</span></div></div><p>Todo apunta a un lote defectuoso justo en la época de más ventas. Imagina 77 regalos de Navidad que vuelven a la tienda: <b>en temporada alta la calidad no se puede fallar</b>.</p></div>
+    </div>
+   </div>
+   <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> JORDÁNMUSIK no solo vende, crece. Y ahora sabemos cuándo y dónde.</p></div>
   </div>
-  <div class="dato-ej" style="margin-top:18px">
-   <div class="dato" data-r="izq"><span class="k">Marzo de 2024</span><div class="v">160 vs 320</div><p>La web cayó a <b>160 ventas</b> mientras la tienda física subía a <b>320</b>, probablemente por un problema puntual de la web.</p></div>
-   <div class="ejemplo" data-r="der"><div class="persona"><span class="avatar">🛒</span><div><b>Un cliente cualquiera</b><span>Marzo de 2024</span></div></div><p>Entra en la web para comprar unos JORDÁNPODS y no puede terminar el pedido. En lugar de irse a la competencia, se acerca a la tienda de Espacio Mediterráneo y los compra allí. <b>Tener tienda física salvó el mes.</b> Por eso una segunda tienda en Granada también protege a la empresa.</p></div>
-  </div>
-
-  <div class="sub-titulo"><h3 data-r>Devoluciones</h3><p data-r>Normalmente se devuelve alrededor del 2 %. Hay un mes que se sale del gráfico.</p></div>
-  <div class="grafico-caja">
-   <div class="tarjeta" data-r="izq"><div class="lienzo bajo"><canvas id="g-devol" aria-label="Gráfico de devoluciones"></canvas></div></div>
-   <div class="ejemplo" data-r="der"><div class="persona"><span class="avatar">🎁</span><div><b>Noviembre de 2023</b><span>12 % de devoluciones · satisfacción 3,41 de 5</span></div></div><p><b>77 clientes</b> devolvieron sus JORDÁNPODS en un solo mes. Todo apunta a un lote defectuoso justo en la época de más ventas. Imagina 77 regalos de Navidad que vuelven a la tienda: la lección es clara, <span class="gold"><b>en temporada alta la calidad no se puede fallar</b></span>.</p></div>
-  </div>
-
-  <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> JORDÁNMUSIK no solo vende, crece. Y ahora sabemos cuándo y dónde.</p></div>
  </div>
 </section>
 
@@ -951,58 +1176,68 @@ h2.titulo em .w{background:linear-gradient(180deg,#5AA8FF,#1F5BFF);-webkit-backg
  </div>
 </section>
 
-<!-- ===================== INVESTIGACIÓN ===================== -->
-<section class="tab-content" id="tab-investigacion">
- <div class="wrap">
-  <span class="etiqueta">Investigación comercial</span>
-  <h2 class="titulo" data-split>Preguntamos a quien <em>de verdad sabe</em></h2>
-  <p class="lead" data-r>El Excel nos decía cuánto se vende, pero no <b>quién compra ni por qué</b>. Así que hicimos lo más lógico: preguntar. Enviamos una encuesta por email, y quien la responde recibe <span class="gold">un 5 % de descuento</span>. Así más gente se anima a contestar y, de paso, vuelve a comprar.</p>
-  <div class="objetivos" data-r>
-   <span>Conocer a nuestro cliente</span><span>Saber si nos conocen en Granada</span><span>Ver si el precio es justo</span><span>Descubrir sus problemas con los cascos</span><span>Entender el Black Friday y la Navidad</span><span>Saber dónde se informa</span><span>Ver si le importa lo ecológico</span>
-  </div>
-
-  <div class="zona-encuesta">
-   <div data-r="izq">
-    <div class="movil"><div class="pantalla" id="encuesta">
-     <div class="enc-cab"><small>ENCUESTA JORDÁNMUSIK</small><b id="enc-sec">Sobre ti</b><div class="enc-barra"><i id="enc-prog"></i></div></div>
-     <div class="enc-cuerpo" id="enc-cuerpo"></div>
-     <div class="enc-pie" id="enc-pie"><button class="atras" id="enc-atras" aria-label="Pregunta anterior">‹</button><button class="sig" id="enc-sig" disabled>Siguiente</button></div>
-    </div></div>
+<!-- ===================== INVESTIGACIÓN (estilo NovaLyne) ===================== -->
+<section class="tab-content bandas" id="tab-investigacion">
+ <div class="banda nova-hero">
+  <div class="wrap nova-grid">
+   <div>
+    <span class="etiqueta">Investigación comercial</span>
+    <h2 class="titulo" data-split>Preguntamos a quien <em>de verdad sabe</em></h2>
+    <p class="lead" data-r>El Excel nos decía cuánto se vende, pero no <b>quién compra ni por qué</b>. Así que hicimos lo más lógico: preguntar. Enviamos una encuesta por email y quien la responde recibe <span class="gold">un 5 % de descuento</span>.</p>
+    <div class="botones-hero" data-r><button class="btn-lleno" data-saltar="b-prueba">Pruébala aquí</button></div>
    </div>
-   <div class="lado-enc">
-    <div class="tarjeta" data-r="der">
-     <span class="etiqueta" style="font-size:11.5px">Pruébala aquí</span>
-     <h3 style="margin-top:10px">Responde en el móvil de la izquierda</h3>
-     <p style="color:var(--muted);margin-top:8px;font-size:15.5px">Es una versión de demostración: al elegir una respuesta verás <b>qué contestó la mayoría</b>. Al final te damos tu código de descuento (de mentira 😉).</p>
+   <div class="nova-img" data-r="der"><img class="m1" src="assets/web/mailing.webp" alt="Email de la encuesta"><img class="m2" src="assets/web/qr_encuesta.png" alt="QR de la encuesta"></div>
+  </div>
+ </div>
+ <div class="banda claro nova">
+  <div class="wrap">
+   <div class="nova-servicios">
+    <div class="nova-card" data-r><span class="ico-color">👤</span><div><b>Conocer al cliente</b><p>Quién es, a qué se dedica y si ya vive en Granada.</p></div></div>
+    <div class="nova-card" data-r style="transition-delay:.1s"><span class="ico-color">💶</span><div><b>Precio y compra</b><p>Si los 79 € son justos y por qué compra en Black Friday.</p></div></div>
+    <div class="nova-card" data-r style="transition-delay:.2s"><span class="ico-color">🌱</span><div><b>Marca y planeta</b><p>Si nos conoce, dónde se informa y si le importa lo ecológico.</p></div></div>
+   </div>
+
+   <h3 class="titulo-lineas" id="b-prueba" data-r>Pruébala</h3>
+   <p class="nota-centro" data-r>Responde en el móvil: al elegir verás qué contestó la mayoría y al final te damos tu código (de demostración).</p>
+   <div class="nova-prueba">
+    <div data-r="izq">
+     <div class="movil"><div class="pantalla" id="encuesta">
+      <div class="enc-cab"><small>ENCUESTA JORDÁNMUSIK</small><b id="enc-sec">Sobre ti</b><div class="enc-barra"><i id="enc-prog"></i></div></div>
+      <div class="enc-cuerpo" id="enc-cuerpo"></div>
+      <div class="enc-pie" id="enc-pie"><button class="atras" id="enc-atras" aria-label="Pregunta anterior">‹</button><button class="sig" id="enc-sig" disabled>Siguiente</button></div>
+     </div></div>
     </div>
-    <div class="tarjeta qr-caja" data-r="der" style="transition-delay:.1s">
-     <img src="assets/web/qr_encuesta.png" alt="Código QR de la encuesta real">
-     <div><h3>O la de verdad</h3><p>Escanea el QR con tu móvil y responde la encuesta real de Google Forms.</p><a class="boton" href="https://docs.google.com/forms/d/1mr1N76hZ5D7ZC1jmeuyX5SBgyrPf6RX1eweX3_EuZoU/viewform" target="_blank" rel="noopener">Abrir encuesta ↗</a></div>
-    </div>
-    <div class="tarjeta mailing-caja" data-r="der" style="transition-delay:.2s">
-     <img src="assets/web/mailing.webp" alt="Email de la encuesta con un 5 % de descuento">
-     <div><span class="etiqueta" style="font-size:11.5px">El mailing</span><p style="margin-top:10px">Así llega la encuesta al correo de los clientes: un clic en la imagen y están dentro. Responderla es voluntario y sus datos <b>nunca se comparten</b>.</p></div>
+    <div class="nova-proyectos">
+     <div class="nova-proy" data-r><div class="foto qr"><img src="assets/web/qr_encuesta.png" alt="Código QR de la encuesta real"></div><b>La encuesta real</b><a class="btn-lleno chico" href="https://docs.google.com/forms/d/1mr1N76hZ5D7ZC1jmeuyX5SBgyrPf6RX1eweX3_EuZoU/viewform" target="_blank" rel="noopener">Abrir ↗</a></div>
+     <div class="nova-proy" data-r style="transition-delay:.1s"><div class="foto"><img src="assets/web/mailing.webp" alt="El mailing de la encuesta"></div><b>El mailing</b><span>Un clic en la imagen y están dentro. Sus datos nunca se comparten.</span></div>
     </div>
    </div>
-  </div>
 
-  <div class="sub-titulo"><h3 data-r>Lo que nos respondieron</h3><span class="simulados" data-r>DATOS SIMULADOS · 385 RESPUESTAS</span></div>
-  <div class="resultados">
-   <div class="tarjeta res" data-r><h4>¿Qué edad tienes?</h4><div class="nota">Una sola respuesta</div><div class="barras" data-barras='[["Menos de 18",6],["18-24",31,1],["25-34",34,1],["35-44",15],["45-54",9],["55 o más",5]]'></div><p class="ej">el 65 % tiene entre 18 y 34 años. Es justo el perfil de Lucía: la buyer persona queda confirmada.</p></div>
-   <div class="tarjeta res" data-r style="transition-delay:.1s"><h4>¿Cuándo sueles comprarlos?</h4><div class="nota">Varias respuestas posibles</div><div class="barras" data-barras='[["Black Friday",46,1],["Cuando los necesito",44],["Regalo de Navidad",38,1],["Rebajas",27]]'></div><p class="ej">casi la mitad espera al Black Friday para comprar. Por eso noviembre es siempre el mejor mes del Excel.</p></div>
-   <div class="tarjeta res" data-r><h4>¿Qué miras antes de comprar?</h4><div class="nota">Varias respuestas posibles</div><div class="barras" data-barras='[["Reseñas",63,1],["TikTok",41,1],["YouTube",37],["Instagram",34],["Amigos o familia",33]]'></div><p class="ej">antes de pasar por caja, 6 de cada 10 leen lo que opinan otros compradores. Una buena reseña vende más que un anuncio.</p></div>
-   <div class="tarjeta res" data-r style="transition-delay:.1s"><h4>¿Conoces los JORDÁNPODS?</h4><div class="nota">Una sola respuesta</div><div class="barras" data-barras='[["Sí, los tengo",10],["Los conozco",27],["Me suenan",24],["No los conozco",39,1]]'></div><p class="ej">de cada 10 personas, casi 4 no han oído hablar de nosotros. El producto gusta; lo que falta es que se conozca.</p></div>
-  </div>
-  <div class="claves">
-   <div class="clave" data-r><div class="v">15 %</div><b>ya vive en Granada</b><p>Hay clientes allí antes de abrir la tienda.</p><span class="a">→ Apertura en Granada</span></div>
-   <div class="clave" data-r style="transition-delay:.08s"><div class="v">47 %</div><b>pagaría 60 € o más</b><p>Los 79 € están en el límite: mejor no subir el precio.</p><span class="a">→ Promociones</span></div>
-   <div class="clave" data-r style="transition-delay:.16s"><div class="v">52 %</div><b>prefiere la tienda física</b><p>Probar antes de comprar sigue importando.</p><span class="a">→ Probar en tienda</span></div>
-   <div class="clave" data-r><div class="v">31 %</div><b>cambia por la batería</b><p>Es el motivo número uno para cambiar de cascos.</p><span class="a">→ Cambio de batería en la app</span></div>
-   <div class="clave" data-r style="transition-delay:.08s"><div class="v">71 %</div><b>quiere caja reciclada</b><p>Le da un 4 o un 5 sobre 5 al cartón reciclado.</p><span class="a">→ Packaging sostenible</span></div>
-   <div class="clave" data-r style="transition-delay:.16s"><div class="v">75 %</div><b>pagaría más si es sostenible</b><p>Lo ecológico es un argumento de venta.</p><span class="a">→ Diferenciación</span></div>
-  </div>
+   <h3 class="titulo-lineas" data-r>Lo que nos respondieron</h3>
+   <p class="nota-centro" data-r><span class="simulados">DATOS SIMULADOS · 385 RESPUESTAS</span></p>
+   <div class="resultados">
+    <div class="tarjeta res" data-r><h4>¿Qué edad tienes?</h4><div class="nota">Una sola respuesta</div><div class="barras" data-barras='[["Menos de 18",6],["18-24",31,1],["25-34",34,1],["35-44",15],["45-54",9],["55 o más",5]]'></div><p class="ej">el 65 % tiene entre 18 y 34 años. Es justo el perfil de Lucía.</p></div>
+    <div class="tarjeta res" data-r style="transition-delay:.1s"><h4>¿Cuándo sueles comprarlos?</h4><div class="nota">Varias respuestas posibles</div><div class="barras" data-barras='[["Black Friday",46,1],["Cuando los necesito",44],["Regalo de Navidad",38,1],["Rebajas",27]]'></div><p class="ej">casi la mitad espera al Black Friday. Por eso noviembre es siempre el mejor mes.</p></div>
+    <div class="tarjeta res" data-r><h4>¿Qué miras antes de comprar?</h4><div class="nota">Varias respuestas posibles</div><div class="barras" data-barras='[["Reseñas",63,1],["TikTok",41,1],["YouTube",37],["Instagram",34],["Amigos o familia",33]]'></div><p class="ej">6 de cada 10 leen lo que opinan otros. Una buena reseña vende más que un anuncio.</p></div>
+    <div class="tarjeta res" data-r style="transition-delay:.1s"><h4>¿Conoces los JORDÁNPODS?</h4><div class="nota">Una sola respuesta</div><div class="barras" data-barras='[["Sí, los tengo",10],["Los conozco",27],["Me suenan",24],["No los conozco",39,1]]'></div><p class="ej">casi 4 de cada 10 no nos conocen. El producto gusta; falta que se conozca.</p></div>
+   </div>
 
-  <div class="resumen" data-r><span class="ico">✓</span><p><b>En resumen:</b> el producto gusta, pero falta que más gente lo conozca.</p></div>
+   <h3 class="titulo-lineas" data-r>¿Qué nos dicen los datos?</h3>
+   <div class="claves">
+    <div class="clave" data-r><span class="ico-color">📍</span><div class="v">15 %</div><b>ya vive en Granada</b><p>Hay clientes allí antes de abrir.</p><span class="a">→ Apertura en Granada</span></div>
+    <div class="clave" data-r style="transition-delay:.08s"><span class="ico-color">🏷️</span><div class="v">47 %</div><b>pagaría 60 € o más</b><p>Mejor no subir el precio.</p><span class="a">→ Promociones</span></div>
+    <div class="clave" data-r style="transition-delay:.16s"><span class="ico-color">🏬</span><div class="v">52 %</div><b>prefiere la tienda física</b><p>Probar antes de comprar importa.</p><span class="a">→ Probar en tienda</span></div>
+    <div class="clave" data-r><span class="ico-color">🔋</span><div class="v">31 %</div><b>cambia por la batería</b><p>Es el motivo número uno.</p><span class="a">→ Cambio de batería en la app</span></div>
+    <div class="clave" data-r style="transition-delay:.08s"><span class="ico-color">📦</span><div class="v">71 %</div><b>quiere caja reciclada</b><p>Un 4 o un 5 sobre 5.</p><span class="a">→ Packaging sostenible</span></div>
+    <div class="clave" data-r style="transition-delay:.16s"><span class="ico-color">🌍</span><div class="v">75 %</div><b>pagaría más si es sostenible</b><p>Lo ecológico vende.</p><span class="a">→ Diferenciación</span></div>
+   </div>
+  </div>
+ </div>
+ <div class="banda nova-pie">
+  <div class="wrap">
+   <h3 class="titulo-lineas claro-txt" data-r>En resumen</h3>
+   <p class="nota-centro claro-txt grande" data-r>El producto gusta, pero <b>falta que más gente lo conozca</b>.</p>
+  </div>
  </div>
 </section>
 
@@ -1031,8 +1266,23 @@ h2.titulo em .w{background:linear-gradient(180deg,#5AA8FF,#1F5BFF);-webkit-backg
   <h2 class="titulo" data-split>Nuestra <em>propuesta</em></h2>
   <p class="lead" data-r>Con todos los datos encima de la mesa, proponemos <b>seis decisiones</b>. No son ideas al azar: <span class="gold">cada una nace de un dato concreto</span>.</p>
 
-  <div class="indice-dec" id="indice-dec">
-   <a href="#d1"><b>1</b>Promociones</a><a href="#d2"><b>2</b>App</a><a href="#d3"><b>3</b>Redes</a><a href="#d4"><b>4</b>Influencer</a><a href="#d5"><b>5</b>Diferenciación</a><a href="#d6"><b>6</b>Proveedores</a>
+  <div class="sangrado claro yaro-dec">
+   <div class="yaro-servicios">
+    <div class="yaro-izq">
+     <span class="mini-etq">Nuestra propuesta</span>
+     <h3 class="yaro-tit">Seis decisiones <em>basadas en datos</em></h3>
+     <p>Del calendario de ofertas a los proveedores: cada propuesta responde a algo que hemos visto en el Excel, en la encuesta o en el entorno.</p>
+     <button class="btn-borde oscuro" data-saltar="d1">Empezar por la primera →</button>
+    </div>
+    <div class="yaro-cards">
+     <button class="yaro-card" data-saltar="d1" data-r><svg class="ico-linea" viewBox="0 0 48 48"><path d="M6 24V8h16l20 20-14 14z"/><circle cx="15" cy="17" r="3"/></svg><b>Promociones todo el año</b><span>Una oferta para cada mes: meses flojos, vuelta a clase, Black Friday y Navidad.</span></button>
+     <button class="yaro-card" data-saltar="d2" data-r style="transition-delay:.05s"><svg class="ico-linea" viewBox="0 0 48 48"><rect x="14" y="4" width="20" height="40" rx="4"/><path d="M21 38h6"/></svg><b>App y Club de Notas</b><span>1 € = 1 Nota. Puntos que se cambian por premios para que el cliente vuelva.</span></button>
+     <button class="yaro-card" data-saltar="d3" data-r style="transition-delay:.1s"><svg class="ico-linea" viewBox="0 0 48 48"><circle cx="12" cy="24" r="5"/><circle cx="36" cy="12" r="5"/><circle cx="36" cy="36" r="5"/><path d="M16.5 21.5l15-7M16.5 26.5l15 7"/></svg><b>Redes sociales</b><span>Instagram, TikTok y Facebook: publicidad, sorteos e información.</span></button>
+     <button class="yaro-card" data-saltar="d4" data-r style="transition-delay:.15s"><svg class="ico-linea" viewBox="0 0 48 48"><rect x="17" y="4" width="14" height="24" rx="7"/><path d="M10 22a14 14 0 0 0 28 0M24 36v8M16 44h16"/></svg><b>Influencer: Lola Índigo</b><span>De Granada y con mucho público joven, para presentar la tienda nueva.</span></button>
+     <button class="yaro-card" data-saltar="d5" data-r style="transition-delay:.2s"><svg class="ico-linea" viewBox="0 0 48 48"><path d="M24 4l6 12 14 2-10 10 2 14-12-6-12 6 2-14L4 18l14-2z"/></svg><b>Diferenciación</b><span>Packaging personalizado, edición Midnight Gold y probar en tienda.</span></button>
+     <button class="yaro-card" data-saltar="d6" data-r style="transition-delay:.25s"><svg class="ico-linea" viewBox="0 0 48 48"><path d="M4 12h24v22H4zM28 20h9l7 8v6H28z"/><circle cx="12" cy="37" r="4"/><circle cx="36" cy="37" r="4"/></svg><b>Mejores proveedores</b><span>Bajar el coste de 35,89 € a 33 € por unidad sin perder calidad.</span></button>
+    </div>
+   </div>
   </div>
 
   <!-- 1 Promociones -->
@@ -1279,7 +1529,12 @@ function pintaPestel(i){
   panel.innerHTML=`<div class="dato-ej panel-anim"><div class="dato"><span class="k">${p.k}</span><div class="v">${p.v}</div><p>${p.d}</p><div class="chips">${p.c.map(c=>`<span class="chip">${c}</span>`).join('')}</div><small>${p.f}</small></div>
   <div class="ejemplo"><div class="persona"><span class="avatar">${p.q[0]}</span><div><b>${p.q}</b><span>${p.qs}</span></div></div><p>${p.e}</p></div></div>`;
 }
-$('#pestel-tabs').innerHTML=PESTEL.map((p,i)=>`<button class="pestana" role="tab" aria-selected="false"><span class="l">${p.l}</span>${p.n}</button>`).join('');
+const ICO_PESTEL=['<path d="M24 6v36M10 42h28M8 14h32M14 14l-7 14a7 7 0 0 0 14 0zM34 14l-7 14a7 7 0 0 0 14 0z"/>',
+ '<circle cx="24" cy="24" r="18"/><path d="M31 16a9 9 0 1 0 0 16M13 21h14M13 27h14"/>',
+ '<circle cx="17" cy="16" r="6"/><circle cx="33" cy="18" r="5"/><path d="M5 40a12 12 0 0 1 24 0M27 40a9 9 0 0 1 17 0"/>',
+ '<rect x="10" y="10" width="28" height="28" rx="4"/><rect x="18" y="18" width="12" height="12"/><path d="M16 4v6M24 4v6M32 4v6M16 38v6M24 38v6M32 38v6M4 16h6M4 24h6M4 32h6M38 16h6M38 24h6M38 32h6"/>',
+ '<path d="M10 38C10 18 22 8 40 8c0 18-10 30-30 30zM10 38l16-16"/>'];
+$('#pestel-tabs').innerHTML=PESTEL.map((p,i)=>`<button class="pestana" role="tab" aria-selected="false"><svg class="ico-linea" viewBox="0 0 48 48">${ICO_PESTEL[i]}</svg><b>${p.n}</b><span class="dv">${p.v}</span><small>${p.k}</small><span class="ver">Ver ejemplo</span></button>`).join('');
 $$('#pestel-tabs .pestana').forEach((b,i)=>b.addEventListener('click',()=>pintaPestel(i)));
 pintaPestel(0);
 
@@ -1561,7 +1816,7 @@ function irTab(id,sinScroll){
   window.dispatchEvent(new Event('resize'));
 }
 $$('#tabs .tab').forEach(t=>t.addEventListener('click',()=>irTab(t.dataset.tab)));
-document.addEventListener('click',e=>{const a=e.target.closest('[data-ir]');if(a){e.preventDefault();irTab(a.dataset.ir)}});
+document.addEventListener('click',e=>{const sl=e.target.closest('[data-saltar]');if(sl){e.preventDefault();const d=document.getElementById(sl.dataset.saltar);if(d)d.scrollIntoView({behavior:'smooth',block:'start'});return}const a=e.target.closest('[data-ir]');if(a){e.preventDefault();irTab(a.dataset.ir)}});
 if($('[data-bajar]'))$('[data-bajar]').addEventListener('click',e=>{e.preventDefault();$('#intro').scrollIntoView({behavior:'smooth'})});
 // Flechas del teclado para presentar
 addEventListener('keydown',e=>{if(e.target.closest('input'))return;const i=TABS.indexOf(actual);
